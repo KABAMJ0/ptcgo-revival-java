@@ -158,6 +158,7 @@ public final class ClientConnection implements ClientContext, Runnable {
         if (a != null) {
             services.registry().unregister(a.accountId(), this);
             com.ptcgo.revival.social.SocialModule.onDisconnect(this); // presence Offline, challenge and room cleanup
+            com.ptcgo.revival.tournament.TournamentModule.onDisconnect(this); // leave queues (fee refund) and the Events channel
         }
         try {
             socket.close();

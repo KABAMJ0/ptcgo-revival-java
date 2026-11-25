@@ -69,6 +69,11 @@ public final class Main {
                 new CatalogHandler(), new StaticDataHandler(), new QuestHandler(), new com.ptcgo.revival.packet.ContentHandler(),
                 shop.shopHandler(), shop.redemptionHandler()));
         groups.addAll(social.handlers());
+        // Real brackets and async runs need the match engine; until it plugs in, tournaments cancel and refund cleanly.
+        com.ptcgo.revival.tournament.TournamentModule tournaments = com.ptcgo.revival.tournament.TournamentModule.create(services,
+                com.ptcgo.revival.tournament.TournamentMatchRunner.UNAVAILABLE,
+                com.ptcgo.revival.tournament.AsyncTournamentMatchmaker.UNAVAILABLE);
+        groups.addAll(tournaments.handlers());
         PacketRouter router = new PacketRouter(groups);
         try (HttpApp http = new HttpApp(services);
              GameServer game = new GameServer(services, router, TlsContexts.serverContext(cfg))) {
