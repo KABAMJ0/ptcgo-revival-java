@@ -38,7 +38,7 @@ class DataSyncIntegrationTest {
             s.setSoTimeout(5000);
             DataInputStream in = new DataInputStream(s.getInputStream());
             send(s, "AuthenticateGASAuthToken", Map.of("userID", "ash", "token", "pw"), 1);
-            for (int i = 0; i < 8; i++) read(in); // login burst
+            for (int i = 0; i < 11; i++) read(in); // login burst
 
             send(s, "GetWallet", Map.of(), 2);
             JsonNode wallet = read(in);

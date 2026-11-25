@@ -217,6 +217,22 @@ public final class PlayerRepository {
         }
     }
 
+    /** The account's persisted client settings {settingNumber: value} (attribute 10230). */
+    public Map<String, Object> accountSettings(String accountId) throws SQLException {
+        try (Connection c = db.connect(); PreparedStatement ps = c.prepareStatement(
+                "SELECT settings_json FROM accounts WHERE account_id = ?")) {
+            ps.setString(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next() || rs.getString(1) == null || rs.getString(1).isBlank()) return Map.of();
+                try {
+                    return JSON.readValue(rs.getString(1), new com.fasterxml.jackson.core.type.TypeReference<Map<String, Object>>() {});
+                } catch (Exception e) {
+                    return Map.of();
+                }
+            }
+        }
+    }
+
     // ---- archetype flags -------------------------------------------------------------------------
 
     public List<Flag> flags(String accountId) throws SQLException {

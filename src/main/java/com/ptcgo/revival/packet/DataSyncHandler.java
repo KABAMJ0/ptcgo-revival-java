@@ -245,13 +245,9 @@ public final class DataSyncHandler implements PacketHandler {
         Map<String, Object> incoming = v != null && v.path("settings").isObject()
                 ? JSON.convertValue(v.get("settings"), new com.fasterxml.jackson.core.type.TypeReference<Map<String, Object>>() {})
                 : Map.of();
-        Map<String, Object> merged = c.services().players().mergeAccountSettings(c.account().accountId(), incoming);
+        c.services().players().mergeAccountSettings(c.account().accountId(), incoming);
         // SaveAccountSettings blocks until the settings attribute version bumps: AccountUpdated releases it.
-        Map<String, Object> acct = new LinkedHashMap<>();
-        acct.put("username", c.account().username());
-        acct.put("accountID", c.account().accountId());
-        acct.put("attributes", AuthHandler.accountAttributes(c.account().displayName(), merged));
-        c.send("AccountUpdated", Map.of("account", acct), 0);
+        c.send("AccountUpdated", Map.of("account", AccountAttributes.accountObject(c.services(), c.account())), 0);
     }
 
     // ---- helpers ---------------------------------------------------------------------------------

@@ -25,6 +25,8 @@ public final class Database {
         c.setSynchronous(SQLiteConfig.SynchronousMode.NORMAL);
         c.setBusyTimeout(30_000);
         c.setTempStore(SQLiteConfig.TempStore.MEMORY);
+        // Manual transactions take the write lock up front (Python used BEGIN IMMEDIATE) so read-modify-write is safe.
+        c.setTransactionMode(SQLiteConfig.TransactionMode.IMMEDIATE);
         ds = new SQLiteDataSource(c);
         ds.setUrl(jdbcUrl);
     }
@@ -75,6 +77,38 @@ public final class Database {
                         tradable_count INTEGER NOT NULL DEFAULT 0,
                         nontradable_count INTEGER NOT NULL DEFAULT 0,
                         PRIMARY KEY (account_id, archetype_id)
+                    )""");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS quest_accounts (
+                        account_id VARCHAR NOT NULL PRIMARY KEY REFERENCES accounts (account_id),
+                        enabled BOOLEAN NOT NULL DEFAULT 1,
+                        selected_date DATE,
+                        affinity_xp TEXT NOT NULL DEFAULT '{}'
+                    )""");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS daily_quests (
+                        quest_id VARCHAR NOT NULL PRIMARY KEY,
+                        account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
+                        offered_date DATE NOT NULL,
+                        status VARCHAR NOT NULL DEFAULT 'available',
+                        definition TEXT NOT NULL,
+                        activations INTEGER NOT NULL DEFAULT 0,
+                        accepted_at FLOAT
+                    )""");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_daily_quests_account_id ON daily_quests (account_id)");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS quest_match_credits (
+                        account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
+                        game_id VARCHAR NOT NULL,
+                        PRIMARY KEY (account_id, game_id)
+                    )""");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS versus_progress (
+                        account_id VARCHAR NOT NULL PRIMARY KEY,
+                        season_id VARCHAR NOT NULL DEFAULT '',
+                        points INTEGER NOT NULL DEFAULT 0,
+                        all_time_points INTEGER NOT NULL DEFAULT 0,
+                        granted_json TEXT NOT NULL DEFAULT '{}'
                     )""");
             st.execute("""
                     CREATE TABLE IF NOT EXISTS archetype_flags (

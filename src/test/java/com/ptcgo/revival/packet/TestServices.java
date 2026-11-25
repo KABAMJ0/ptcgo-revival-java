@@ -8,7 +8,11 @@ import com.ptcgo.revival.db.AccountRepository;
 import com.ptcgo.revival.db.PlayerRepository;
 import com.ptcgo.revival.deck.DeckValidator;
 import com.ptcgo.revival.db.Database;
+import com.ptcgo.revival.db.QuestRepository;
+import com.ptcgo.revival.db.VersusRepository;
 import com.ptcgo.revival.net.ClientRegistry;
+import com.ptcgo.revival.progression.Progression;
+import com.ptcgo.revival.progression.Seasons;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -21,6 +25,7 @@ final class TestServices {
         Database db = new Database("jdbc:sqlite:" + tmp);
         db.migrate();
         return new Services(cfg, new AccountRepository(db), new PlayerRepository(db), new CasTickets(),
-                new ClientRegistry(), Catalog.empty(), DeckValidator.PERMISSIVE);
+                new ClientRegistry(), Catalog.empty(), DeckValidator.PERMISSIVE,
+                new Progression(new QuestRepository(db), new VersusRepository(db), Seasons.loadBundled()));
     }
 }

@@ -3,6 +3,8 @@ package com.ptcgo.revival.packet;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.ptcgo.revival.db.Account;
 import com.ptcgo.revival.db.AccountRepository;
+import static com.ptcgo.revival.packet.AccountAttributes.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,23 +26,6 @@ public final class AuthHandler implements PacketHandler {
     private static final Logger LOG = LoggerFactory.getLogger(AuthHandler.class);
     static final String GUESTS_DISABLED = "Guest accounts are disabled. Please sign in.";
     static final String ALREADY_ONLINE = "The account you are trying to login is already online.";
-
-    // Attribute ids (ptcgo/game/attributes.py)
-    static final int ACCOUNT_SETTINGS = 10230;
-    static final int SCREEN_NAME = 10360;
-    static final int FRIEND_CHAT_MODE = 201510;
-    static final int FRIEND_MODE = 201520;
-    static final int FRIEND_TRADE_MODE = 201530;
-    static final int GAME_CHAT_MODE = 201540;
-    static final int PUBLIC_CHAT_MODE = 201550;
-    static final int SHOPPING_MODE = 201560;
-    static final int TRADE_MODE = 201570;
-    static final int PRIVATE_MESSAGING_MODE = 201580;
-    static final int DECK_SHARE_MODE = 201850;
-    static final int QUEST_AFFINITY_XP = 201790;
-    static final int QUESTS_ENABLED = 201800;
-    static final int SEASON_POINTS = 201810;
-    static final int ALL_TIME_SEASON_POINTS = 201840;
 
     @Override
     public Map<String, MessageHandler> handlers() {
@@ -155,7 +140,7 @@ public final class AuthHandler implements PacketHandler {
                 .orElseThrow();
     }
 
-    static void success(ClientContext c, int rid, Account account) {
+    static void success(ClientContext c, int rid, Account account) throws SQLException {
         String id = account.accountId();
         var registry = c.services().registry();
         // Claim the account before doing anything else so two concurrent logins can't both pass the guard.
@@ -169,10 +154,13 @@ public final class AuthHandler implements PacketHandler {
             c.authenticated(account);
             LOG.info("[TCP] [{}] User '{}' authenticated.", c.remoteAddress(), account.username());
 
-            Map<String, Object> acct = new LinkedHashMap<>();
-            acct.put("username", account.username());
-            acct.put("accountID", id);
-            acct.put("attributes", accountAttributes(account));
+            var services = c.services();
+            services.players().wallet(id); // login creates the wallet, as the Python Player does
+            // Anchor the ladder animation to current points BEFORE building attributes, so a relog never replays it.
+            services.progression().anchorVersusAnimation(services.players(), id);
+            Map<String, Object> acct = AccountAttributes.accountObject(services, account);
+            services.progression().acknowledgeSeason(services.players(), services.catalog(), id);
+            var questSnapshot = services.progression().quests().get(id);
             Map<String, Object> ok = new LinkedHashMap<>();
             ok.put("account", acct);
             ok.put("sessionID", c.sessionId());
@@ -186,6 +174,9 @@ public final class AuthHandler implements PacketHandler {
             c.send("NetworkStatusIndicatorConfiguration",
                     Map.of("pingWarningThreshold", 500, "pingErrorThreshold", 1000), 0);
             c.send("DefaultTrainerChallengeDeckMessage", Map.of("defaultDeckName", "Mental Might"), 0);
+            c.send("CurrentVersusSeason", Map.of("versusSeason", services.progression().seasons().clientPayload(services.catalog())), 0);
+            c.send("CurrentDailyRewardTrack", dailyRewardTrack(), 0);
+            c.send("QuestConfigurationUpdated", Map.of("questConfiguration", questSnapshot.configuration()), 0);
             c.send("AccountPropertiesUpdated", Map.of("accountID", id, "attributes", List.of(
                     attr(FRIEND_CHAT_MODE, "OpenChat"), attr(FRIEND_MODE, "Open"), attr(FRIEND_TRADE_MODE, "Free"),
                     attr(GAME_CHAT_MODE, "OpenChat"), attr(PUBLIC_CHAT_MODE, "OpenChat"),
@@ -197,37 +188,26 @@ public final class AuthHandler implements PacketHandler {
         }
     }
 
-    /** AccountUpdated replaces the client's whole attribute set, so this must stay complete. */
-    static List<Map<String, Object>> accountAttributes(Account a) {
-        return accountAttributes(a.displayName(), a.settings());
-    }
-
-    static List<Map<String, Object>> accountAttributes(String displayName, Map<String, Object> settings) {
-        List<Map<String, Object>> l = new ArrayList<>();
-        l.add(attr(ACCOUNT_SETTINGS, settings));
-        l.add(attr(SCREEN_NAME, displayName));
-        l.add(attr(FRIEND_CHAT_MODE, "OpenChat"));
-        l.add(attr(FRIEND_MODE, "Open"));
-        l.add(attr(FRIEND_TRADE_MODE, "Free"));
-        l.add(attr(GAME_CHAT_MODE, "OpenChat"));
-        l.add(attr(PUBLIC_CHAT_MODE, "OpenChat"));
-        l.add(attr(SHOPPING_MODE, "Open"));
-        l.add(attr(TRADE_MODE, "Free"));
-        l.add(attr(PRIVATE_MESSAGING_MODE, "OpenChat"));
-        l.add(attr(DECK_SHARE_MODE, "Everybody"));
-        // Versus season and quest state are not ported: neutral defaults.
-        l.add(attr(SEASON_POINTS, 0));
-        l.add(attr(ALL_TIME_SEASON_POINTS, 0));
-        l.add(attr(QUESTS_ENABLED, false));
-        l.add(attr(QUEST_AFFINITY_XP, 0));
-        return l;
-    }
-
     private static Map<String, Object> attr(int name, Object value) {
-        Map<String, Object> m = new LinkedHashMap<>();
-        m.put("name", name);
-        m.put("value", value);
-        return m;
+        return AccountAttributes.attr(name, value);
+    }
+
+    /** Static standard track the login screen shows (the real rewards ride on DailyLogin). */
+    static Map<String, Object> dailyRewardTrack() {
+        Map<String, Object> reward = new LinkedHashMap<>();
+        reward.put("name", "5 Tokens");
+        reward.put("rewardType", "Currency");
+        reward.put("rewardAmount", 5);
+        Map<String, Object> tier = new LinkedHashMap<>();
+        tier.put("wins", 1);
+        tier.put("rewards", List.of(reward));
+        tier.put("isDefault", true);
+        tier.put("isSpecial", false);
+        Map<String, Object> track = new LinkedHashMap<>();
+        track.put("name", "Standard Track");
+        track.put("rewardTiers", List.of(tier));
+        track.put("isDefault", true);
+        return Map.of("dailyRewardTrack", track, "nextExpiry", 4102444800000L);
     }
 
     private static Map<String, String> dynamicVersions() {

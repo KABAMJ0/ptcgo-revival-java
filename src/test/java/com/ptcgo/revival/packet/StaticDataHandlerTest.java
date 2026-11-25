@@ -43,7 +43,7 @@ class StaticDataHandlerTest {
     private static void run(Catalog catalog, java.util.function.Consumer<Object[]> checks) throws Exception {
         Services base = TestServices.create(new Config());
         Services services = new Services(base.config(), base.accounts(), base.players(), base.tickets(), base.registry(),
-                catalog, base.deckValidator());
+                catalog, base.deckValidator(), base.progression());
         PacketRouter router = new PacketRouter(List.of(new StaticDataHandler()));
         try (GameServer server = new GameServer(services, router, null);
              Socket s = new Socket("127.0.0.1", server.start(0))) {

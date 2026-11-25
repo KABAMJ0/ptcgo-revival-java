@@ -3,7 +3,7 @@
 Java 21 port of the Python PTCGO revival server ([ptcgo-revival](https://github.com/KABAMJ0/ptcgo-revival)),
 which emulates the discontinued Pokémon TCG Online server for an existing client.
 
-## Status: stage 5 (login, player data, catalogue, deck rules)
+## Status: stage 6 (login, player data, catalogue, deck rules, quests, versus)
 
 | Area | State |
 | --- | --- |
@@ -13,7 +13,9 @@ which emulates the discontinued Pokémon TCG Online server for an existing clien
 | HTTP (8000): `/health`, `manifest.json`, `messaging/manifest.json`, static assets | done |
 | Login: GAS token (auto-register), CAS ticket + `/cas/sso/login` page, guest/mobile (opt-in), ban check, concurrent-login guard, post-login message sequence | done, integration-tested (reduced: see below) |
 | SQLite `accounts` table, same schema/file and SHA-256 password hash as the Python server | done |
-| Versus season, daily login, quests, reconnect-to-game, presence, starter content for new accounts | not ported |
+| Versus seasons + ladder points (tier rewards granted once), season/quest account attributes, login anchoring of the ladder animation | done, tested |
+| Daily challenges: offers (2 per UTC day), select, abandon, enable/disable, exactly-once match credit with xp and coin rewards | done, tested (`creditMatch` waits for the match engine to call it) |
+| Daily login rewards, reconnect-to-game, presence, starter content for new accounts | not ported |
 | Wallet, collection, archetype flags, decks (list/save/delete), account settings; same tables as the Python DB | done, tested |
 | Card/product catalogue loader (JSON exported from the Python server; 20,483 cards load in ~1 s) | done |
 | Catalogue download: `GetProtobufArchetypesList` (protobuf `ArchetypesFound`, per-connection dedup, product key rule); encoder verified byte-for-byte against the Python protobuf runtime and against a whole real set | done |

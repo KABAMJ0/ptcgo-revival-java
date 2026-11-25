@@ -17,6 +17,11 @@ import com.ptcgo.revival.packet.CatalogHandler;
 import com.ptcgo.revival.packet.DataSyncHandler;
 import com.ptcgo.revival.packet.HandshakeHandler;
 import com.ptcgo.revival.packet.PacketRouter;
+import com.ptcgo.revival.packet.QuestHandler;
+import com.ptcgo.revival.progression.Progression;
+import com.ptcgo.revival.progression.Seasons;
+import com.ptcgo.revival.db.QuestRepository;
+import com.ptcgo.revival.db.VersusRepository;
 import com.ptcgo.revival.packet.StaticDataHandler;
 import com.ptcgo.revival.tls.TlsContexts;
 
@@ -46,9 +51,11 @@ public final class Main {
         FormatManager formats = FormatManager.load(cfg.catalogDir, catalog, themes, guid -> false, System::currentTimeMillis);
         DeckValidator validator = new RulesDeckValidator(catalog, formats, themes);
         Services services = new Services(cfg, accounts, new PlayerRepository(db), new CasTickets(), new ClientRegistry(),
-                catalog, validator);
+                catalog, validator,
+                new Progression(new QuestRepository(db), new VersusRepository(db), Seasons.loadBundled()));
         PacketRouter router = new PacketRouter(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler(),
-                new CatalogHandler(), new StaticDataHandler()));
+                new CatalogHandler(), new StaticDataHandler(),
+                new QuestHandler()));
         try (HttpApp http = new HttpApp(services);
              GameServer game = new GameServer(services, router, TlsContexts.serverContext(cfg))) {
             http.start(cfg.httpPort);
