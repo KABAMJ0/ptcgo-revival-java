@@ -40,9 +40,9 @@ public final class VersusModule {
         this.handlers = List.of(new MatchmakingHandler(manager), new GameplayHandler(manager));
     }
 
-    /** Production wiring: settings from the environment, persistence through the repositories, no effects yet. */
+    /** Production wiring: settings from the environment, persistence through the repositories, registered card effects. */
     public static VersusModule create(Services services, ThemeDecks themes) {
-        return create(services, MatchSettings.fromEnv(), EffectRegistry.empty(), new VersusHooks(services), BanPolicy.NONE,
+        return create(services, MatchSettings.fromEnv(), liveEffects(), new VersusHooks(services), BanPolicy.NONE,
                 BotDecks.from(services.catalog(), themes), new java.security.SecureRandom());
     }
 
@@ -52,6 +52,13 @@ public final class VersusModule {
         VersusModule v = new VersusModule(m);
         INSTALLED.put(services.registry(), v);
         return v;
+    }
+
+    /** The effects every live match runs with: the registered card-effect batches, nothing else. */
+    static EffectRegistry liveEffects() {
+        EffectRegistry r = EffectRegistry.empty();
+        com.ptcgo.revival.game.effects.BatchOneAttacks.register(r);
+        return r;
     }
 
     public MatchManager manager() {
