@@ -3,7 +3,7 @@
 Java 21 port of the Python PTCGO revival server ([ptcgo-revival](https://github.com/KABAMJ0/ptcgo-revival)),
 which emulates the discontinued Pokémon TCG Online server for an existing client.
 
-## Status: stage 6 (login, player data, catalogue, deck rules, quests, versus)
+## Status: stage 7 (login, player data, catalogue, deck rules, quests, versus, social, trade)
 
 | Area | State |
 | --- | --- |
@@ -15,13 +15,15 @@ which emulates the discontinued Pokémon TCG Online server for an existing clien
 | SQLite `accounts` table, same schema/file and SHA-256 password hash as the Python server | done |
 | Versus seasons + ladder points (tier rewards granted once), season/quest account attributes, login anchoring of the ladder animation | done, tested |
 | Daily challenges: offers (2 per UTC day), select, abandon, enable/disable, exactly-once match credit with xp and coin rewards | done, tested (`creditMatch` waits for the match engine to call it) |
-| Daily login rewards, reconnect-to-game, presence, starter content for new accounts | not ported |
+| Friends (invite/accept/decline/remove, roster), presence on login/disconnect, chat (private, lobby, game-chat seam), friend challenges (accepting fails cleanly until the match engine exists) | done, two-socket tests |
+| Trade (private lots between players, search, history, atomic accept in one transaction), archetype for-trade/review flags | done, tested incl. concurrent accepts |
+| Daily login rewards, reconnect-to-game, starter content for new accounts | not ported |
 | Wallet, collection, archetype flags, decks (list/save/delete), account settings; same tables as the Python DB | done, tested |
 | Card/product catalogue loader (JSON exported from the Python server; 20,483 cards load in ~1 s) | done |
 | Catalogue download: `GetProtobufArchetypesList` (protobuf `ArchetypesFound`, per-connection dedup, product key rule); encoder verified byte-for-byte against the Python protobuf runtime and against a whole real set | done |
 | Static data: archetype keys, set data, family maps, format legality, localizations (48k strings), MOTD, feature flags, dynamic versions, time-locked archetypes, avatar items | done (served from exported payloads) |
 | Deck validation: 60 cards, copy limits, ACE SPEC/Radiant/Prism Star, owned cards, per-format set legality, bans, theme decks; `DecksValidated` rows; valid-format attribute on save and deck list | done, tested (server-wide ban list not ported: nothing is banned) |
-| Dynamic pages, notifications, banned cards (served empty), shop, social, trade, tournaments, league, tutorial, quests | not ported |
+| Dynamic pages, notifications, banned cards (served empty), shop and pack opening (in progress), tournaments, league, tutorial | not ported |
 | MariaDB/MySQL support | not ported |
 | Protobuf messages (`.proto` sources live in the Python repo) | not ported |
 | Bundle manifest builder (`*.manifest`, `manifest.version`) | not ported |

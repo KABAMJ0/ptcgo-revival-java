@@ -167,4 +167,26 @@ class FriendsIntegrationTest {
             assertEquals("Offline", e.get("presence").asText());
         }
     }
+
+    /** The hooks wired into AuthHandler and ClientConnection (not the test stand-ins). */
+    @Test
+    void realLoginAndSocketCloseBroadcastPresence() throws Exception {
+        try (SocialTestSupport env = env();
+             SocialTestSupport.Client ash = env.login("Ash")) {
+            var misty = env.services.accounts().create("Misty", "pw", false).orElseThrow();
+            var repo = new SocialRepository(env.services.players().database());
+            repo.upsert(ash.accountId, misty.accountId(), SocialRepository.FRIENDS);
+            repo.upsert(misty.accountId(), ash.accountId, SocialRepository.FRIENDS);
+
+            SocialTestSupport.Client m = env.login("Misty");
+            JsonNode online = ash.expect("FriendPresence");
+            assertEquals(misty.accountId(), online.get("accountID").asText());
+            assertEquals("Online", online.get("presence").asText());
+
+            m.close(); // the server notices the closed socket and runs ClientConnection.close()
+            JsonNode offline = ash.expect("FriendPresence");
+            assertEquals(misty.accountId(), offline.get("accountID").asText());
+            assertEquals("Offline", offline.get("presence").asText());
+        }
+    }
 }

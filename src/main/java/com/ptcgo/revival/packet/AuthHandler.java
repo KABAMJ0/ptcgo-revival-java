@@ -152,6 +152,7 @@ public final class AuthHandler implements PacketHandler {
         }
         try {
             c.authenticated(account);
+            com.ptcgo.revival.social.SocialModule.onLogin(c); // friends see us come online
             LOG.info("[TCP] [{}] User '{}' authenticated.", c.remoteAddress(), account.username());
 
             var services = c.services();
