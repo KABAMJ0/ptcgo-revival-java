@@ -9,6 +9,8 @@ public final class Config {
     public final int tcpPort = Integer.parseInt(env("PTCGO_TCP_PORT", "39389"));
     public final String httpBaseUrlOverride = stripTrailingSlash(env("PTCGO_HTTP_BASE_URL", ""));
     public final Path assetDir = Path.of(env("PTCGO_ASSET_DIR", "assets"));
+    /** Exported asset bundles (manifest.json + the files it lists), served by HttpApp. */
+    public final Path bundleDir = Path.of(env("PTCGO_BUNDLE_DIR", "bundles"));
     public final Path keystorePath = Path.of(env("PTCGO_KEYSTORE", "certs/server.p12"));
     public final String keystorePassword = env("PTCGO_KEYSTORE_PASSWORD", "changeit");
     public final int clientVersion = Integer.parseInt(env("PTCGO_CLIENT_VERSION", "5788"));

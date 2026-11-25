@@ -27,7 +27,7 @@ which emulates the discontinued Pokémon TCG Online server for an existing clien
 | Deck validation: 60 cards, copy limits, ACE SPEC/Radiant/Prism Star, owned cards, per-format set legality, bans, theme decks; `DecksValidated` rows; valid-format attribute on save and deck list | done, tested (server-wide ban list not ported: nothing is banned) |
 | Landing pages / maintenance banners (`dynamic_pages` table), friend-invite notifications, achievements (empty), league scenario list (protobuf, byte-identical to Python) | done, tested |
 | Banned cards (served empty), tournaments, league play, tutorial, admin panel | not ported |
-| **Asset bundles**: `manifest.version`, `*.manifest` and `*.unity3d` serving (the Python server builds them with UnityPy; there is no Java equivalent) | **not ported: the client cannot load card art from this server yet** |
+| **Asset bundles**: `manifest.version`, `*.manifest` and `*.unity3d` served from `PTCGO_BUNDLE_DIR` (default `bundles`). The bundles are produced by the Python `tools/export_bundles.py` (being written in the Python repo); only files listed in the directory's `manifest.json` are served, anything else is an empty 404 | served from the export; the Java side does not build bundles, so the client needs the export run first |
 | MariaDB/MySQL support | not ported |
 | Protobuf messages (`.proto` sources live in the Python repo) | not ported |
 | Bundle manifest builder (`*.manifest`, `manifest.version`) | not ported |

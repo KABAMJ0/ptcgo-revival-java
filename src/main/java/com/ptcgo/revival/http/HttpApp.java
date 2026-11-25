@@ -16,6 +16,7 @@ import java.net.InetSocketAddress;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 import java.nio.file.Files;
@@ -26,9 +27,9 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 
 /**
- * Patch manifest, messaging manifest and static assets on the HTTP port (default 8000).
- * The bundle manifest builder (UnityPy in the Python server) is not ported yet: manifest.version
- * and *.manifest answer 404 until that stage lands.
+ * Patch manifest, messaging manifest and static assets on the HTTP port (default 8000). Asset bundles
+ * ({@code manifest.version}, {@code *.manifest}, {@code *.unity3d}) are served from {@code PTCGO_BUNDLE_DIR},
+ * which the Python {@code tools/export_bundles.py} fills; only files listed in its {@code manifest.json} are served.
  */
 public final class HttpApp implements AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(HttpApp.class);
@@ -60,14 +61,22 @@ public final class HttpApp implements AutoCloseable {
 
     private final Config config;
     private final Services services;
+    private final Path bundleDir;
+    private BundleStore bundles;
     private HttpServer server;
 
     public HttpApp(Services services) {
+        this(services, services.config().bundleDir);
+    }
+
+    HttpApp(Services services, Path bundleDir) {
         this.services = services;
         this.config = services.config();
+        this.bundleDir = bundleDir;
     }
 
     public int start(int port) throws IOException {
+        bundles = BundleStore.load(bundleDir);
         server = HttpServer.create(new InetSocketAddress(port), 0);
         server.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
         server.createContext("/", this::dispatch);
@@ -87,7 +96,9 @@ public final class HttpApp implements AutoCloseable {
                 json(ex, Map.of("cdn_url", base(ex) + "/", "messaging", List.of()));
             } else if (path.endsWith("manifest.json")) {
                 json(ex, patchManifest(ex));
-            } else if (path.endsWith(".unity3d") || path.endsWith(".png") || path.endsWith(".txt")) {
+            } else if (path.endsWith("manifest.version") || path.endsWith(".manifest") || path.endsWith(".unity3d")) {
+                serveBundle(ex, path);
+            } else if (path.endsWith(".png") || path.endsWith(".txt")) {
                 serveAsset(ex, path);
             } else {
                 respond(ex, 404, "text/plain", "Not found".getBytes(StandardCharsets.UTF_8));
@@ -155,10 +166,55 @@ public final class HttpApp implements AutoCloseable {
         return m;
     }
 
-    private void serveAsset(HttpExchange ex, String urlPath) throws IOException {
+    /**
+     * Bundle files from PTCGO_BUNDLE_DIR, matched by file name and only when listed in its manifest.
+     * Unlisted names, and any path with a {@code ..} segment, answer 404 with an empty body as Python does.
+     * An unlisted {@code *.unity3d} falls back to the plain asset directory (the pre-bundle behaviour).
+     */
+    private void serveBundle(HttpExchange ex, String urlPath) throws IOException {
+        String name = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+        boolean traversal = Arrays.asList(urlPath.split("/")).contains("..");
+        Optional<BundleStore.Entry> entry = traversal ? Optional.empty() : bundles.find(name);
+        if (entry.isEmpty()) {
+            if (!traversal && name.endsWith(".unity3d") && assetFile(urlPath) != null) {
+                serveAsset(ex, urlPath);
+            } else {
+                notFoundEmpty(ex);
+            }
+            return;
+        }
+        Path file = bundles.file(entry.get());
+        if (!Files.isRegularFile(file) || Files.size(file) != entry.get().size()) {
+            LOG.warn("[HTTP] Bundle {} is missing or does not match its manifest size", name);
+            notFoundEmpty(ex);
+            return;
+        }
+        String type;
+        if (name.endsWith(".unity3d")) {
+            type = "application/vnd.unity";
+            ex.getResponseHeaders().set("Cache-Control", "public, max-age=31536000");
+        } else if (name.endsWith(".manifest")) {
+            type = "application/x-gzip";
+        } else {
+            type = "application/json"; // manifest.version: Python answers the version as JSON
+        }
+        respond(ex, 200, type, Files.readAllBytes(file));
+    }
+
+    private static void notFoundEmpty(HttpExchange ex) throws IOException {
+        ex.sendResponseHeaders(404, -1);
+    }
+
+    /** The file under the asset directory for this URL path, or null when there is none (or it escapes the root). */
+    private Path assetFile(String urlPath) {
         Path root = config.assetDir.toAbsolutePath().normalize();
         Path file = root.resolve(urlPath.substring(1)).normalize();
-        if (!file.startsWith(root) || !Files.isRegularFile(file)) {
+        return file.startsWith(root) && Files.isRegularFile(file) ? file : null;
+    }
+
+    private void serveAsset(HttpExchange ex, String urlPath) throws IOException {
+        Path file = assetFile(urlPath);
+        if (file == null) {
             respond(ex, 404, "text/plain", "Not found".getBytes(StandardCharsets.UTF_8));
             return;
         }
