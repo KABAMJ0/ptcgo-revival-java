@@ -2,6 +2,8 @@ package com.ptcgo.revival.net;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.ptcgo.revival.Config;
+import com.ptcgo.revival.Services;
+import com.ptcgo.revival.db.Account;
 import com.ptcgo.revival.packet.ClientContext;
 import com.ptcgo.revival.packet.PacketRouter;
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ public final class ClientConnection implements ClientContext, Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(ClientConnection.class);
 
     private final Socket socket;
+    private final Services services;
     private final Config config;
     private final PacketRouter router;
     private final String sessionId = UUID.randomUUID().toString(); // must parse as a C# Guid
@@ -30,30 +33,43 @@ public final class ClientConnection implements ClientContext, Runnable {
     private final Object writeLock = new Object();
     private final Runnable onClose;
 
-    private volatile boolean authenticated; // set by the auth handler once login lands
+    private volatile Account account; // set by the auth handler once login lands
 
     // Inbound token bucket (abuse guard); generous enough that legitimate play never trips it.
     private double tokens;
     private long bucketTs = System.nanoTime();
     private long rateWarnedAt;
 
-    public ClientConnection(Socket socket, Config config, PacketRouter router, Runnable onClose) {
+    public ClientConnection(Socket socket, Services services, PacketRouter router, Runnable onClose) {
         this.socket = socket;
-        this.config = config;
+        this.services = services;
+        this.config = services.config();
         this.router = router;
         this.onClose = onClose;
         this.tokens = config.inboundRateBurst;
     }
 
-    public void markAuthenticated() {
-        authenticated = true;
+    @Override
+    public void authenticated(Account account) {
+        this.account = account;
+        services.registry().register(account.accountId(), this);
+    }
+
+    @Override
+    public Account account() {
+        return account;
+    }
+
+    @Override
+    public Services services() {
+        return services;
     }
 
     @Override
     public void run() {
         try (DataInputStream in = new DataInputStream(socket.getInputStream())) {
             while (!closed.get()) {
-                socket.setSoTimeout(1000 * (authenticated ? config.idleTimeoutSeconds : config.preauthTimeoutSeconds));
+                socket.setSoTimeout(1000 * (account != null ? config.idleTimeoutSeconds : config.preauthTimeoutSeconds));
                 byte[] header = new byte[WargCodec.HEADER_SIZE];
                 try {
                     in.readFully(header);
@@ -120,19 +136,17 @@ public final class ClientConnection implements ClientContext, Runnable {
         }
     }
 
+    @Override
     public void close() {
         if (!closed.compareAndSet(false, true)) return;
+        Account a = account;
+        if (a != null) services.registry().unregister(a.accountId(), this);
         try {
             socket.close();
         } catch (IOException ignored) {
             // already gone
         }
         onClose.run();
-    }
-
-    @Override
-    public Config config() {
-        return config;
     }
 
     @Override

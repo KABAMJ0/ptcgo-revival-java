@@ -18,6 +18,9 @@ public final class Config {
     public final int maxDecompressedBytes = Integer.parseInt(env("PTCGO_MAX_DECOMPRESSED", String.valueOf(16 * 1024 * 1024)));
     public final double inboundRatePerSec = Double.parseDouble(env("PTCGO_INBOUND_RATE", "80"));
     public final double inboundRateBurst = Double.parseDouble(env("PTCGO_INBOUND_BURST", "240"));
+    public final Path dbPath = Path.of(env("PTCGO_DB_PATH", "ptcgo_server.db"));
+    /** Guest / DeviceID / mobile logins create credential-less accounts; off unless PTCGO_ALLOW_GUESTS=1. */
+    public final boolean allowGuests = env("PTCGO_ALLOW_GUESTS", "0").equals("1");
     public final String gameVersion = "2.95.0.5815";
 
     /** Base URL the client should use for HTTP, preferring an explicit override, then the Host header. */

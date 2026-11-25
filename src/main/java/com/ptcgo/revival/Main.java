@@ -1,7 +1,12 @@
 package com.ptcgo.revival;
 
+import com.ptcgo.revival.auth.CasTickets;
+import com.ptcgo.revival.db.AccountRepository;
+import com.ptcgo.revival.db.Database;
 import com.ptcgo.revival.http.HttpApp;
+import com.ptcgo.revival.net.ClientRegistry;
 import com.ptcgo.revival.net.GameServer;
+import com.ptcgo.revival.packet.AuthHandler;
 import com.ptcgo.revival.packet.HandshakeHandler;
 import com.ptcgo.revival.packet.PacketRouter;
 import com.ptcgo.revival.tls.TlsContexts;
@@ -18,9 +23,18 @@ public final class Main {
             System.out.println("Wrote " + cfg.keystorePath + " for " + host);
             return;
         }
-        PacketRouter router = new PacketRouter(List.of(new HandshakeHandler()));
-        try (HttpApp http = new HttpApp(cfg);
-             GameServer game = new GameServer(cfg, router, TlsContexts.serverContext(cfg))) {
+        Database db = new Database(cfg);
+        db.migrate();
+        AccountRepository accounts = new AccountRepository(db);
+        if (args.length > 1 && args[0].equals("--create-admin")) { // --create-admin <name> <password>
+            System.out.println(accounts.create(args[1], args.length > 2 ? args[2] : "password", true).isPresent()
+                    ? "Created admin " + args[1] : "Username already exists");
+            return;
+        }
+        Services services = new Services(cfg, accounts, new CasTickets(), new ClientRegistry());
+        PacketRouter router = new PacketRouter(List.of(new HandshakeHandler(), new AuthHandler()));
+        try (HttpApp http = new HttpApp(services);
+             GameServer game = new GameServer(services, router, TlsContexts.serverContext(cfg))) {
             http.start(cfg.httpPort);
             game.start(cfg.tcpPort);
             new CountDownLatch(1).await();

@@ -1,6 +1,6 @@
 package com.ptcgo.revival.net;
 
-import com.ptcgo.revival.Config;
+import com.ptcgo.revival.Services;
 import com.ptcgo.revival.packet.PacketRouter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 public final class GameServer implements AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(GameServer.class);
 
-    private final Config config;
+    private final Services services;
     private final PacketRouter router;
     private final SSLContext tls; // null = plain TCP (tests only)
     private final ExecutorService pool = Executors.newVirtualThreadPerTaskExecutor();
@@ -26,8 +26,8 @@ public final class GameServer implements AutoCloseable {
     private java.net.ServerSocket server;
     private volatile boolean running;
 
-    public GameServer(Config config, PacketRouter router, SSLContext tls) {
-        this.config = config;
+    public GameServer(Services services, PacketRouter router, SSLContext tls) {
+        this.services = services;
         this.router = router;
         this.tls = tls;
     }
@@ -48,7 +48,7 @@ public final class GameServer implements AutoCloseable {
             try {
                 Socket s = server.accept();
                 ClientConnection[] holder = new ClientConnection[1];
-                holder[0] = new ClientConnection(s, config, router, () -> clients.remove(holder[0]));
+                holder[0] = new ClientConnection(s, services, router, () -> clients.remove(holder[0]));
                 clients.add(holder[0]);
                 pool.execute(holder[0]);
             } catch (IOException e) {

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.ptcgo.revival.Config;
+import com.ptcgo.revival.Services;
 import com.ptcgo.revival.net.GameServer;
 import com.ptcgo.revival.net.WargCodec;
 import com.ptcgo.revival.net.WargFlags;
@@ -31,8 +32,9 @@ class HandshakeIntegrationTest {
     @Test
     void handshakeFlow() throws Exception {
         Config cfg = new Config();
+        Services services = TestServices.create(cfg);
         PacketRouter router = new PacketRouter(List.of(new HandshakeHandler()));
-        try (GameServer server = new GameServer(cfg, router, null)) {
+        try (GameServer server = new GameServer(services, router, null)) {
             int port = server.start(0);
             try (Socket s = new Socket("127.0.0.1", port)) {
                 s.setSoTimeout(5000);
