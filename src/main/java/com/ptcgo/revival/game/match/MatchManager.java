@@ -14,6 +14,7 @@ import com.ptcgo.revival.game.engine.MatchHooks;
 import com.ptcgo.revival.game.engine.MatchSettings;
 import com.ptcgo.revival.game.engine.NetworkPlayer;
 import com.ptcgo.revival.packet.ClientContext;
+import com.ptcgo.revival.tournament.TournamentMatchRunner;
 import com.ptcgo.revival.social.FriendMatchStarter;
 import com.ptcgo.revival.social.GameChatRouter;
 import org.slf4j.Logger;
@@ -65,6 +66,9 @@ public final class MatchManager implements FriendMatchStarter, GameChatRouter {
         String solitaireId;
         JsonNode options;
         String queueName;
+        /** Live-bracket matches only: tournament id (gameOptions["TournamentID"]) and the result listener. */
+        String tournamentId;
+        GameSession.GameResultListener tournamentListener;
 
         Pairing(String gameId) {
             this.gameId = gameId;
@@ -355,6 +359,45 @@ public final class MatchManager implements FriendMatchStarter, GameChatRouter {
         }
     }
 
+    // ---- live bracket ----------------------------------------------------------------------------------------
+
+    /**
+     * Launches a live-bracket matchup (Python LiveTournament._start_or_forfeit): a pairing with queue
+     * "Tournament_<tournamentId>", registered in the pending pairings, then the ready check. Returns false when a
+     * seat has no live client or an unplayable/banned deck, so nothing was registered.
+     */
+    public synchronized boolean startTournamentMatch(String gameId, String tournamentId, List<TournamentMatchRunner.Seat> seats,
+                                                     GameSession.GameResultListener listener) {
+        if (seats.size() != 2 || tournamentId == null || tournamentId.isEmpty()) return false;
+        for (TournamentMatchRunner.Seat seat : seats) {
+            ClientContext c = seat.client();
+            if (c == null || c.account() == null || seat.deck() == null) return false;
+            if (bans.refusalText(seat.deck()).isPresent() || !BotDecks.playable(catalog, seat.deck())) return false;
+        }
+        String queueName = "Tournament_" + tournamentId;
+        Pairing p = new Pairing(gameId);
+        for (TournamentMatchRunner.Seat seat : seats) {
+            removeFromQueue(seat.client(), false);
+            removeSessionByPlayer(seat.accountId());
+            p.players.put(seat.accountId(), new PairingPlayer(seat.client(), seat.deck(), false));
+        }
+        p.solo = false;
+        p.options = null;
+        p.queueName = queueName;
+        p.tournamentId = tournamentId;
+        p.tournamentListener = listener;
+        pendingPairings.put(gameId, p);
+        LOG.info("[Tournament] Launching game {} for tournament {}", gameId, tournamentId);
+        dispatchReadyCheck(gameId, queueName, List.of(seats.get(0).client(), seats.get(1).client()), settings.readyCheckDelayMs);
+        return true;
+    }
+
+    /** Bracket aborted the matchup: drops a pending pairing and stops the running game, if any. */
+    public synchronized void abortTournamentMatch(String gameId) {
+        pendingPairings.remove(gameId);
+        removeSession(gameId);
+    }
+
     // ---- ready check -----------------------------------------------------------------------------------------------
 
     private void dispatchReadyCheck(String gameId, String queueName, List<ClientContext> clients, long delayMs) {
@@ -434,6 +477,7 @@ public final class MatchManager implements FriendMatchStarter, GameChatRouter {
                 }
             }
             session = new GameSession(gameId, p.solo, p.queueName, seats, catalog, registry, settings, hooks, rng, this::removeSession);
+            if (p.tournamentListener != null) session.attachTournament(p.tournamentId, p.tournamentListener);
             activeSessions.put(gameId, session);
             for (String id : session.players().keySet()) sessionIdsByPlayer.put(id, gameId);
         }

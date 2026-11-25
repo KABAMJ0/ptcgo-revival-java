@@ -9,6 +9,7 @@ import com.ptcgo.revival.net.ClientRegistry;
 import com.ptcgo.revival.packet.ClientContext;
 import com.ptcgo.revival.packet.PacketHandler;
 import com.ptcgo.revival.packet.VersusHooks;
+import com.ptcgo.revival.tournament.TournamentMatchRunner;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -31,9 +32,11 @@ public final class VersusModule {
 
     private final MatchManager manager;
     private final List<PacketHandler> handlers;
+    private final TournamentMatchRunner tournamentRunner;
 
     private VersusModule(MatchManager manager) {
         this.manager = manager;
+        this.tournamentRunner = new MatchManagerTournamentRunner(manager);
         this.handlers = List.of(new MatchmakingHandler(manager), new GameplayHandler(manager));
     }
 
@@ -53,6 +56,11 @@ public final class VersusModule {
 
     public MatchManager manager() {
         return manager;
+    }
+
+    /** The live-bracket seam: TournamentModule.create(services, versus.tournamentRunner(), ...). */
+    public TournamentMatchRunner tournamentRunner() {
+        return tournamentRunner;
     }
 
     /** Handler groups to add to the PacketRouter. */

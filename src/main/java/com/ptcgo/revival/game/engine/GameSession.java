@@ -92,6 +92,9 @@ public final class GameSession implements SessionOps {
     private volatile boolean closed;
     private record GameResult(String winner, String loser, String reason) {}
     private volatile GameResult result;
+    /** Live-bracket game: the tournament id (gameOptions["TournamentID"]) and the result listener, both set before start(). */
+    private volatile String tournamentId;
+    private volatile GameResultListener resultListener;
     /** The turn number the last end-of-game ran on (0 = decided before the first turn). */
     private int turnsAtEnd;
 
@@ -195,6 +198,18 @@ public final class GameSession implements SessionOps {
 
     public MatchSettings settings() {
         return settings;
+    }
+
+    /** Receives the winner once, when the game ends (normal end, concede, timeout). {@code reason} is the end-of-game text. */
+    @FunctionalInterface
+    public interface GameResultListener {
+        void gameEnded(String gameId, String winnerId, String reason);
+    }
+
+    /** Marks this game as a live-bracket match (Python: pairing["legacy_tournament"]). Call before {@link #start()}. */
+    public void attachTournament(String tournamentId, GameResultListener listener) {
+        this.tournamentId = tournamentId;
+        this.resultListener = listener;
     }
 
     public String winnerId() {
@@ -793,6 +808,8 @@ public final class GameSession implements SessionOps {
             if (Boolean.TRUE.equals(pe.get(Attr.HAS_VSTAR_TOKEN)) && !tokens.contains(TOKEN_VSTAR)) tokens.add(TOKEN_VSTAR);
         }
         if (!tokens.isEmpty()) o.put(GAME_OPTION_TOKENS_KEY, String.join(",", tokens));
+        // The client's TournamentManager reads this key for legacy bracket matches.
+        if (tournamentId != null) o.put("TournamentID", tournamentId);
         // showPlayerUpsetNUX float.Parses gameOptions["eloRating_<id>"] unguarded: the key must exist for everyone.
         for (var e : players.entrySet()) {
             o.put("eloRating_" + e.getKey(), String.valueOf(e.getValue().isAi() ? 1000 : hooks.rating(e.getKey())));
@@ -2542,11 +2559,23 @@ public final class GameSession implements SessionOps {
         pushWalletAndAccountUpdates();
         result = new GameResult(winnerId, loserId, reason);
         phase = GamePhase.GAME_OVER;
+        recordTournamentResult(winnerId, reason);
         synchronized (stateLock) {
             resumed = true;
             stateLock.notifyAll();
         }
         throw new GameOverException();
+    }
+
+    /** Python _record_legacy_tournament_result: a failing bracket listener must not break the end of the game. */
+    private void recordTournamentResult(String winnerId, String reason) {
+        GameResultListener listener = resultListener;
+        if (listener == null) return;
+        try {
+            listener.gameEnded(gameId, winnerId, reason);
+        } catch (RuntimeException e) {
+            LOG.error("[Session {}] Live tournament result recording failed", gameId, e);
+        }
     }
 
     /** Credits multiplayer results before the client's end-game quest animation. */
