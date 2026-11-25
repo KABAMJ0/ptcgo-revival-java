@@ -16,7 +16,7 @@ Update this file when a subsystem changes status. Mark `done` only after `mvn -q
 | Landing pages, notifications, league scenarios | `data_sync.py` | done | `packet/ContentHandler`, `catalog/ScenarioEncoder` | |
 | Tournaments (async and live brackets) | `handlers/tournaments.py`, `game/tournaments/` | partial | `tournament/`, `packet/TournamentHandler` | real matches need the match engine (seam) |
 | Match engine, matchmaking, bot AI | `game/session/`, `handlers/{matchmaking,gameplay}.py` | partial | `game/match/`, `packet/VersusHooks` | core, AI, queue, friend and bot matches done; effects not yet |
-| Card effects | `game/card_effects/`, `game/scripts/cards/` | todo | `game/match/EffectRegistry` (seam) | ~20k card scripts; engine seam ready, no effects ported |
+| Card effects | `game/card_effects/`, `game/scripts/cards/` | partial | `game/match/EffectRegistry` (seam), `game/effects/{AttackEffects,BatchOneAttacks}` | batch 1: 15 attacks |
 | V-UNION, LEGEND, bench attacks | `game/session/vunion.py`, `legends.py` | todo | — | not in the match core yet |
 | Tournament matches | `game/tournaments/live.py` | partial | `tournament/` | runner seam still `UNAVAILABLE`; needs wiring to `VersusModule` |
 | Asset bundles (`manifest.version`, `*.manifest`, `*.unity3d`) | `server/http_server.py`, `server/manifest_manager.py` | todo | — | needs UnityPy equivalent or a pre-export step |
