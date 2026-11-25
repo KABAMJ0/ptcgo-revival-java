@@ -1,0 +1,19 @@
+{
+  "cards": [
+    {"file": "SV5/Beldum_113.py", "attacks": ["Iron Tackle"]},
+    {"file": "SV5/Excadrill_174.py", "attacks": ["Wild Tackle"]},
+    {"file": "SV5/Rapidash_27.py", "attacks": ["Inferno Onrush"]},
+    {"file": "SV7/Cubone_72.py", "attacks": ["Reckless Charge"]},
+    {"file": "SV8/Volcarona_25.py", "attacks": ["Turbulent Wings"]},
+    {"file": "SV5/Forretress_110.py", "attacks": ["Spike Cannon"]},
+    {"file": "SV5/Palafin_49.py", "attacks": ["Double Hit"]},
+    {"file": "SV5/Lickilicky_125.py", "attacks": ["Tonguenado"]},
+    {"file": "SV5/Carkol_94.py", "attacks": ["Knock Away"]},
+    {"file": "SV6/Eevee_188.py", "attacks": ["Quick Attack"]},
+    {"file": "SV5/Arbok_176.py", "attacks": ["Panic Poison"]},
+    {"file": "SV5/Ekans_100.py", "attacks": ["Poison Blend"]},
+    {"file": "SV5/Zeraora_57.py", "attacks": ["Shocking Knuckle"]},
+    {"file": "SV5/MrMime_63.py", "attacks": ["Eerie Wave"]},
+    {"file": "SV6/Trevenant_13.py", "attacks": ["Giga Drain"]}
+  ]
+}

@@ -95,11 +95,17 @@ class BatchOneAttacksTest {
     /** One attacking Pokemon for A and one Defending Pokemon for B, both at full HP unless the test says otherwise. */
     record Fixture(Ops ops, CardEntity attacker, CardEntity defender, EffectContext ctx) {}
 
-    private static Fixture fixture(String cardGuid, String cardName, String abilityId, String title, int printed,
-                                   int attackerHp, boolean... flips) {
+    static Fixture fixture(String cardGuid, String cardName, String abilityId, String title, int printed,
+                           int attackerHp, boolean... flips) {
+        return fixture(BatchOneAttacks.register(EffectRegistry.empty()), cardGuid, cardName, abilityId, title,
+                printed, attackerHp, flips);
+    }
+
+    /** Same fixture with the attack resolved through {@code registry} (used by the generated-vs-hand comparison). */
+    static Fixture fixture(EffectRegistry registry, String cardGuid, String cardName, String abilityId, String title,
+                           int printed, int attackerHp, boolean... flips) {
         ScriptedRng rng = new ScriptedRng(flips);
         Board board = new Board(GAME_ID, List.of(A, B), rng);
-        EffectRegistry registry = BatchOneAttacks.register(EffectRegistry.empty());
         Ops ops = new Ops(board, rng, registry);
 
         Catalog.Card attackCard = pokemon(cardGuid, cardName, abilityId, title, printed);
@@ -115,7 +121,7 @@ class BatchOneAttacksTest {
     }
 
     /** Resolves the attack through the registry, exactly as the engine does for a registered attack. */
-    private static void attack(Fixture f, String abilityId) {
+    static void attack(Fixture f, String abilityId) {
         EffectRegistry.AttackSpec spec = f.ops().registry().attack(abilityId);
         assertNotNull(spec, "attack " + abilityId + " is registered");
         assertNotNull(spec.effect());
@@ -153,7 +159,7 @@ class BatchOneAttacksTest {
         else a.put("value", String.valueOf(v));
     }
 
-    private static int hp(CardEntity c) {
+    static int hp(CardEntity c) {
         return c.hp();
     }
 

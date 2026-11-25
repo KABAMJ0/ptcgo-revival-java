@@ -1,0 +1,529 @@
+{
+  "source_format": 1,
+  "cards": [
+    {
+      "file": "SV5/Beldum_113.py",
+      "guid": "519fd25a-8b28-5552-846b-23f916fbef42",
+      "set_code": "SV5",
+      "collector_number": 113,
+      "display_name": "Beldum",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Iron Tackle",
+          "damage": 50,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 10 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "METAL",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              10
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "5464af08-f5c9-5d65-9831-0224ac44ae8f"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Excadrill_174.py",
+      "guid": "be79dce9-59d1-5f83-9c2a-04ec67e21cab",
+      "set_code": "SV5",
+      "collector_number": 174,
+      "display_name": "Excadrill",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Wild Tackle",
+          "damage": 180,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 50 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIGHTING",
+              "count": 2
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              50
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "725dfa86-be3e-59d7-a7ff-a5848828aa34"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Rapidash_27.py",
+      "guid": "eef1253e-f81e-573c-a96c-ba1ebb95fd4f",
+      "set_code": "SV5",
+      "collector_number": 27,
+      "display_name": "Rapidash",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Inferno Onrush",
+          "damage": 120,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 30 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIRE",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              30
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "156e287f-7d89-5c40-8fc5-f3be6251af7d"
+        }
+      ]
+    },
+    {
+      "file": "SV7/Cubone_72.py",
+      "guid": "f70536a2-a562-5a49-bb55-e2bc21cf4abf",
+      "set_code": "SV7",
+      "collector_number": 72,
+      "display_name": "Cubone",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Reckless Charge",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 10 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIGHTING",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              10
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "68eab2f3-9627-5123-8f9a-2b2c013c4d12"
+        }
+      ]
+    },
+    {
+      "file": "SV8/Volcarona_25.py",
+      "guid": "3079e20d-cc24-50cf-99f9-43c85db38275",
+      "set_code": "SV8",
+      "collector_number": 25,
+      "display_name": "Volcarona",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Turbulent Wings",
+          "damage": 150,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 50 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIRE",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              50
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "387cdf26-00b5-59b0-a589-ba33ee7c5a2a"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Forretress_110.py",
+      "guid": "b1757be8-97f5-5326-8a72-dad91d0544ef",
+      "set_code": "SV5",
+      "collector_number": 110,
+      "display_name": "Forretress",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Spike Cannon",
+          "damage": 30,
+          "damage_operator": "x",
+          "game_text": "Flip 3 coins. This attack does 30 damage for each heads.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "METAL",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_damage",
+            "args": [],
+            "kwargs": {
+              "coins": 3,
+              "per_heads": 30
+            }
+          },
+          "ability_id": "efe1bd3a-9187-5bd4-a50b-ba7302f60350"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Palafin_49.py",
+      "guid": "bde4995f-40fb-549b-8ba5-867874badde8",
+      "set_code": "SV5",
+      "collector_number": 49,
+      "display_name": "Palafin",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Double Hit",
+          "damage": 90,
+          "damage_operator": "x",
+          "game_text": "Flip 2 coins. This attack does 90 damage for each heads.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "WATER",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "flip_damage",
+            "args": [],
+            "kwargs": {
+              "coins": 2,
+              "per_heads": 90
+            }
+          },
+          "ability_id": "0a04ce8a-e3eb-5c76-9f28-c59da0654271"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Lickilicky_125.py",
+      "guid": "cc211d81-798e-5687-9f55-f4bf7023e41e",
+      "set_code": "SV5",
+      "collector_number": 125,
+      "display_name": "Lickilicky",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Tonguenado",
+          "damage": 70,
+          "damage_operator": "x",
+          "game_text": "Flip 4 coins. This attack does 70 damage for each heads.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 4
+            }
+          ],
+          "effect": {
+            "name": "flip_damage",
+            "args": [],
+            "kwargs": {
+              "coins": 4,
+              "per_heads": 70
+            }
+          },
+          "ability_id": "3ba2bf0b-97e1-54ff-8b45-a8d1801941dd"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Carkol_94.py",
+      "guid": "fdaca5d0-bc3c-5312-bac2-ddafa86a0f00",
+      "set_code": "SV5",
+      "collector_number": 94,
+      "display_name": "Carkol",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Knock Away",
+          "damage": 20,
+          "damage_operator": "+",
+          "game_text": "Flip a coin. If heads, this attack does 40 more damage.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIGHTING",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_bonus",
+            "args": [
+              40
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "efd41a84-d71d-5233-97f1-0de344278de2"
+        }
+      ]
+    },
+    {
+      "file": "SV6/Eevee_188.py",
+      "guid": "82032ee6-c872-5cee-96d6-e4bea56ae320",
+      "set_code": "SV6",
+      "collector_number": 188,
+      "display_name": "Eevee",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Quick Attack",
+          "damage": 20,
+          "damage_operator": "+",
+          "game_text": "Flip a coin. If heads, this attack does 20 more damage.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 3
+            }
+          ],
+          "effect": {
+            "name": "flip_bonus",
+            "args": [
+              20
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "87e1ad08-ffba-5e19-a7fe-b3714a9ac564"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Arbok_176.py",
+      "guid": "cc02c67b-528b-5f9d-ab0e-ff4e4e70bd5d",
+      "set_code": "SV5",
+      "collector_number": 176,
+      "display_name": "Arbok",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Panic Poison",
+          "damage": 0,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Burned, Confused, and Poisoned.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "DARKNESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "BURNED"
+              },
+              {
+                "enum": "SpecialConditions",
+                "member": "CONFUSED"
+              },
+              {
+                "enum": "SpecialConditions",
+                "member": "POISONED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "6b19ed4c-8699-5429-955d-750e30bc5506"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Ekans_100.py",
+      "guid": "81e3fe26-5ed8-5733-bb0e-d63bc5c1f52b",
+      "set_code": "SV5",
+      "collector_number": 100,
+      "display_name": "Ekans",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Poison Blend",
+          "damage": 0,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Confused and Poisoned.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "DARKNESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "CONFUSED"
+              },
+              {
+                "enum": "SpecialConditions",
+                "member": "POISONED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "12c0dc7a-50ee-503d-b085-8f5aa3daa91f"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Zeraora_57.py",
+      "guid": "c07aa937-d483-509a-b4cc-fd1ad2494a28",
+      "set_code": "SV5",
+      "collector_number": 57,
+      "display_name": "Zeraora",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Shocking Knuckle",
+          "damage": 20,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "PARALYZED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "9930829f-33de-5415-8149-936a1a289471"
+        }
+      ]
+    },
+    {
+      "file": "SV5/MrMime_63.py",
+      "guid": "3ec76d0e-7d56-5cc5-8e52-eaf3073e2cc1",
+      "set_code": "SV5",
+      "collector_number": 63,
+      "display_name": "Mr. Mime",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Eerie Wave",
+          "damage": 20,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Confused.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "PSYCHIC",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "CONFUSED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "aea9e529-8944-5867-abbd-8ea922a0dde4"
+        }
+      ]
+    },
+    {
+      "file": "SV6/Trevenant_13.py",
+      "guid": "c8585047-78d2-5d5b-b9af-db3cc12cc1b7",
+      "set_code": "SV6",
+      "collector_number": 13,
+      "display_name": "Trevenant",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Giga Drain",
+          "damage": 50,
+          "damage_operator": "",
+          "game_text": "Heal from this Pokémon the same amount of damage you did to your opponent's Active Pokémon.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "GRASS",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "heal_dealt_attack",
+            "args": [],
+            "kwargs": {}
+          },
+          "ability_id": "88880e3f-80da-5ef0-9db9-41df2e719650"
+        }
+      ]
+    }
+  ]
+}
