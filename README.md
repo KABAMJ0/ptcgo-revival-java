@@ -25,7 +25,9 @@ which emulates the discontinued Pokémon TCG Online server for an existing clien
 | Catalogue download: `GetProtobufArchetypesList` (protobuf `ArchetypesFound`, per-connection dedup, product key rule); encoder verified byte-for-byte against the Python protobuf runtime and against a whole real set | done |
 | Static data: archetype keys, set data, family maps, format legality, localizations (48k strings), MOTD, feature flags, dynamic versions, time-locked archetypes, avatar items | done (served from exported payloads) |
 | Deck validation: 60 cards, copy limits, ACE SPEC/Radiant/Prism Star, owned cards, per-format set legality, bans, theme decks; `DecksValidated` rows; valid-format attribute on save and deck list | done, tested (server-wide ban list not ported: nothing is banned) |
-| Dynamic pages, notifications, banned cards (served empty), tournaments, league, tutorial, admin panel | not ported |
+| Landing pages / maintenance banners (`dynamic_pages` table), friend-invite notifications, achievements (empty), league scenario list (protobuf, byte-identical to Python) | done, tested |
+| Banned cards (served empty), tournaments, league play, tutorial, admin panel | not ported |
+| **Asset bundles**: `manifest.version`, `*.manifest` and `*.unity3d` serving (the Python server builds them with UnityPy; there is no Java equivalent) | **not ported: the client cannot load card art from this server yet** |
 | MariaDB/MySQL support | not ported |
 | Protobuf messages (`.proto` sources live in the Python repo) | not ported |
 | Bundle manifest builder (`*.manifest`, `manifest.version`) | not ported |

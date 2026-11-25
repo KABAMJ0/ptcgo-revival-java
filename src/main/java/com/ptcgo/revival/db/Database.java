@@ -119,6 +119,14 @@ public final class Database {
                     )""");
             addColumnIfMissing(st, "daily_login_progress", "activations", "INTEGER DEFAULT 0"); // tables from before it existed
             st.execute("""
+                    CREATE TABLE IF NOT EXISTS dynamic_pages (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        page_type VARCHAR NOT NULL DEFAULT 'landing',
+                        sort_order INTEGER NOT NULL DEFAULT 0,
+                        content_json TEXT NOT NULL,
+                        enabled BOOLEAN NOT NULL DEFAULT 1
+                    )""");
+            st.execute("""
                     CREATE TABLE IF NOT EXISTS archetype_flags (
                         account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
                         archetype_id VARCHAR NOT NULL,

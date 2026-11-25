@@ -46,6 +46,22 @@ public final class SocialRepository {
     }
 
     /** Status of the row {@code accountId -> friendId}. */
+    public record Invite(String fromAccountId, String displayName) {}
+
+    /** Pending invitations sent TO this account (status 0 = Invited), newest rows in table order. */
+    public List<Invite> incomingInvites(String accountId) throws SQLException {
+        List<Invite> out = new ArrayList<>();
+        try (Connection c = db.connect(); PreparedStatement ps = c.prepareStatement(
+                "SELECT f.account_id, COALESCE(a.screen_name, a.username) FROM friends f "
+                        + "JOIN accounts a ON a.account_id = f.account_id WHERE f.friend_id = ? AND f.status = 0")) {
+            ps.setString(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) out.add(new Invite(rs.getString(1), rs.getString(2)));
+            }
+        }
+        return out;
+    }
+
     public Optional<Integer> status(String accountId, String friendId) throws SQLException {
         try (Connection c = db.connect(); PreparedStatement ps = c.prepareStatement(
                 "SELECT status FROM friends WHERE account_id = ? AND friend_id = ?")) {

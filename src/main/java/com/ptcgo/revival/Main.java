@@ -66,7 +66,7 @@ public final class Main {
         // Friend matches need the match engine; until then accepting a challenge fails cleanly for both players.
         SocialModule social = SocialModule.create(services, FriendMatchStarter.UNAVAILABLE, GameChatRouter.NONE);
         List<PacketHandler> groups = new ArrayList<>(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler(),
-                new CatalogHandler(), new StaticDataHandler(), new QuestHandler(),
+                new CatalogHandler(), new StaticDataHandler(), new QuestHandler(), new com.ptcgo.revival.packet.ContentHandler(),
                 shop.shopHandler(), shop.redemptionHandler()));
         groups.addAll(social.handlers());
         PacketRouter router = new PacketRouter(groups);
