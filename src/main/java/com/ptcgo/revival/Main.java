@@ -64,7 +64,8 @@ public final class Main {
                                 catalog, java.time.Instant::now, java.util.random.RandomGenerator.getDefault())),
                 shop.starter);
         // Friend matches need the match engine; until then accepting a challenge fails cleanly for both players.
-        SocialModule social = SocialModule.create(services, FriendMatchStarter.UNAVAILABLE, GameChatRouter.NONE);
+        com.ptcgo.revival.game.match.VersusModule versus = com.ptcgo.revival.game.match.VersusModule.create(services, themes);
+        SocialModule social = SocialModule.create(services, versus.manager(), versus.manager());
         List<PacketHandler> groups = new ArrayList<>(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler(),
                 new CatalogHandler(), new StaticDataHandler(), new QuestHandler(), new com.ptcgo.revival.packet.ContentHandler(),
                 shop.shopHandler(), shop.redemptionHandler()));
@@ -74,6 +75,7 @@ public final class Main {
                 com.ptcgo.revival.tournament.TournamentMatchRunner.UNAVAILABLE,
                 com.ptcgo.revival.tournament.AsyncTournamentMatchmaker.UNAVAILABLE);
         groups.addAll(tournaments.handlers());
+        groups.addAll(versus.handlers());
         PacketRouter router = new PacketRouter(groups);
         try (HttpApp http = new HttpApp(services);
              GameServer game = new GameServer(services, router, TlsContexts.serverContext(cfg))) {

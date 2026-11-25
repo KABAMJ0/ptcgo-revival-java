@@ -171,7 +171,7 @@ public final class AuthHandler implements PacketHandler {
             c.send("EulaSuccessful", Map.of("version", 1), 0);
             c.send("CohortsForAccount", Map.of("cohorts", Map.of(), "redirectScenes", Map.of(),
                     "cohortFeatures", List.of()), 0);
-            c.send("PlayerNotInGame", Map.of(), 0);
+            com.ptcgo.revival.game.match.VersusModule.sendGameStatus(c); // PlayerStillInGame / PlayerNotInGame
             c.send("NetworkStatusIndicatorConfiguration",
                     Map.of("pingWarningThreshold", 500, "pingErrorThreshold", 1000), 0);
             c.send("DefaultTrainerChallengeDeckMessage", Map.of("defaultDeckName", "Mental Might"), 0);

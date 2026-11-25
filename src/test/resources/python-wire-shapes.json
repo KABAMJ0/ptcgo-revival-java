@@ -1,0 +1,1000 @@
+{
+ "AbilityFinishedEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "eID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "AbilityPlayedEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "eID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "abilityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "abilityTitle",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "abilityType",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "ActivePlayerSet": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "accountID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "AttributeModified": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "attribute",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   }
+  ]
+ },
+ "CakeAttackEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "damageSource",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "weaknessTriggered",
+    "required": true,
+    "types": [
+     "b"
+    ]
+   },
+   {
+    "k": "resistanceTrigger",
+    "required": true,
+    "types": [
+     "b"
+    ]
+   },
+   {
+    "k": "damageType",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "attackName",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "damageAmount",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "damageModification",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "visualType",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   }
+  ]
+ },
+ "CleanupAttackEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "ClosePauseOnPromptEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "CoinFlipChoiceRequired": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "counter",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "prompt",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "offerLength",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "startingTimestamp",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "sortType",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "buttons",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "sourceEntity",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   }
+  ]
+ },
+ "CreatureHealWithContextEvent": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "source",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "targets",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "amount",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   }
+  ]
+ },
+ "CustomChoiceOfferMessage": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "selectingPlayer",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "prompt",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "buttons",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "offerLength",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "sourceEntity",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   },
+   {
+    "k": "selection",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   },
+   {
+    "k": "correctChoice",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   }
+  ]
+ },
+ "EntityIDDataEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "key",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "value",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "EntityIntroduced": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityName",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "attributeMap",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   }
+  ]
+ },
+ "EntityMoved": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "destinationID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "positionInParent",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "animDuration",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   }
+  ]
+ },
+ "GameCompletedMessage": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "winner",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "loser",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "endOfGameText",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "coins",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "exp",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "share",
+    "required": true,
+    "types": [
+     "b"
+    ]
+   },
+   {
+    "k": "rewardList",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "additionalParameters",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   }
+  ]
+ },
+ "GoFirstChoiceRequired": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "counter",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "prompt",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "offerLength",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "startingTimestamp",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "sortType",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "buttons",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "sourceEntity",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   }
+  ]
+ },
+ "MulliganRevealCardsEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "player",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityIDPiles",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "prompt",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "revealTitle",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "revealSource",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "MultipleCoinFlipWithContextEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "resultLst",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "title",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "gameText",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "source",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "targets",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   }
+  ]
+ },
+ "NonDamagingTargetsEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "targets",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   }
+  ]
+ },
+ "PlaceDamageEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "destinationID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "originID",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   },
+   {
+    "k": "amount",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "abilityName",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   }
+  ]
+ },
+ "RevealCardToAllEffect": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "Return",
+    "required": true,
+    "types": [
+     "b"
+    ]
+   },
+   {
+    "k": "alwaysReveal",
+    "required": true,
+    "types": [
+     "b"
+    ]
+   }
+  ]
+ },
+ "SelectionWithTargetsAndActionsRequired": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "counter",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "prompt",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   },
+   {
+    "k": "offerLength",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "startingTimestamp",
+    "required": true,
+    "types": [
+     "i"
+    ]
+   },
+   {
+    "k": "forced",
+    "required": true,
+    "types": [
+     "b"
+    ]
+   },
+   {
+    "k": "targetType",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "ignoreFirst",
+    "required": true,
+    "types": [
+     "b"
+    ]
+   },
+   {
+    "k": "selectionParams",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "optimalPlayMap",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "sourceID",
+    "required": true,
+    "types": [
+     "n"
+    ]
+   },
+   {
+    "k": "targetMap",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   }
+  ]
+ },
+ "SequenceMessage": {
+  "keys": [
+   {
+    "k": "sequenceID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "msg",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   }
+  ]
+ },
+ "SerializedGameState": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "playerAccounts",
+    "required": true,
+    "types": [
+     "a"
+    ]
+   },
+   {
+    "k": "gameOptions",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   },
+   {
+    "k": "entities",
+    "required": true,
+    "types": [
+     "o"
+    ]
+   }
+  ]
+ },
+ "Shuffled": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "entityID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "StartSequence": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "sequenceID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "name",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "StopSequence": {
+  "keys": [
+   {
+    "k": "gameID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "sequenceID",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   },
+   {
+    "k": "name",
+    "required": true,
+    "types": [
+     "s"
+    ]
+   }
+  ]
+ },
+ "_sequences": [
+  "ActivePlayerSet",
+  "AddSpecialCondition",
+  "Attack",
+  "DealInitialHands",
+  "DealInitialPrizeCards",
+  "Draw",
+  "Evolve",
+  "GroupedMove",
+  "InitialCoinFlip",
+  "InitialPick",
+  "IntroduceInitialPokemon",
+  "Knockout",
+  "Mulligan",
+  "OpponentChoosingToGoFirst",
+  "OpponentPickingHeadsOrTails",
+  "PlayActive",
+  "PlayCard",
+  "PokeAbility",
+  "RemoveSpecialCondition",
+  "Retreat",
+  "RevealMulligans",
+  "SerialSequence",
+  "TrainerCard",
+  "WithOpenPrizeCards"
+ ]
+}
