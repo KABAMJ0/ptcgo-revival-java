@@ -70,7 +70,7 @@ class DeckRulesIntegrationTest {
                 catalog, ThemeDecks.none(), g -> false, () -> 0L);
         Services base = TestServices.create(new Config());
         Services services = new Services(base.config(), base.accounts(), base.players(), base.tickets(), base.registry(),
-                catalog, new RulesDeckValidator(catalog, fm, ThemeDecks.none()), base.progression());
+                catalog, new RulesDeckValidator(catalog, fm, ThemeDecks.none()), base.progression(), null);
 
         List<String> legal = new ArrayList<>(List.of("p1", "p1", "p1", "p1"));
         for (int i = 0; i < 14; i++) for (int n = 0; n < 4; n++) legal.add("t" + i); // 4 Pikachu + 56 trainers
@@ -82,7 +82,7 @@ class DeckRulesIntegrationTest {
             s.setSoTimeout(5000);
             DataInputStream in = new DataInputStream(s.getInputStream());
             send(s, "AuthenticateGASAuthToken", Map.of("userID", "ash", "token", "pw"), 1);
-            for (int i = 0; i < 11; i++) read(in);
+            for (int i = 0; i < 12; i++) read(in);
             Map<String, Integer> grants = new HashMap<>();
             for (Card c : cards) grants.put(c.guid(), 4);
             services.players().addToCollection(services.registry().find(

@@ -113,7 +113,7 @@ public final class HttpApp implements AutoCloseable {
         try {
             AccountRepository repo = services.accounts();
             Optional<Account> acc = repo.findByUsername(username);
-            if (acc.isEmpty() && !username.isBlank()) acc = repo.create(username, password, false); // private server: auto-register
+            if (acc.isEmpty() && !username.isBlank()) acc = services.createAccount(username, password, false); // private server: auto-register
             if (acc.isPresent() && !acc.get().banned() && AccountRepository.verifyPassword(acc.get().passwordHash(), password)) {
                 String ticket = "ST-" + UUID.randomUUID();
                 services.tickets().issue(ticket, username);

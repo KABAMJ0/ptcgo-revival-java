@@ -1,5 +1,6 @@
 package com.ptcgo.revival.progression;
 
+import com.ptcgo.revival.db.DailyLoginRepository;
 import com.ptcgo.revival.db.PlayerRepository;
 import com.ptcgo.revival.db.QuestRepository;
 import com.ptcgo.revival.db.VersusRepository;
@@ -9,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /** Quests, versus ladder and seasons, bundled for {@code Services}. */
-public record Progression(QuestRepository quests, VersusRepository versus, Seasons seasons) {
+public record Progression(QuestRepository quests, VersusRepository versus, Seasons seasons, DailyLoginRepository daily) {
     /** Client setting numbers inside the account-settings dict (attribute 10230). */
     public static final int LAST_SEEN_POINTS_SETTING = 109; // LastKnownSeasonPointTotal: the ladder animation anchor
     public static final int[] SEEN_SEASON_SETTINGS = {111, 112, 113, 114}; // start hi/lo, end hi/lo

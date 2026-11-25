@@ -26,6 +26,9 @@ final class TestServices {
         db.migrate();
         return new Services(cfg, new AccountRepository(db), new PlayerRepository(db), new CasTickets(),
                 new ClientRegistry(), Catalog.empty(), DeckValidator.PERMISSIVE,
-                new Progression(new QuestRepository(db), new VersusRepository(db), Seasons.loadBundled()));
+                new Progression(new QuestRepository(db), new VersusRepository(db), Seasons.loadBundled(),
+                        new com.ptcgo.revival.db.DailyLoginRepository(db, com.ptcgo.revival.progression.DailyRewards.loadBundled(),
+                                Catalog.empty(), java.time.Instant::now, new java.util.Random(1))),
+                null);
     }
 }

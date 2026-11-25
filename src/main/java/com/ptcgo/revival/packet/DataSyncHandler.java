@@ -119,7 +119,7 @@ public final class DataSyncHandler implements PacketHandler {
 
     // ---- decks -----------------------------------------------------------------------------------
 
-    private static void getDeckList(ClientContext c, JsonNode v, int rid, int f) throws SQLException {
+    static void getDeckList(ClientContext c, JsonNode v, int rid, int f) throws SQLException {
         List<JsonNode> decks = new ArrayList<>();
         if (c.account() != null) {
             Set<String> allowed = allowedCosmetics(c);

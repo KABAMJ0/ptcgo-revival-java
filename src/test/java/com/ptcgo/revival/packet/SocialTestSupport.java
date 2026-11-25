@@ -54,7 +54,7 @@ final class SocialTestSupport implements AutoCloseable {
         if (!"AuthenticationSuccessful".equals(ok.get("name").asText())) throw new IllegalStateException(ok.toString());
         c.accountId = ok.get("value").get("account").get("accountID").asText();
         c.name = user;
-        for (int i = 0; i < 10; i++) c.next(); // rest of the login burst
+        for (int i = 0; i < 11; i++) c.next(); // rest of the login burst
         return c;
     }
 

@@ -55,11 +55,11 @@ class AuthIntegrationTest {
                 assertEquals("Ash", ok.get("value").get("account").get("username").asText());
                 assertEquals(15, ok.get("value").get("account").get("attributes").size());
                 List<String> rest = new ArrayList<>();
-                for (int i = 0; i < 10; i++) rest.add(read(in).get("name").asText());
+                for (int i = 0; i < 11; i++) rest.add(read(in).get("name").asText());
                 assertEquals(List.of("EulaSuccessful", "CohortsForAccount", "PlayerNotInGame",
                         "NetworkStatusIndicatorConfiguration", "DefaultTrainerChallengeDeckMessage",
                         "CurrentVersusSeason", "CurrentDailyRewardTrack", "QuestConfigurationUpdated",
-                        "AccountPropertiesUpdated", "DynamicVersions"), rest);
+                        "DailyLogin", "AccountPropertiesUpdated", "DynamicVersions"), rest);
                 assertEquals(1, services.registry().onlineCount());
 
                 // Same account, second connection: refused while the first is online.

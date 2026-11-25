@@ -45,23 +45,29 @@ public final class Main {
         Database db = new Database(cfg);
         db.migrate();
         AccountRepository accounts = new AccountRepository(db);
+        Catalog catalog = Catalog.load(cfg.catalogDir);
+        com.ptcgo.revival.shop.ShopModule shop = com.ptcgo.revival.shop.ShopModule.create(cfg, db, catalog);
         if (args.length > 1 && args[0].equals("--create-admin")) { // --create-admin <name> <password>
-            System.out.println(accounts.create(args[1], args.length > 2 ? args[2] : "password", true).isPresent()
-                    ? "Created admin " + args[1] : "Username already exists");
+            var admin = accounts.create(args[1], args.length > 2 ? args[2] : "password", true);
+            if (admin.isPresent()) shop.starter.grant(admin.get().accountId());
+            System.out.println(admin.isPresent() ? "Created admin " + args[1] : "Username already exists");
             return;
         }
-        Catalog catalog = Catalog.load(cfg.catalogDir);
         ThemeDecks themes = ThemeDecks.load(cfg.catalogDir);
         // Server-wide card bans (an admin table in the Python server) are not ported: nothing is banned.
         FormatManager formats = FormatManager.load(cfg.catalogDir, catalog, themes, guid -> false, System::currentTimeMillis);
         DeckValidator validator = new RulesDeckValidator(catalog, formats, themes);
         Services services = new Services(cfg, accounts, new PlayerRepository(db), new CasTickets(), new ClientRegistry(),
                 catalog, validator,
-                new Progression(new QuestRepository(db), new VersusRepository(db), Seasons.loadBundled()));
+                new Progression(new QuestRepository(db), new VersusRepository(db), Seasons.loadBundled(),
+                        new com.ptcgo.revival.db.DailyLoginRepository(db, com.ptcgo.revival.progression.DailyRewards.loadBundled(),
+                                catalog, java.time.Instant::now, java.util.random.RandomGenerator.getDefault())),
+                shop.starter);
         // Friend matches need the match engine; until then accepting a challenge fails cleanly for both players.
         SocialModule social = SocialModule.create(services, FriendMatchStarter.UNAVAILABLE, GameChatRouter.NONE);
         List<PacketHandler> groups = new ArrayList<>(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler(),
-                new CatalogHandler(), new StaticDataHandler(), new QuestHandler()));
+                new CatalogHandler(), new StaticDataHandler(), new QuestHandler(),
+                shop.shopHandler(), shop.redemptionHandler()));
         groups.addAll(social.handlers());
         PacketRouter router = new PacketRouter(groups);
         try (HttpApp http = new HttpApp(services);

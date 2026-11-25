@@ -111,6 +111,14 @@ public final class Database {
                         granted_json TEXT NOT NULL DEFAULT '{}'
                     )""");
             st.execute("""
+                    CREATE TABLE IF NOT EXISTS daily_login_progress (
+                        account_id VARCHAR NOT NULL PRIMARY KEY,
+                        last_claim_date DATE,
+                        streak INTEGER NOT NULL DEFAULT 0,
+                        activations INTEGER DEFAULT 0
+                    )""");
+            addColumnIfMissing(st, "daily_login_progress", "activations", "INTEGER DEFAULT 0"); // tables from before it existed
+            st.execute("""
                     CREATE TABLE IF NOT EXISTS archetype_flags (
                         account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
                         archetype_id VARCHAR NOT NULL,
@@ -145,6 +153,14 @@ public final class Database {
             st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_created ON trade_offers (status, created_at)");
             st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_recipient ON trade_offers (status, recipient_id)");
             st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_sender ON trade_offers (status, sender_id)");
+            com.ptcgo.revival.shop.ShopSchema.create(st); // shop_items, redemption codes, product claims
         }
+    }
+
+    private static void addColumnIfMissing(Statement st, String table, String column, String ddl) throws SQLException {
+        try (java.sql.ResultSet rs = st.executeQuery("PRAGMA table_info(" + table + ")")) {
+            while (rs.next()) if (column.equalsIgnoreCase(rs.getString("name"))) return;
+        }
+        st.execute("ALTER TABLE " + table + " ADD COLUMN " + column + " " + ddl);
     }
 }

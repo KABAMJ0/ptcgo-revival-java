@@ -119,7 +119,7 @@ public final class Seasons {
     }
 
     /** Reward.to_dict: rewardProductID is null when there is no product (the client dereferences it unguarded). */
-    static ObjectNode reward(JsonNode r, int index) {
+    public static ObjectNode reward(JsonNode r, int index) {
         String product = r.path("rewardProductID").asText("");
         ObjectNode o = JSON.createObjectNode();
         o.put("name", r.path("name").asText("")).put("rewardType", r.path("rewardType").asText("Tokens"))

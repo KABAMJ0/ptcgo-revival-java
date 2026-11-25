@@ -51,7 +51,7 @@ class CatalogHandlerTest {
                   "attributes":{"200580":{"type":"string","value":"SET1"}}}]""");
         Services base = TestServices.create(new Config());
         Services services = new Services(base.config(), base.accounts(), base.players(), base.tickets(), base.registry(),
-                Catalog.load(dir), base.deckValidator(), base.progression());
+                Catalog.load(dir), base.deckValidator(), base.progression(), null);
         PacketRouter router = new PacketRouter(List.of(new CatalogHandler()));
         try (GameServer server = new GameServer(services, router, null);
              Socket s = new Socket("127.0.0.1", server.start(0))) {

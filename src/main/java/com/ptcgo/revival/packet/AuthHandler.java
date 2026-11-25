@@ -19,8 +19,7 @@ import java.util.Optional;
  * Login: GAS token (username/password, auto-registering), CAS ticket (issued by the HTTP login page),
  * and guest/mobile logins when PTCGO_ALLOW_GUESTS=1. Sends the post-login message sequence.
  *
- * <p>Not ported yet: versus season, daily-login rewards, quest configuration, reconnect to a live game,
- * friend presence broadcast, and starter-content grants for new accounts.
+ * <p>Not ported yet: reconnect to a live game (needs the match engine).
  */
 public final class AuthHandler implements PacketHandler {
     private static final Logger LOG = LoggerFactory.getLogger(AuthHandler.class);
@@ -63,7 +62,7 @@ public final class AuthHandler implements PacketHandler {
         Optional<Account> existing = repo.findByUsername(username);
         if (existing.isEmpty()) {
             LOG.info("[TCP] [{}] Auto-registering new user: {}", c.remoteAddress(), username);
-            existing = repo.create(username, password, false);
+            existing = c.services().createAccount(username, password, false);
             if (existing.isEmpty()) {
                 fail(c, rid, "Could not create account. Please try again.");
                 return;
@@ -129,7 +128,7 @@ public final class AuthHandler implements PacketHandler {
         AccountRepository repo = c.services().accounts();
         Optional<Account> a = repo.findByUsername(username);
         if (a.isPresent()) return a.get();
-        return repo.create(username, password, false)
+        return c.services().createAccount(username, password, false)
                 .or(() -> {
                     try {
                         return repo.findByUsername(username);
@@ -161,6 +160,7 @@ public final class AuthHandler implements PacketHandler {
             services.progression().anchorVersusAnimation(services.players(), id);
             Map<String, Object> acct = AccountAttributes.accountObject(services, account);
             services.progression().acknowledgeSeason(services.players(), services.catalog(), id);
+            var daily = services.progression().daily().process(id);
             var questSnapshot = services.progression().quests().get(id);
             Map<String, Object> ok = new LinkedHashMap<>();
             ok.put("account", acct);
@@ -178,6 +178,15 @@ public final class AuthHandler implements PacketHandler {
             c.send("CurrentVersusSeason", Map.of("versusSeason", services.progression().seasons().clientPayload(services.catalog())), 0);
             c.send("CurrentDailyRewardTrack", dailyRewardTrack(), 0);
             c.send("QuestConfigurationUpdated", Map.of("questConfiguration", questSnapshot.configuration()), 0);
+            // weeksRewards: outer array = days; timestamp = next reward time in ms (the client counts down to it)
+            Map<String, Object> dailyLogin = new LinkedHashMap<>();
+            dailyLogin.put("activations", daily.activations());
+            dailyLogin.put("timestamp", daily.nextRewardTimestampMs());
+            dailyLogin.put("lastLoginTimestamp", daily.nextRewardTimestampMs());
+            dailyLogin.put("rewardDay", daily.rewardDay());
+            dailyLogin.put("weeksRewards", services.progression().daily().rewards().weeksRewards(daily.activations()));
+            dailyLogin.put("firstDailyLogin", daily.firstDailyLogin());
+            c.send("DailyLogin", dailyLogin, 0);
             c.send("AccountPropertiesUpdated", Map.of("accountID", id, "attributes", List.of(
                     attr(FRIEND_CHAT_MODE, "OpenChat"), attr(FRIEND_MODE, "Open"), attr(FRIEND_TRADE_MODE, "Free"),
                     attr(GAME_CHAT_MODE, "OpenChat"), attr(PUBLIC_CHAT_MODE, "OpenChat"),

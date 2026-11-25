@@ -39,7 +39,7 @@ class QuestHandlerTest {
             send(s, "AuthenticateGASAuthToken", Map.of("userID", "ash", "token", "pw"), 1);
             JsonNode ok = read(in);
             boolean seenSeason = false, seenQuestConfig = false;
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 11; i++) {
                 String n = read(in).get("name").asText();
                 seenSeason |= n.equals("CurrentVersusSeason");
                 seenQuestConfig |= n.equals("QuestConfigurationUpdated");

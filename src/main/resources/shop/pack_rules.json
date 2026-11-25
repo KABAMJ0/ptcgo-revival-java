@@ -1,0 +1,502 @@
+{
+  "ME55": {
+    "_comment": "30th Celebration: one Pikachu print is guaranteed in every pack and never repeats. The Mew_R / Mew_B / Mew_G prints are the chase cards, about 1 in 1000 packs each (weight 0.012); other Mew prints keep normal odds.",
+    "guaranteed": [
+      {
+        "names": [
+          "Pikachu"
+        ],
+        "count": 1
+      }
+    ],
+    "exclude_from_random": [
+      "Pikachu"
+    ],
+    "weight_multiplier": {
+      "Mew_R": 0.012,
+      "Mew_B": 0.012,
+      "Mew_G": 0.012
+    },
+    "unique_per_pack": [
+      "Mew",
+      "Pikachu"
+    ]
+  },
+  "BASE1": {
+    "_comment": "Base Set boosters held eleven cards: seven common, three uncommon, one rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD11": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD12": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD14": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD15": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD16": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD17": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD18": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD19": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD21": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "MCD22": {
+    "_comment": "McDonald's Collection promo packs held four cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 1,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "BASE2": {
+    "_comment": "WotC era (Base, Jungle, Fossil, Team Rocket, Gym, Legendary Collection): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "BASEP": {
+    "_comment": "WotC era (Base, Jungle, Fossil, Team Rocket, Gym, Legendary Collection): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "BASE3": {
+    "_comment": "WotC era (Base, Jungle, Fossil, Team Rocket, Gym, Legendary Collection): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "BASE4": {
+    "_comment": "WotC era (Base, Jungle, Fossil, Team Rocket, Gym, Legendary Collection): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "BASE5": {
+    "_comment": "WotC era (Base, Jungle, Fossil, Team Rocket, Gym, Legendary Collection): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "GYM1": {
+    "_comment": "WotC era (Gym Heroes and Gym Challenge): 11 cards.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "GYM2": {
+    "_comment": "WotC era (Gym Heroes and Gym Challenge): 11 cards.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "NEO1": {
+    "_comment": "WotC era (Neo through Neo Destiny): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "NEO2": {
+    "_comment": "WotC era (Neo through Neo Destiny): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "NEO3": {
+    "_comment": "WotC era (Neo through Neo Destiny): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "NEO4": {
+    "_comment": "WotC era (Neo through Neo Destiny): 11 cards, 7 common, 3 uncommon, 1 rare.",
+    "slots": {
+      "common": 7,
+      "uncommon": 3,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "ECARD1": {
+    "_comment": "e-Card era (Expedition, Aquapolis, Skyridge): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "ECARD2": {
+    "_comment": "e-Card era (Expedition, Aquapolis, Skyridge): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "ECARD3": {
+    "_comment": "e-Card era (Expedition, Aquapolis, Skyridge): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX1": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX2": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX3": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX4": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX5": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "TK1A": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "TK1B": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX6": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX7": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "POP1": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "EX8": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX9": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX10": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "POP2": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "EX11": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX12": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "TK2B": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "POP3": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "EX13": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX14": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "POP4": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "EX15": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "EX16": {
+    "_comment": "EX era (Ruby & Sapphire onward): 9 cards, 5 common, 2 uncommon, 1 reverse holo, 1 rare.",
+    "slots": {
+      "common": 5,
+      "uncommon": 2,
+      "reverse_holo": 1,
+      "hit": 1
+    }
+  },
+  "POP5": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "POP6": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "POP7": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "POP8": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  },
+  "POP9": {
+    "_comment": "POP Series promo packs: 3 cards.",
+    "slots": {
+      "common": 2,
+      "uncommon": 0,
+      "reverse_holo": 0,
+      "hit": 1
+    }
+  }
+}

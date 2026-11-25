@@ -38,12 +38,12 @@ class DataSyncIntegrationTest {
             s.setSoTimeout(5000);
             DataInputStream in = new DataInputStream(s.getInputStream());
             send(s, "AuthenticateGASAuthToken", Map.of("userID", "ash", "token", "pw"), 1);
-            for (int i = 0; i < 11; i++) read(in); // login burst
+            for (int i = 0; i < 12; i++) read(in); // login burst
 
             send(s, "GetWallet", Map.of(), 2);
             JsonNode wallet = read(in);
             assertEquals("CurrentWallet", wallet.get("name").asText());
-            assertEquals(1000, wallet.get("value").get("currencies").get(0).get("value").asInt());
+            assertEquals(1100, wallet.get("value").get("currencies").get(0).get("value").asInt(), "1000 starting tokens + the 100-token first daily login reward");
 
             // New deck: nil id gets a fresh guid, cosmetic defaults and VALID_FORMATS are added.
             send(s, "CakeSaveDeck", Map.of("deck", Map.of("deckID", DataSyncHandler.NIL_GUID, "deckName", "Mine",
