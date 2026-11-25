@@ -85,6 +85,32 @@ public final class Database {
                         review INTEGER NOT NULL DEFAULT 0,
                         PRIMARY KEY (account_id, archetype_id)
                     )""");
+            // Social + trade tables: same schema as the Python SQLAlchemy models (friends, trade_offers).
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS friends (
+                        account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
+                        friend_id VARCHAR NOT NULL REFERENCES accounts (account_id),
+                        status INTEGER NOT NULL,
+                        PRIMARY KEY (account_id, friend_id)
+                    )""");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_friends_friend_id ON friends (friend_id)");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS trade_offers (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        offer_id VARCHAR NOT NULL UNIQUE,
+                        sender_id VARCHAR NOT NULL,
+                        recipient_id VARCHAR,
+                        offering_json TEXT NOT NULL,
+                        requesting_json TEXT NOT NULL,
+                        status VARCHAR NOT NULL DEFAULT 'open',
+                        accepted_by VARCHAR,
+                        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                    )""");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_sender_id ON trade_offers (sender_id)");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_recipient_id ON trade_offers (recipient_id)");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_created ON trade_offers (status, created_at)");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_recipient ON trade_offers (status, recipient_id)");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_sender ON trade_offers (status, sender_id)");
         }
     }
 }
