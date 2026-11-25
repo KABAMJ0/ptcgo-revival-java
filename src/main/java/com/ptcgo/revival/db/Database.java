@@ -162,6 +162,7 @@ public final class Database {
             st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_recipient ON trade_offers (status, recipient_id)");
             st.execute("CREATE INDEX IF NOT EXISTS ix_trade_offers_status_sender ON trade_offers (status, sender_id)");
             com.ptcgo.revival.shop.ShopSchema.create(st); // shop_items, redemption codes, product claims
+            TournamentSchema.create(st); // async_tournaments, tournament_entries, tournament_leaderboard_claims
         }
     }
 
