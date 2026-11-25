@@ -60,6 +60,7 @@ public final class VersusModule {
         com.ptcgo.revival.game.effects.BatchOneAttacks.register(r);
         com.ptcgo.revival.game.effects.BatchTwoAttacks.register(r);
         com.ptcgo.revival.game.effects.GeneratedStandardBatch.register(r);
+        com.ptcgo.revival.game.effects.GeneratedStandardBatch2.register(r);
         return r;
     }
 
