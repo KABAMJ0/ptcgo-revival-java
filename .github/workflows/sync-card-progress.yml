@@ -1,0 +1,53 @@
+name: Sync card progress image
+
+# The card-import progress image is rendered by CI in the Python repo (KABAMJ0/ptcgo-revival). Both repos are
+# private, so the README cannot hotlink it: this job copies gallery/progress.svg over.
+#
+# One-time setup: create a fine-grained personal access token with read access to "Contents" on
+# KABAMJ0/ptcgo-revival and save it in THIS repo as the secret PYTHON_REPO_TOKEN. Without the secret the job
+# does nothing, and the committed copy simply stays as it is.
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-card-progress
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch progress.svg from the Python repo
+        env:
+          GH_TOKEN: ${{ secrets.PYTHON_REPO_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::notice::PYTHON_REPO_TOKEN is not set; keeping the committed gallery/progress.svg"
+            exit 0
+          fi
+          mkdir -p gallery
+          gh api -H "Accept: application/vnd.github.raw" \
+            repos/KABAMJ0/ptcgo-revival/contents/gallery/progress.svg > gallery/progress.svg.new
+          # refuse to replace the image with anything that is not an SVG (e.g. an API error body)
+          head -c 200 gallery/progress.svg.new | grep -q "<svg" && mv gallery/progress.svg.new gallery/progress.svg \
+            || { echo "::error::downloaded file is not an SVG"; rm -f gallery/progress.svg.new; exit 1; }
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gallery/progress.svg
+          if git diff --cached --quiet; then
+            echo "No change"
+          else
+            git commit -m "CHORE: update card progress image"
+            git push
+          fi

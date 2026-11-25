@@ -3,6 +3,10 @@
 Java 21 port of the Python PTCGO revival server ([ptcgo-revival](https://github.com/KABAMJ0/ptcgo-revival)),
 which emulates the discontinued Pokémon TCG Online server for an existing client.
 
+![Card support progress](gallery/progress.svg)
+
+*Card-script progress of the [Python server](https://github.com/KABAMJ0/ptcgo-revival), whose card data this server serves. The image is synced from that repo (see `.github/workflows/sync-card-progress.yml`). Card **effects** are not ported to Java yet: the Java match engine will run attacks as printed damage only until they are.*
+
 ## Status: stage 8 (login, player data, catalogue, deck rules, quests, ladder, social, trade, shop, packs)
 
 | Area | State |
