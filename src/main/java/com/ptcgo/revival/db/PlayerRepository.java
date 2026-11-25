@@ -30,6 +30,11 @@ public final class PlayerRepository {
         this.db = db;
     }
 
+    /** The database this repository works on (lets the social/trade modules share it without touching Services). */
+    public Database database() {
+        return db;
+    }
+
     public record Wallet(int coins, int gems, int tickets) {}
 
     public record DeckRow(String id, String accountId, String name, JsonNode deckData, boolean avatar,
