@@ -1,0 +1,253 @@
+{
+  "description": "Standard-legal SV-era attacks (sets SV5 onward) whose every attack uses only helpers the translator models. Top 40 by printing frequency (one printing per Pokemon and attack, latest set kept); entries in skipped name keyword forms the emitter does not model.",
+  "selection": "see tools/translator/VERIFY_STANDARD.md",
+  "cards": [
+    {
+      "file": "SV8PT5/Munkidori_44.py",
+      "attacks": [
+        "Mind Bend"
+      ]
+    },
+    {
+      "file": "SV8/Miloticex_42.py",
+      "attacks": [
+        "Hypno Splash"
+      ]
+    },
+    {
+      "file": "SV7/Dachsbunex_67.py",
+      "attacks": [
+        "Wonder Shine"
+      ]
+    },
+    {
+      "file": "SV8PT5/Cottonee_7.py",
+      "attacks": [
+        "Triple Spin"
+      ]
+    },
+    {
+      "file": "SV8PT5/Eevee_74.py",
+      "attacks": [
+        "Reckless Charge"
+      ]
+    },
+    {
+      "file": "SV8/Clobbopus_207.py",
+      "attacks": [
+        "Slight Intrusion"
+      ]
+    },
+    {
+      "file": "SV8/Spheal_43.py",
+      "attacks": [
+        "Powder Snow"
+      ]
+    },
+    {
+      "file": "SV7/Turtonator_25.py",
+      "attacks": [
+        "Inferno Onrush"
+      ]
+    },
+    {
+      "file": "SV6PT5/TapuBulu_65.py",
+      "attacks": [
+        "Wood Hammer"
+      ]
+    },
+    {
+      "file": "SV6/Heliolisk_71.py",
+      "attacks": [
+        "Wild Charge"
+      ]
+    },
+    {
+      "file": "SV6/Wattrel_75.py",
+      "attacks": [
+        "Thunder Shock"
+      ]
+    },
+    {
+      "file": "SV5/Incineroarex_34.py",
+      "attacks": [
+        "Blaze Blast"
+      ]
+    },
+    {
+      "file": "SV5/Litten_32.py",
+      "attacks": [
+        "Fake Out"
+      ]
+    },
+    {
+      "file": "SV5/Snom_45.py",
+      "attacks": [
+        "Powder Snow"
+      ]
+    },
+    {
+      "file": "SV10/Arrokuda_62.py",
+      "attacks": [
+        "Reckless Charge"
+      ]
+    },
+    {
+      "file": "SV10/ArvensToedscool_109.py",
+      "attacks": [
+        "Slight Intrusion"
+      ]
+    },
+    {
+      "file": "SV10/Meditite_99.py",
+      "attacks": [
+        "Steady Punch"
+      ]
+    },
+    {
+      "file": "SV10/MistysStaryu_46.py",
+      "attacks": [
+        "Bubble Beam"
+      ]
+    },
+    {
+      "file": "SV10/Ponyta_29.py",
+      "attacks": [
+        "Double Headbutt"
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsDrowzee_79.py",
+      "attacks": [
+        "Hypnotic Ray"
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsFlaaffy_73.py",
+      "attacks": [
+        "Thunder Shock"
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsGolbat_121.py",
+      "attacks": [
+        "Confuse Ray"
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsRattata_147.py",
+      "attacks": [
+        "Dangerous Incisors"
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsTarountula_19.py",
+      "attacks": [
+        "Take Down"
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsZubat_120.py",
+      "attacks": [
+        "Poison Spray"
+      ]
+    },
+    {
+      "file": "SV9/AlolanGolem_46.py",
+      "attacks": [
+        "Megaton Fall"
+      ]
+    },
+    {
+      "file": "SV9/Amoongussex_11.py",
+      "attacks": [
+        "Spore Ball",
+        "Champignon's Swing"
+      ]
+    },
+    {
+      "file": "SV9/Foongus_10.py",
+      "attacks": [
+        "Spore Ball"
+      ]
+    },
+    {
+      "file": "SV9/HopsSnorlax_117.py",
+      "attacks": [
+        "Dynamic Press"
+      ]
+    },
+    {
+      "file": "SV9/IonosWattrel_54.py",
+      "attacks": [
+        "Quick Attack"
+      ]
+    },
+    {
+      "file": "SV9/Magmar_20.py",
+      "attacks": [
+        "Searing Flame"
+      ]
+    },
+    {
+      "file": "SV9/Magmortar_21.py",
+      "attacks": [
+        "Searing Flame"
+      ]
+    },
+    {
+      "file": "SV9/NsKlink_103.py",
+      "attacks": [
+        "Double Spin"
+      ]
+    },
+    {
+      "file": "SV9/Noivern_128.py",
+      "attacks": [
+        "Frightening Howl"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "file": "SV8/Shiinotic_9.py",
+      "attacks": [
+        "Spiral Rush"
+      ],
+      "python_effect": "flip_damage(until_tails=True, bonus_per_heads=30)",
+      "reason": "flip_damage(until_tails=True, bonus_per_heads=30): until_tails and bonus_per_heads are not modelled"
+    },
+    {
+      "file": "SV7/Turtonator_25.py",
+      "attacks": [
+        "Ring of Fire"
+      ],
+      "python_effect": "condition_attack(SpecialConditions.BURNED, no_retreat=True)",
+      "reason": "condition_attack(BURNED, no_retreat=True): no_retreat is not modelled"
+    },
+    {
+      "file": "SV10/Mudbray_107.py",
+      "attacks": [
+        "Running Charge"
+      ],
+      "python_effect": "flip_damage(per_heads=40, until_tails=True)",
+      "reason": "flip_damage(per_heads=40, until_tails=True): until_tails is not modelled"
+    },
+    {
+      "file": "SV9/AlolanGolem_46.py",
+      "attacks": [
+        "Electromagnetic Catapult"
+      ],
+      "python_effect": "flip_damage(per_heads=70, until_tails=True)",
+      "reason": "flip_damage(per_heads=70, until_tails=True): until_tails is not modelled"
+    },
+    {
+      "file": "SV9/Cramorant_137.py",
+      "attacks": [
+        "Ceaseless Spitting"
+      ],
+      "python_effect": "flip_damage(per_heads=50, until_tails=True)",
+      "reason": "flip_damage(per_heads=50, until_tails=True): until_tails is not modelled"
+    }
+  ]
+}

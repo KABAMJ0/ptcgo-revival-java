@@ -34,11 +34,20 @@ python3 tools/translator/emit_java.py --ir tools/translator/ir/batch_one.json \
 The IR is committed, so the Java side can be regenerated without the Python checkout. Re-running the dump is only
 needed when a Python card script changes.
 
+## Standard batch
+
+`manifests/standard_batch.json` (generated class `GeneratedStandardBatch.java`) covers the top 40 SV5+ attacks that use only
+the modelled helpers; 5 are skipped for unmodelled keywords (listed in the manifest `skipped` key). Run the same two steps with
+`--class-name GeneratedStandardBatch --summary ... --scope standard-batch` on `emit_java.py`. Verification notes are in
+`VERIFY_STANDARD.md`. There is no hand port, so the check is the reading in that file plus `GeneratedStandardBatchTest`.
+
 ## Files
 
 - `dump_ast.py`: Python AST to IR.
 - `emit_java.py`: IR to `GeneratedBatchOne.java`.
 - `manifests/batch_one.json`: which card files and attack titles to translate.
+- `manifests/standard_batch.json`: the standard batch (with the `skipped` list and reasons).
+- `VERIFY_STANDARD.md`: Python-to-Java comparison table for the standard batch.
 - `ir/batch_one.json`: the committed IR.
 
 ## Verification

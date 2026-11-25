@@ -1,0 +1,1203 @@
+{
+  "source_format": 1,
+  "cards": [
+    {
+      "file": "SV8PT5/Munkidori_44.py",
+      "guid": "54a4b752-7c1c-5a7c-98c7-9c721c8f2ebf",
+      "set_code": "SV8PT5",
+      "collector_number": 44,
+      "display_name": "Munkidori",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Mind Bend",
+          "damage": 60,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Confused.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "PSYCHIC",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "CONFUSED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "85ea2db1-d47b-57d2-90d7-5883969c1ed5"
+        }
+      ]
+    },
+    {
+      "file": "SV8/Miloticex_42.py",
+      "guid": "db5a1b52-319d-55cb-8b9d-139df20a3ec0",
+      "set_code": "SV8",
+      "collector_number": 42,
+      "display_name": "Milotic ex",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Hypno Splash",
+          "damage": 160,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Asleep.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "WATER",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "ASLEEP"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "999fc952-126b-52fc-92ac-c07317925660"
+        }
+      ]
+    },
+    {
+      "file": "SV7/Dachsbunex_67.py",
+      "guid": "84053c1f-d5ef-5d15-b0e4-e2dfd244bfc9",
+      "set_code": "SV7",
+      "collector_number": 67,
+      "display_name": "Dachsbun ex",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Wonder Shine",
+          "damage": 130,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Confused.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "CONFUSED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "313a88d7-70e5-52dc-aa25-dfd73c5b3e07"
+        }
+      ]
+    },
+    {
+      "file": "SV8PT5/Cottonee_7.py",
+      "guid": "677ee6d6-2ff7-5808-81ae-efc65ce115eb",
+      "set_code": "SV8PT5",
+      "collector_number": 7,
+      "display_name": "Cottonee",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Triple Spin",
+          "damage": 10,
+          "damage_operator": "x",
+          "game_text": "Flip 3 coins. This attack does 10 damage for each heads.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "GRASS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_damage",
+            "args": [],
+            "kwargs": {
+              "coins": 3,
+              "per_heads": 10
+            }
+          },
+          "ability_id": "dfccf7bd-f8e5-545a-aeb0-9d7db400f889"
+        }
+      ]
+    },
+    {
+      "file": "SV8PT5/Eevee_74.py",
+      "guid": "13d4d101-b9c1-5513-9f82-93e404f9d87e",
+      "set_code": "SV8PT5",
+      "collector_number": 74,
+      "display_name": "Eevee",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Reckless Charge",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 10 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              10
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "1604d4ab-69d8-5d56-a93f-17b5ef61f316"
+        }
+      ]
+    },
+    {
+      "file": "SV8/Clobbopus_207.py",
+      "guid": "fcd64b37-edfd-567d-a637-99fa9d9c39db",
+      "set_code": "SV8",
+      "collector_number": 207,
+      "display_name": "Clobbopus",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Slight Intrusion",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 10 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIGHTING",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              10
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "12e5a5b6-2e84-54e7-98a8-0f87f78391a5"
+        }
+      ]
+    },
+    {
+      "file": "SV8/Spheal_43.py",
+      "guid": "55e61d4a-6103-5ede-83f2-f5cc52abf51d",
+      "set_code": "SV8",
+      "collector_number": 43,
+      "display_name": "Spheal",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Powder Snow",
+          "damage": 10,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Asleep.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "WATER",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "ASLEEP"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "3b42e9bc-f653-5d0d-9722-cb8ed8d1ebe3"
+        }
+      ]
+    },
+    {
+      "file": "SV7/Turtonator_25.py",
+      "guid": "3873c47d-82ae-58c4-96c8-a820b97a0603",
+      "set_code": "SV7",
+      "collector_number": 25,
+      "display_name": "Turtonator",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Inferno Onrush",
+          "damage": 180,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 60 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIRE",
+              "count": 2
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              60
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "564e61aa-4368-5101-97a0-8678cbbacf37"
+        }
+      ]
+    },
+    {
+      "file": "SV6PT5/TapuBulu_65.py",
+      "guid": "f3775656-febd-5ac3-b9e2-2281e55b2deb",
+      "set_code": "SV6PT5",
+      "collector_number": 65,
+      "display_name": "Tapu Bulu",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Wood Hammer",
+          "damage": 220,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 30 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "GRASS",
+              "count": 2
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 2
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              30
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "227e22e3-c27c-50ca-9303-3fd87d082398"
+        }
+      ]
+    },
+    {
+      "file": "SV6/Heliolisk_71.py",
+      "guid": "363afd3e-46a0-596b-a42a-45abe4346aae",
+      "set_code": "SV6",
+      "collector_number": 71,
+      "display_name": "Heliolisk",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Wild Charge",
+          "damage": 70,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 20 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "LIGHTNING",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              20
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "de337e54-c360-5010-8103-397b899c0a15"
+        }
+      ]
+    },
+    {
+      "file": "SV6/Wattrel_75.py",
+      "guid": "d9e2b454-6d86-5ce3-ba57-816758905b09",
+      "set_code": "SV6",
+      "collector_number": 75,
+      "display_name": "Wattrel",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Thunder Shock",
+          "damage": 10,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "LIGHTNING",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "PARALYZED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "bc2ee4e4-41a0-54c5-b9da-ff324a33365d"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Incineroarex_34.py",
+      "guid": "0eb355a7-6855-50a7-9caf-1c3e7f302718",
+      "set_code": "SV5",
+      "collector_number": 34,
+      "display_name": "Incineroar ex",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Blaze Blast",
+          "damage": 240,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Burned.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIRE",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 4
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "BURNED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "f7524cd3-18fc-5b37-9baa-1ccae536e490"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Litten_32.py",
+      "guid": "3374bac7-3f5b-5b08-9d30-04b93205e41e",
+      "set_code": "SV5",
+      "collector_number": 32,
+      "display_name": "Litten",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Fake Out",
+          "damage": 10,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIRE",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "PARALYZED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "44e156f0-4f7f-512f-a17c-2ef2f91eb933"
+        }
+      ]
+    },
+    {
+      "file": "SV5/Snom_45.py",
+      "guid": "47d25a44-0d82-59b2-b678-04ecce32dee1",
+      "set_code": "SV5",
+      "collector_number": 45,
+      "display_name": "Snom",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Powder Snow",
+          "damage": 10,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Asleep.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "WATER",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "ASLEEP"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "bff65f7a-f982-5cd2-a0be-c173ce46420a"
+        }
+      ]
+    },
+    {
+      "file": "SV10/Arrokuda_62.py",
+      "guid": "d4601a81-9531-5728-868c-7febaed663f6",
+      "set_code": "SV10",
+      "collector_number": 62,
+      "display_name": "Arrokuda",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Reckless Charge",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 10 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "WATER",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              10
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "9f0ad26a-9ab1-5586-89ae-bd67a17bed0d"
+        }
+      ]
+    },
+    {
+      "file": "SV10/ArvensToedscool_109.py",
+      "guid": "594eb601-40ef-5f42-aed0-5cb61c8ffa77",
+      "set_code": "SV10",
+      "collector_number": 109,
+      "display_name": "Arven's Toedscool",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Slight Intrusion",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 10 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              10
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "a6a6e0c1-9bbd-5703-89a6-5348af832f15"
+        }
+      ]
+    },
+    {
+      "file": "SV10/Meditite_99.py",
+      "guid": "6540595d-c246-53a1-9ae3-f05a47c38caf",
+      "set_code": "SV10",
+      "collector_number": 99,
+      "display_name": "Meditite",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Steady Punch",
+          "damage": 10,
+          "damage_operator": "+",
+          "game_text": "Flip a coin. If heads, this attack does 20 more damage.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIGHTING",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_bonus",
+            "args": [
+              20
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "dcd757bc-032b-5ed2-8e9f-f6e9feba1474"
+        }
+      ]
+    },
+    {
+      "file": "SV10/MistysStaryu_46.py",
+      "guid": "257c9d03-697f-5e93-b2fc-8ec2dcb26110",
+      "set_code": "SV10",
+      "collector_number": 46,
+      "display_name": "Misty's Staryu",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Bubble Beam",
+          "damage": 20,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "WATER",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "PARALYZED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "9f2e4e35-bce4-5a04-822e-8b807f48f7e1"
+        }
+      ]
+    },
+    {
+      "file": "SV10/Ponyta_29.py",
+      "guid": "6848812b-457e-5638-9491-7f76cf1e2c3b",
+      "set_code": "SV10",
+      "collector_number": 29,
+      "display_name": "Ponyta",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Double Headbutt",
+          "damage": 10,
+          "damage_operator": "x",
+          "game_text": "Flip 2 coins. This attack does 10 damage for each heads.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_damage",
+            "args": [],
+            "kwargs": {
+              "coins": 2,
+              "per_heads": 10
+            }
+          },
+          "ability_id": "a1678ee0-73e0-5987-8bf8-36ec16dbdb6f"
+        }
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsDrowzee_79.py",
+      "guid": "9a9fb0c2-8794-55d6-ab17-6379304ac95a",
+      "set_code": "SV10",
+      "collector_number": 79,
+      "display_name": "Team Rocket's Drowzee",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Hypnotic Ray",
+          "damage": 10,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Asleep.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "PSYCHIC",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "ASLEEP"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "3a82dfb3-be95-5685-8439-2e6b55a8aafe"
+        }
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsFlaaffy_73.py",
+      "guid": "c59b1b28-6e50-5130-9bce-87a678d7c2e1",
+      "set_code": "SV10",
+      "collector_number": 73,
+      "display_name": "Team Rocket's Flaaffy",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Thunder Shock",
+          "damage": 50,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "LIGHTNING",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "PARALYZED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "fbfa65ec-9bea-5b46-8b80-17ff3b382fb1"
+        }
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsGolbat_121.py",
+      "guid": "207c105a-0e42-51b7-855f-0b15a633ab7d",
+      "set_code": "SV10",
+      "collector_number": 121,
+      "display_name": "Team Rocket's Golbat",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Confuse Ray",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Confused.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "DARKNESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "CONFUSED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "1b270413-a555-535f-beba-081cb9edbe02"
+        }
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsRattata_147.py",
+      "guid": "d89be7f3-3c7f-57be-887b-9393bc692953",
+      "set_code": "SV10",
+      "collector_number": 147,
+      "display_name": "Team Rocket's Rattata",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Dangerous Incisors",
+          "damage": 10,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Poisoned.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "POISONED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "0c20b2b3-920e-5e73-9a0e-8d17d9d1d76f"
+        }
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsTarountula_19.py",
+      "guid": "9ea24678-7df4-5015-b319-df0579bc7a87",
+      "set_code": "SV10",
+      "collector_number": 19,
+      "display_name": "Team Rocket's Tarountula",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Take Down",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 10 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "GRASS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              10
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "777b9889-ea06-5653-9dc9-98cb12ea1a1a"
+        }
+      ]
+    },
+    {
+      "file": "SV10/TeamRocketsZubat_120.py",
+      "guid": "efd62421-7a58-516c-8715-bf464b7cf8d4",
+      "set_code": "SV10",
+      "collector_number": 120,
+      "display_name": "Team Rocket's Zubat",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Poison Spray",
+          "damage": 0,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Poisoned.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "DARKNESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "POISONED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "85ae1ffd-7669-50ba-a143-af6efeeb0151"
+        }
+      ]
+    },
+    {
+      "file": "SV9/AlolanGolem_46.py",
+      "guid": "655ee589-9cdf-5a42-bdc3-441b825eb76d",
+      "set_code": "SV9",
+      "collector_number": 46,
+      "display_name": "Alolan Golem",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Megaton Fall",
+          "damage": 160,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 40 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "LIGHTNING",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              40
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "c1af562f-e0c5-5c92-933e-33db55e8e60d"
+        }
+      ]
+    },
+    {
+      "file": "SV9/Amoongussex_11.py",
+      "guid": "a65caa4c-d5c6-5121-a42e-811e980a8483",
+      "set_code": "SV9",
+      "collector_number": 11,
+      "display_name": "Amoonguss ex",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Spore Ball",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Asleep.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "GRASS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "ASLEEP"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "e9406cae-bce8-50e2-acc4-e965cd8f97ac"
+        },
+        {
+          "slot": 1,
+          "title": "Champignon's Swing",
+          "damage": 100,
+          "damage_operator": "+",
+          "game_text": "Flip a coin. If heads, this attack does 80 more damage.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "GRASS",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_bonus",
+            "args": [
+              80
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "7d23f467-ccc9-5adf-8f87-4ac88da274e9"
+        }
+      ]
+    },
+    {
+      "file": "SV9/Foongus_10.py",
+      "guid": "a0294cf5-37db-5cce-bc5d-e60470575fbf",
+      "set_code": "SV9",
+      "collector_number": 10,
+      "display_name": "Foongus",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Spore Ball",
+          "damage": 10,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Asleep.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "GRASS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "ASLEEP"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "b7c6b41a-3829-55b5-94d3-d262a6091a74"
+        }
+      ]
+    },
+    {
+      "file": "SV9/HopsSnorlax_117.py",
+      "guid": "43304079-4772-5728-977c-8b1d78dd81c9",
+      "set_code": "SV9",
+      "collector_number": 117,
+      "display_name": "Hop's Snorlax",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Dynamic Press",
+          "damage": 140,
+          "damage_operator": "",
+          "game_text": "This Pokémon also does 80 damage to itself.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 3
+            }
+          ],
+          "effect": {
+            "name": "recoil_attack",
+            "args": [
+              80
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "3e35a9d6-7e1f-5e96-9c3f-60b2bf09f3ab"
+        }
+      ]
+    },
+    {
+      "file": "SV9/IonosWattrel_54.py",
+      "guid": "aa3176f0-3ce1-5a3a-b21e-00d904f532cc",
+      "set_code": "SV9",
+      "collector_number": 54,
+      "display_name": "Iono's Wattrel",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Quick Attack",
+          "damage": 10,
+          "damage_operator": "+",
+          "game_text": "Flip a coin. If heads, this attack does 20 more damage.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "LIGHTNING",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_bonus",
+            "args": [
+              20
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "5d988a2e-5dd1-5022-afbe-bebcfbd97ec5"
+        }
+      ]
+    },
+    {
+      "file": "SV9/Magmar_20.py",
+      "guid": "ff5653c4-9dc0-5866-b979-ecc51fb393d6",
+      "set_code": "SV9",
+      "collector_number": 20,
+      "display_name": "Magmar",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Searing Flame",
+          "damage": 30,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Burned.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIRE",
+              "count": 1
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "BURNED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "93419f58-df6d-557f-99a3-9732010c95a4"
+        }
+      ]
+    },
+    {
+      "file": "SV9/Magmortar_21.py",
+      "guid": "fa122deb-250a-5d42-8866-501a3e27489b",
+      "set_code": "SV9",
+      "collector_number": 21,
+      "display_name": "Magmortar",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Searing Flame",
+          "damage": 90,
+          "damage_operator": "",
+          "game_text": "Flip a coin. If heads, your opponent's Active Pokémon is now Burned.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "FIRE",
+              "count": 2
+            },
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "BURNED"
+              }
+            ],
+            "kwargs": {
+              "flip": true
+            }
+          },
+          "ability_id": "62691c1b-4422-511a-ac88-7dc0cdcf6029"
+        }
+      ]
+    },
+    {
+      "file": "SV9/NsKlink_103.py",
+      "guid": "7c5a4b23-6471-5c57-b0bb-6818290db749",
+      "set_code": "SV9",
+      "collector_number": 103,
+      "display_name": "N's Klink",
+      "attacks": [
+        {
+          "slot": 0,
+          "title": "Double Spin",
+          "damage": 10,
+          "damage_operator": "x",
+          "game_text": "Flip 2 coins. This attack does 10 damage for each heads.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 1
+            }
+          ],
+          "effect": {
+            "name": "flip_damage",
+            "args": [],
+            "kwargs": {
+              "coins": 2,
+              "per_heads": 10
+            }
+          },
+          "ability_id": "73a53a95-c8ae-5dbf-8e91-9f41616f349c"
+        }
+      ]
+    },
+    {
+      "file": "SV9/Noivern_128.py",
+      "guid": "12ecc271-2cf7-55a4-b527-5b188e615600",
+      "set_code": "SV9",
+      "collector_number": 128,
+      "display_name": "Noivern",
+      "attacks": [
+        {
+          "slot": 1,
+          "title": "Frightening Howl",
+          "damage": 110,
+          "damage_operator": "",
+          "game_text": "Your opponent's Active Pokémon is now Confused.",
+          "cost": [
+            {
+              "enum": "PokemonTypes",
+              "member": "COLORLESS",
+              "count": 3
+            }
+          ],
+          "effect": {
+            "name": "condition_attack",
+            "args": [
+              {
+                "enum": "SpecialConditions",
+                "member": "CONFUSED"
+              }
+            ],
+            "kwargs": {}
+          },
+          "ability_id": "727adb91-1550-5cd9-b5c3-c72429dcc05d"
+        }
+      ]
+    }
+  ]
+}
