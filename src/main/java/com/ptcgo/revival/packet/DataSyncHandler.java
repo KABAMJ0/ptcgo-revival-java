@@ -60,8 +60,11 @@ public final class DataSyncHandler implements PacketHandler {
         m.put("GetArchetypeCorrections", (c, v, rid, f) -> c.send("ArchetypeCorrections", Map.of("corrections", List.of()), rid));
         m.put("AcknowledgeNotification", (c, v, rid, f) -> LOG.info("[TCP] [{}] Acknowledged notification {}",
                 c.remoteAddress(), v == null ? null : v.path("notificationID").asText()));
-        m.put("UserHasVisitedScene", (c, v, rid, f) -> LOG.info("[TCP] [{}] Visited scene {}",
-                c.remoteAddress(), v == null ? null : v.path("sceneName").asText()));
+        m.put("UserHasVisitedScene", (c, v, rid, f) -> {
+            String scene = v == null ? null : v.path("sceneName").asText();
+            c.state().lastScene = scene;
+            LOG.info("[TCP] [{}] Visited scene {}", c.remoteAddress(), scene);
+        });
         return m;
     }
 

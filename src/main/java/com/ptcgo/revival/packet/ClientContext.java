@@ -34,5 +34,11 @@ public interface ClientContext {
         send(messageName, payload, requestId, 0);
     }
 
+    /** Send an already-encoded body (e.g. a protobuf frame); it is compressed if {@code flags} says so. */
+    void sendRaw(byte[] body, int requestId, int flags);
+
+    /** Per-connection sync bookkeeping. */
+    ClientState state();
+
     void close();
 }

@@ -10,9 +10,11 @@ import com.ptcgo.revival.http.HttpApp;
 import com.ptcgo.revival.net.ClientRegistry;
 import com.ptcgo.revival.net.GameServer;
 import com.ptcgo.revival.packet.AuthHandler;
+import com.ptcgo.revival.packet.CatalogHandler;
 import com.ptcgo.revival.packet.DataSyncHandler;
 import com.ptcgo.revival.packet.HandshakeHandler;
 import com.ptcgo.revival.packet.PacketRouter;
+import com.ptcgo.revival.packet.StaticDataHandler;
 import com.ptcgo.revival.tls.TlsContexts;
 
 import java.util.List;
@@ -37,7 +39,8 @@ public final class Main {
         }
         Services services = new Services(cfg, accounts, new PlayerRepository(db), new CasTickets(), new ClientRegistry(),
                 Catalog.load(cfg.catalogDir), DeckValidator.PERMISSIVE);
-        PacketRouter router = new PacketRouter(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler()));
+        PacketRouter router = new PacketRouter(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler(),
+                new CatalogHandler(), new StaticDataHandler()));
         try (HttpApp http = new HttpApp(services);
              GameServer game = new GameServer(services, router, TlsContexts.serverContext(cfg))) {
             http.start(cfg.httpPort);

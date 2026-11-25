@@ -40,4 +40,14 @@ class CatalogTest {
         assertTrue(c.size() > 20_000);
         assertEquals(177, c.setCodes().size());
     }
+
+    /** Opt-in cross-check helper: mvn test -Dcatalog.dir=... -Dcatalog.dumpKey=SWSH9 -Dcatalog.dumpOut=/tmp/x.bin */
+    @Test
+    @EnabledIfSystemProperty(named = "catalog.dumpKey", matches = ".+")
+    void dumpsEncodedKey() throws Exception {
+        Catalog c = Catalog.load(Path.of(System.getProperty("catalog.dir")));
+        String key = System.getProperty("catalog.dumpKey");
+        byte[] found = ArchetypeEncoder.found(c.encoder().cardArchetypes(key), java.util.List.of(), "chk", key);
+        Files.write(Path.of(System.getProperty("catalog.dumpOut")), found);
+    }
 }

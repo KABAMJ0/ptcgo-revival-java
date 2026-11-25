@@ -3,7 +3,7 @@
 Java 21 port of the Python PTCGO revival server ([ptcgo-revival](https://github.com/KABAMJ0/ptcgo-revival)),
 which emulates the discontinued Pokémon TCG Online server for an existing client.
 
-## Status: stage 3 (login, player data, card catalogue)
+## Status: stage 4 (login, player data, catalogue download)
 
 | Area | State |
 | --- | --- |
@@ -15,9 +15,11 @@ which emulates the discontinued Pokémon TCG Online server for an existing clien
 | SQLite `accounts` table, same schema/file and SHA-256 password hash as the Python server | done |
 | Versus season, daily login, quests, reconnect-to-game, presence, starter content for new accounts | not ported |
 | Wallet, collection, archetype flags, decks (list/save/delete), account settings; same tables as the Python DB | done, tested |
-| Card catalogue loader (JSON exported from the Python server, 20,483 cards loads in ~1 s) | done; not yet served to the client |
+| Card/product catalogue loader (JSON exported from the Python server; 20,483 cards load in ~1 s) | done |
+| Catalogue download: `GetProtobufArchetypesList` (protobuf `ArchetypesFound`, per-connection dedup, product key rule); encoder verified byte-for-byte against the Python protobuf runtime and against a whole real set | done |
+| Static data: archetype keys, set data, family maps, format legality, localizations (48k strings), MOTD, feature flags, dynamic versions, time-locked archetypes, avatar items | done (served from exported payloads) |
 | Deck validation (format legality, copy limits) | stub: every deck reports only `Unlimited` (`DeckValidator`) |
-| Archetype/set downloads (protobuf), dynamic pages, notifications, MOTD, shop, social, trade, tournaments, league | not ported |
+| Dynamic pages, notifications, banned cards (served empty), shop, social, trade, tournaments, league, tutorial, quests | not ported |
 | MariaDB/MySQL support | not ported |
 | Protobuf messages (`.proto` sources live in the Python repo) | not ported |
 | Bundle manifest builder (`*.manifest`, `manifest.version`) | not ported |
@@ -50,7 +52,7 @@ PYTHONPATH=. ./venv/bin/python tools/export_catalog.py --out ../catalog-export
 PTCGO_CATALOG_DIR=../catalog-export java -jar target/ptcgo-revival-0.1.0-SNAPSHOT.jar
 ```
 
-The export (~85 MB) is not committed. Card *effects* are code and are not part of it; they belong to the match-engine stage.
+The export (~100 MB, `cards/`, `products.json` and `payloads/`) is not committed. Card *effects* are code and are not part of it; they belong to the match-engine stage.
 `mvn test -Dcatalog.dir=<export>` also runs a load check against the full export.
 
 ## Configuration

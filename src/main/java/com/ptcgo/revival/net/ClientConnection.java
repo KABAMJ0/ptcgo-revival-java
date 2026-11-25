@@ -5,6 +5,7 @@ import com.ptcgo.revival.Config;
 import com.ptcgo.revival.Services;
 import com.ptcgo.revival.db.Account;
 import com.ptcgo.revival.packet.ClientContext;
+import com.ptcgo.revival.packet.ClientState;
 import com.ptcgo.revival.packet.PacketRouter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public final class ClientConnection implements ClientContext, Runnable {
     private final String sessionId = UUID.randomUUID().toString(); // must parse as a C# Guid
     private final AtomicBoolean closed = new AtomicBoolean();
     private final Object writeLock = new Object();
+    private final ClientState state = new ClientState();
     private final Runnable onClose;
 
     private volatile Account account; // set by the auth handler once login lands
@@ -121,9 +123,22 @@ public final class ClientConnection implements ClientContext, Runnable {
     }
 
     @Override
+    public ClientState state() {
+        return state;
+    }
+
+    @Override
     public void send(String messageName, Map<String, ?> payload, int requestId, int flags) {
+        writeFrame(WargCodec.frameMessage(messageName, payload, requestId, flags));
+    }
+
+    @Override
+    public void sendRaw(byte[] body, int requestId, int flags) {
+        writeFrame(WargCodec.frame(body, requestId, flags));
+    }
+
+    private void writeFrame(byte[] frame) {
         if (closed.get()) return;
-        byte[] frame = WargCodec.frameMessage(messageName, payload, requestId, flags);
         synchronized (writeLock) {
             try {
                 OutputStream out = socket.getOutputStream();

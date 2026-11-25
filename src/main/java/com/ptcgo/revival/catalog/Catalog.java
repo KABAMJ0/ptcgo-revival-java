@@ -23,12 +23,19 @@ import java.util.TreeMap;
  */
 public final class Catalog {
     private static final Logger LOG = LoggerFactory.getLogger(Catalog.class);
-    private static final ObjectMapper JSON = new ObjectMapper();
+    static final ObjectMapper JSON = new ObjectMapper();
+    public static final com.fasterxml.jackson.databind.node.JsonNodeFactory JSON_FACTORY = JSON.getNodeFactory();
 
     /** {@code wire} is the typed attribute map the client is sent ("wire_attributes", else "attributes"). */
     public record Card(String guid, String key, String displayName, String setCode, int collectorNumber, String kind,
                        JsonNode wire) {}
 
+    /** A shop/cosmetic product; {@code attributes} is the typed attribute map ("<attrId>": {"type","value"}). */
+    public record Product(String guid, String key, String kind, int productType, String name, JsonNode attributes) {}
+
+    private StaticPayloads payloads = new StaticPayloads(null);
+    private final ArchetypeEncoder encoder = new ArchetypeEncoder(this);
+    private final java.util.List<Product> products = new java.util.ArrayList<>();
     private final Map<String, Card> byGuid = new LinkedHashMap<>();
     private final Map<String, Set<String>> guidsBySet = new TreeMap<>();
 
@@ -39,6 +46,7 @@ public final class Catalog {
     /** Loads every cards/*.json under {@code dir}; a missing directory yields an empty catalogue. */
     public static Catalog load(Path dir) throws IOException {
         Catalog c = new Catalog();
+        c.payloads = new StaticPayloads(dir.resolve("payloads"));
         Path cards = dir.resolve("cards");
         if (!Files.isDirectory(cards)) {
             LOG.warn("[Catalog] {} not found; starting with an empty catalogue", cards);
@@ -58,8 +66,27 @@ public final class Catalog {
                 }
             }
         }
-        LOG.info("[Catalog] Loaded {} cards in {} sets", c.byGuid.size(), c.guidsBySet.size());
+        Path productsFile = dir.resolve("products.json");
+        if (Files.isRegularFile(productsFile)) {
+            for (JsonNode n : JSON.readTree(productsFile.toFile())) {
+                c.products.add(new Product(n.path("guid").asText(""), n.path("key").asText(""), n.path("kind").asText(""),
+                        n.path("product_type").asInt(-1), n.path("name").asText(""), n.path("attributes")));
+            }
+        }
+        LOG.info("[Catalog] Loaded {} cards in {} sets, {} products", c.byGuid.size(), c.guidsBySet.size(), c.products.size());
         return c;
+    }
+
+    public StaticPayloads payloads() {
+        return payloads;
+    }
+
+    public ArchetypeEncoder encoder() {
+        return encoder;
+    }
+
+    public java.util.List<Product> products() {
+        return products;
     }
 
     public int size() {
