@@ -15,9 +15,13 @@ reverse-engineered protocol is in its `notes/client-*.md`, and behaviour should 
 - `packet/`: `PacketRouter` dispatches the inbound `{"name","value"}` JSON envelope to `PacketHandler` groups. Add a group by implementing `PacketHandler` and listing it in `Main`.
 - `http/HttpApp`: patch/messaging manifests and static assets (`com.sun.net.httpserver`).
 - `Services` (config, accounts, CAS tickets, client registry) is passed to every connection and handler. `packet/AuthHandler` does login and the post-login message burst; `db/` is plain JDBC over the Python server's SQLite file (`Database.migrate` only creates missing tables); `auth/CasTickets` is the in-memory single-use ticket store shared with the HTTP login page.
+- `packet/DataSyncHandler` + `db/PlayerRepository`: wallet, collection, flags, decks, account settings. `catalog/Catalog` loads the Python exporter's JSON (`wire_attributes` is what the client is sent). `deck/DeckValidator` is the plug-in point for real format/copy-limit rules (currently `PERMISSIVE`).
 - `tls/TlsContexts`: builds the game-socket `SSLContext`; generates a keystore with `keytool` if missing.
 
 ## Gotchas
+- Wallet amounts are clamped to int32 (2,000,000,000): larger values make the client fail to deserialize `CurrentWallet`.
+- A deck naming a coin/sleeve/deck box the account doesn't own is rewritten to the default on save and on send, or the client can't resolve it.
+- Basic energy (`Free_Energy` set) is reported as 99 tradable copies for everyone and is not stored.
 - Passwords are unsalted SHA-256 hex on purpose: existing Python-created accounts must keep logging in.
 - `AuthenticationSuccessful` carries the full account attribute set (the client replaces its whole set on update); season/quest attributes are neutral defaults until those subsystems are ported.
 - Outbound JSON must be the JsonFx envelope `{"name": Type, "value": {...}}`, with `"value": {}` for empty messages. Send concrete types, never bare ints where the client expects an object.

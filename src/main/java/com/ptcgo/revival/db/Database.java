@@ -48,6 +48,43 @@ public final class Database {
                         settings_json TEXT,
                         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
                     )""");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS wallets (
+                        account_id VARCHAR NOT NULL PRIMARY KEY REFERENCES accounts (account_id),
+                        coins INTEGER NOT NULL DEFAULT 1000,
+                        gems INTEGER NOT NULL DEFAULT 0,
+                        tickets INTEGER NOT NULL DEFAULT 100
+                    )""");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS decks (
+                        id VARCHAR NOT NULL PRIMARY KEY,
+                        account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
+                        name VARCHAR NOT NULL,
+                        deck_data TEXT NOT NULL,
+                        is_avatar BOOLEAN NOT NULL DEFAULT 0,
+                        overall_wins INTEGER NOT NULL DEFAULT 0,
+                        overall_played INTEGER NOT NULL DEFAULT 0,
+                        wins_since_last_edit INTEGER NOT NULL DEFAULT 0,
+                        played_since_last_edit INTEGER NOT NULL DEFAULT 0
+                    )""");
+            st.execute("CREATE INDEX IF NOT EXISTS ix_decks_account_id ON decks (account_id)");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS collection (
+                        account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
+                        archetype_id VARCHAR NOT NULL,
+                        tradable_count INTEGER NOT NULL DEFAULT 0,
+                        nontradable_count INTEGER NOT NULL DEFAULT 0,
+                        PRIMARY KEY (account_id, archetype_id)
+                    )""");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS archetype_flags (
+                        account_id VARCHAR NOT NULL REFERENCES accounts (account_id),
+                        archetype_id VARCHAR NOT NULL,
+                        wanted INTEGER NOT NULL DEFAULT 0,
+                        for_trade INTEGER NOT NULL DEFAULT 0,
+                        review INTEGER NOT NULL DEFAULT 0,
+                        PRIMARY KEY (account_id, archetype_id)
+                    )""");
         }
     }
 }

@@ -3,7 +3,7 @@
 Java 21 port of the Python PTCGO revival server ([ptcgo-revival](https://github.com/KABAMJ0/ptcgo-revival)),
 which emulates the discontinued Pokémon TCG Online server for an existing client.
 
-## Status: stage 2 (core server + login)
+## Status: stage 3 (login, player data, card catalogue)
 
 | Area | State |
 | --- | --- |
@@ -14,8 +14,11 @@ which emulates the discontinued Pokémon TCG Online server for an existing clien
 | Login: GAS token (auto-register), CAS ticket + `/cas/sso/login` page, guest/mobile (opt-in), ban check, concurrent-login guard, post-login message sequence | done, integration-tested (reduced: see below) |
 | SQLite `accounts` table, same schema/file and SHA-256 password hash as the Python server | done |
 | Versus season, daily login, quests, reconnect-to-game, presence, starter content for new accounts | not ported |
-| Data sync, shop, social, trade, tournaments, league | not ported |
-| MariaDB/MySQL support, wallet/deck/collection tables, card model + loader | not ported |
+| Wallet, collection, archetype flags, decks (list/save/delete), account settings; same tables as the Python DB | done, tested |
+| Card catalogue loader (JSON exported from the Python server, 20,483 cards loads in ~1 s) | done; not yet served to the client |
+| Deck validation (format legality, copy limits) | stub: every deck reports only `Unlimited` (`DeckValidator`) |
+| Archetype/set downloads (protobuf), dynamic pages, notifications, MOTD, shop, social, trade, tournaments, league | not ported |
+| MariaDB/MySQL support | not ported |
 | Protobuf messages (`.proto` sources live in the Python repo) | not ported |
 | Bundle manifest builder (`*.manifest`, `manifest.version`) | not ported |
 | Match engine, card effects (~20k scripts), AI, admin panel | not ported |
@@ -36,11 +39,25 @@ The client checks the certificate name against the host it dials, so regenerate 
 java -jar target/ptcgo-revival-0.1.0-SNAPSHOT.jar --gen-cert play.example.com
 ```
 
+## Card catalogue
+
+Card definitions are Python scripts, so the catalogue is exported once from the Python repo and read here:
+
+```sh
+# in the ptcgo-revival (Python) checkout
+PYTHONPATH=. ./venv/bin/python tools/export_catalog.py --out ../catalog-export
+# then
+PTCGO_CATALOG_DIR=../catalog-export java -jar target/ptcgo-revival-0.1.0-SNAPSHOT.jar
+```
+
+The export (~85 MB) is not committed. Card *effects* are code and are not part of it; they belong to the match-engine stage.
+`mvn test -Dcatalog.dir=<export>` also runs a load check against the full export.
+
 ## Configuration
 
 Same variables as the Python server: `PTCGO_PUBLIC_HOST`, `PTCGO_HTTP_PORT` (8000), `PTCGO_TCP_PORT` (39389),
 `PTCGO_HTTP_BASE_URL`, `PTCGO_CLIENT_VERSION`, `PTCGO_IDLE_TIMEOUT`, `PTCGO_PREAUTH_TIMEOUT`,
 `PTCGO_MAX_DECOMPRESSED`, `PTCGO_INBOUND_RATE`, `PTCGO_INBOUND_BURST`. New: `PTCGO_ASSET_DIR` (default `assets`),
-`PTCGO_KEYSTORE`, `PTCGO_KEYSTORE_PASSWORD`, `PTCGO_DB_PATH` (default `ptcgo_server.db`), `PTCGO_ALLOW_GUESTS=1`.
+`PTCGO_KEYSTORE`, `PTCGO_KEYSTORE_PASSWORD`, `PTCGO_DB_PATH` (default `ptcgo_server.db`), `PTCGO_ALLOW_GUESTS=1`, `PTCGO_CATALOG_DIR` (default `catalog`).
 
 The client always dials 39389 directly: the game hostname must be DNS-only (not proxied) if it sits behind Cloudflare.

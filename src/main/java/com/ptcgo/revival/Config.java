@@ -21,6 +21,7 @@ public final class Config {
     public final Path dbPath = Path.of(env("PTCGO_DB_PATH", "ptcgo_server.db"));
     /** Guest / DeviceID / mobile logins create credential-less accounts; off unless PTCGO_ALLOW_GUESTS=1. */
     public final boolean allowGuests = env("PTCGO_ALLOW_GUESTS", "0").equals("1");
+    public final Path catalogDir = Path.of(env("PTCGO_CATALOG_DIR", "catalog"));
     public final String gameVersion = "2.95.0.5815";
 
     /** Base URL the client should use for HTTP, preferring an explicit override, then the Host header. */

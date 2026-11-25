@@ -199,9 +199,13 @@ public final class AuthHandler implements PacketHandler {
 
     /** AccountUpdated replaces the client's whole attribute set, so this must stay complete. */
     static List<Map<String, Object>> accountAttributes(Account a) {
+        return accountAttributes(a.displayName(), a.settings());
+    }
+
+    static List<Map<String, Object>> accountAttributes(String displayName, Map<String, Object> settings) {
         List<Map<String, Object>> l = new ArrayList<>();
-        l.add(attr(ACCOUNT_SETTINGS, a.settings()));
-        l.add(attr(SCREEN_NAME, a.displayName()));
+        l.add(attr(ACCOUNT_SETTINGS, settings));
+        l.add(attr(SCREEN_NAME, displayName));
         l.add(attr(FRIEND_CHAT_MODE, "OpenChat"));
         l.add(attr(FRIEND_MODE, "Open"));
         l.add(attr(FRIEND_TRADE_MODE, "Free"));
