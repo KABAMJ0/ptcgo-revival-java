@@ -5,6 +5,9 @@ import com.ptcgo.revival.catalog.Catalog;
 import com.ptcgo.revival.db.AccountRepository;
 import com.ptcgo.revival.db.PlayerRepository;
 import com.ptcgo.revival.deck.DeckValidator;
+import com.ptcgo.revival.deck.FormatManager;
+import com.ptcgo.revival.deck.RulesDeckValidator;
+import com.ptcgo.revival.deck.ThemeDecks;
 import com.ptcgo.revival.db.Database;
 import com.ptcgo.revival.http.HttpApp;
 import com.ptcgo.revival.net.ClientRegistry;
@@ -37,8 +40,13 @@ public final class Main {
                     ? "Created admin " + args[1] : "Username already exists");
             return;
         }
+        Catalog catalog = Catalog.load(cfg.catalogDir);
+        ThemeDecks themes = ThemeDecks.load(cfg.catalogDir);
+        // Server-wide card bans (an admin table in the Python server) are not ported: nothing is banned.
+        FormatManager formats = FormatManager.load(cfg.catalogDir, catalog, themes, guid -> false, System::currentTimeMillis);
+        DeckValidator validator = new RulesDeckValidator(catalog, formats, themes);
         Services services = new Services(cfg, accounts, new PlayerRepository(db), new CasTickets(), new ClientRegistry(),
-                Catalog.load(cfg.catalogDir), DeckValidator.PERMISSIVE);
+                catalog, validator);
         PacketRouter router = new PacketRouter(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler(),
                 new CatalogHandler(), new StaticDataHandler()));
         try (HttpApp http = new HttpApp(services);

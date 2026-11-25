@@ -14,6 +14,16 @@ public interface DeckValidator {
      */
     List<String> validFormats(JsonNode deck, Map<String, Integer> owned);
 
+    /** One row per format the server plays; the permissive placeholder has none. */
+    default List<DeckValidationRow> validate(JsonNode deck, Map<String, Integer> owned) {
+        return List.of();
+    }
+
+    /** One row per requested format guid (empty request = the client's default list). */
+    default List<DeckValidationRow> validate(JsonNode deck, Map<String, Integer> owned, List<String> formatGuids) {
+        return List.of();
+    }
+
     /** Placeholder until the real rules are ported: every deck is only Unlimited-legal. */
     DeckValidator PERMISSIVE = (deck, owned) -> List.of("Unlimited");
 }

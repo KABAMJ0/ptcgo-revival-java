@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ptcgo.revival.db.PlayerRepository;
+import com.ptcgo.revival.deck.DeckValidationRow;
+import com.ptcgo.revival.deck.FormatManager;
+import com.ptcgo.revival.deck.RulesDeckValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +58,7 @@ public final class DataSyncHandler implements PacketHandler {
         m.put("CakeSaveDeck", DataSyncHandler::saveDeck);
         m.put("CakeDeleteDeck", DataSyncHandler::deleteDeck);
         m.put("ValidateDecks", DataSyncHandler::validateDecks);
-        m.put("ValidateAllDecks", DataSyncHandler::validateDecks);
+        m.put("ValidateAllDecks", DataSyncHandler::validateAllDecks);
         m.put("SetAccountSettings", DataSyncHandler::setAccountSettings);
         m.put("GetArchetypeCorrections", (c, v, rid, f) -> c.send("ArchetypeCorrections", Map.of("corrections", List.of()), rid));
         m.put("AcknowledgeNotification", (c, v, rid, f) -> LOG.info("[TCP] [{}] Acknowledged notification {}",
@@ -160,6 +163,7 @@ public final class DataSyncHandler implements PacketHandler {
         }
         String name = deck.path("deckName").asText("");
         boolean avatar = isAvatarDeck(deck);
+        List<DeckValidationRow> rows = List.of();
 
         // Attribute list -> map for lookup, default cosmetics, back to a list.
         Map<String, ObjectNode> attrs = new LinkedHashMap<>();
@@ -174,7 +178,12 @@ public final class DataSyncHandler implements PacketHandler {
         if (!avatar) {
             fixCosmetics(deck, allowedCosmetics(c));
             Map<String, Integer> owned = c.services().players().ownedCounts(accountId);
-            setValidFormats(deck, c.services().deckValidator().validFormats(deck, owned));
+            var validator = c.services().deckValidator();
+            rows = validator.validate(deck, owned);
+            List<String> names = rows.isEmpty() ? validator.validFormats(deck, owned)
+                    : rows.stream().filter(DeckValidationRow::valid).map(DeckValidationRow::formatName).toList();
+            setValidFormats(deck, names);
+            RulesDeckValidator.setThemeDeckAttributes(deck, names.contains("ThemeDeck"));
         }
         // An illegal deck still saves: PTCGO keeps work-in-progress decks.
         c.services().players().saveDeck(accountId, deckId, name, deck, avatar);
@@ -183,7 +192,7 @@ public final class DataSyncHandler implements PacketHandler {
         Map<String, Object> res = new LinkedHashMap<>();
         res.put("deckID", deckId);
         res.put("deck", deck);
-        res.put("validationResults", List.of());
+        res.put("validationResults", DeckValidationRow.toClientRows(rows));
         c.send("DeckSaved", res, rid);
     }
 
@@ -197,9 +206,38 @@ public final class DataSyncHandler implements PacketHandler {
         c.send("DeckDeleted", Map.of("deckID", deckId), rid);
     }
 
-    private static void validateDecks(ClientContext c, JsonNode v, int rid, int f) {
-        // Per-format result rows come with the real validator; an empty list keeps the client's models alive.
-        c.send("DecksValidated", Map.of("results", List.of()), rid);
+    /** ValidateDecks carries full deck contents (the builder validates unsaved decks); ValidateAllDecks the saved ones. */
+    private static void validateDecks(ClientContext c, JsonNode v, int rid, int f) throws SQLException {
+        validateAndReply(c, v, rid, v != null && v.path("decks").isArray() ? decksOf(v.get("decks")) : null);
+    }
+
+    private static void validateAllDecks(ClientContext c, JsonNode v, int rid, int f) throws SQLException {
+        List<JsonNode> saved = new ArrayList<>();
+        if (c.account() != null) {
+            for (PlayerRepository.DeckRow d : c.services().players().decks(c.account().accountId(), false)) saved.add(d.deckData());
+        }
+        validateAndReply(c, v, rid, saved);
+    }
+
+    private static List<JsonNode> decksOf(JsonNode array) {
+        List<JsonNode> out = new ArrayList<>();
+        array.forEach(out::add);
+        return out;
+    }
+
+    private static void validateAndReply(ClientContext c, JsonNode request, int rid, List<JsonNode> decks)
+            throws SQLException {
+        List<String> formats = new ArrayList<>();
+        if (request != null && request.path("formats").isArray()) request.get("formats").forEach(n -> formats.add(n.asText()));
+        if (formats.isEmpty()) formats.addAll(FormatManager.DEFAULT_VALIDATION_FORMATS);
+        Map<String, Integer> owned = c.account() == null ? null : c.services().players().ownedCounts(c.account().accountId());
+        List<DeckValidationRow> rows = new ArrayList<>();
+        if (decks != null) {
+            for (JsonNode d : decks) {
+                if (d.isObject() && !isAvatarDeck(d)) rows.addAll(c.services().deckValidator().validate(d, owned, formats));
+            }
+        }
+        c.send("DecksValidated", Map.of("results", DeckValidationRow.toClientRows(rows)), rid);
     }
 
     private static void setAccountSettings(ClientContext c, JsonNode v, int rid, int f) throws SQLException {
@@ -237,7 +275,11 @@ public final class DataSyncHandler implements PacketHandler {
 
     /** Recomputes attribute 10860 (VALID_FORMATS): formats.json may have changed since the deck was saved. */
     private static void injectValidFormats(ClientContext c, ObjectNode deck, Map<String, Integer> owned) {
-        setValidFormats(deck, c.services().deckValidator().validFormats(deck, owned));
+        // TrainerChallenge is ours: the client's format tabs know five names and a sixth leaves the deck in no category.
+        List<String> names = c.services().deckValidator().validFormats(deck, owned).stream()
+                .filter(n -> !n.equals("TrainerChallenge")).toList();
+        setValidFormats(deck, names);
+        RulesDeckValidator.setThemeDeckAttributes(deck, names.contains("ThemeDeck"));
     }
 
     static void setValidFormats(ObjectNode deck, List<String> names) {

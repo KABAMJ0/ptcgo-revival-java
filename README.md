@@ -3,7 +3,7 @@
 Java 21 port of the Python PTCGO revival server ([ptcgo-revival](https://github.com/KABAMJ0/ptcgo-revival)),
 which emulates the discontinued Pokémon TCG Online server for an existing client.
 
-## Status: stage 4 (login, player data, catalogue download)
+## Status: stage 5 (login, player data, catalogue, deck rules)
 
 | Area | State |
 | --- | --- |
@@ -18,7 +18,7 @@ which emulates the discontinued Pokémon TCG Online server for an existing clien
 | Card/product catalogue loader (JSON exported from the Python server; 20,483 cards load in ~1 s) | done |
 | Catalogue download: `GetProtobufArchetypesList` (protobuf `ArchetypesFound`, per-connection dedup, product key rule); encoder verified byte-for-byte against the Python protobuf runtime and against a whole real set | done |
 | Static data: archetype keys, set data, family maps, format legality, localizations (48k strings), MOTD, feature flags, dynamic versions, time-locked archetypes, avatar items | done (served from exported payloads) |
-| Deck validation (format legality, copy limits) | stub: every deck reports only `Unlimited` (`DeckValidator`) |
+| Deck validation: 60 cards, copy limits, ACE SPEC/Radiant/Prism Star, owned cards, per-format set legality, bans, theme decks; `DecksValidated` rows; valid-format attribute on save and deck list | done, tested (server-wide ban list not ported: nothing is banned) |
 | Dynamic pages, notifications, banned cards (served empty), shop, social, trade, tournaments, league, tutorial, quests | not ported |
 | MariaDB/MySQL support | not ported |
 | Protobuf messages (`.proto` sources live in the Python repo) | not ported |
