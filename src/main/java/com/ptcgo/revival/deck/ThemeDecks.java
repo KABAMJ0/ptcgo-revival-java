@@ -26,11 +26,13 @@ public final class ThemeDecks {
     private static final ThemeDecks NONE = new ThemeDecks(List.of());
 
     private final Set<Map<String, Integer>> signatures = new HashSet<>();
+    private final List<List<String>> decks = new ArrayList<>();
     private final Set<String> legalCards = new HashSet<>();
 
     /** @param approvedContents the card guid list of each approved theme deck */
     public ThemeDecks(Collection<? extends List<String>> approvedContents) {
         for (List<String> contents : approvedContents) {
+            decks.add(List.copyOf(contents));
             signatures.add(signature(contents));
             for (String g : contents) legalCards.add(g.toLowerCase(Locale.ROOT));
         }
@@ -57,6 +59,11 @@ public final class ThemeDecks {
         }
         LOG.info("[ThemeDecks] {} approved theme decks", approved.size());
         return new ThemeDecks(approved);
+    }
+
+    /** The card guid list of every approved theme deck, in product order. */
+    public List<List<String>> decks() {
+        return List.copyOf(decks);
     }
 
     public boolean isLegalCard(String guid) {

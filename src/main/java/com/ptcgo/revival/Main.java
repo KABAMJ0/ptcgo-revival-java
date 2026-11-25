@@ -59,10 +59,12 @@ public final class Main {
                 catalog, validator,
                 new Progression(new QuestRepository(db), new VersusRepository(db), Seasons.loadBundled()));
         // Friend matches need the match engine; until then accepting a challenge fails cleanly for both players.
-        SocialModule social = SocialModule.create(services, FriendMatchStarter.UNAVAILABLE, GameChatRouter.NONE);
+        com.ptcgo.revival.game.match.VersusModule versus = com.ptcgo.revival.game.match.VersusModule.create(services, themes);
+        SocialModule social = SocialModule.create(services, versus.manager(), versus.manager());
         List<PacketHandler> groups = new ArrayList<>(List.of(new HandshakeHandler(), new AuthHandler(), new DataSyncHandler(),
                 new CatalogHandler(), new StaticDataHandler(), new QuestHandler()));
         groups.addAll(social.handlers());
+        groups.addAll(versus.handlers());
         PacketRouter router = new PacketRouter(groups);
         try (HttpApp http = new HttpApp(services);
              GameServer game = new GameServer(services, router, TlsContexts.serverContext(cfg))) {

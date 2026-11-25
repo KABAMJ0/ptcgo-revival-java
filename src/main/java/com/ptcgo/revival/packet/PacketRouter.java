@@ -19,6 +19,18 @@ public final class PacketRouter {
 
     public void route(ClientContext client, JsonNode message, int requestId, int flags) {
         String name = message != null && message.hasNonNull("name") ? message.get("name").asText() : null;
+        if (name == null && message != null && message.has("queueName") && message.has("gameID") && message.has("path")) {
+            // Unwrapped JSON: duck-typed as ReadyForMatchConfirmation, like the Python router.
+            PacketHandler.MessageHandler ready = table.get("ReadyForMatchConfirmation");
+            if (ready != null) {
+                try {
+                    ready.handle(client, message, requestId, flags);
+                } catch (Exception e) {
+                    LOG.error("[TCP] [{}] Error in handler ReadyForMatchConfirmation", client.remoteAddress(), e);
+                }
+                return;
+            }
+        }
         if (name == null) {
             LOG.warn("[TCP] [{}] Unhandled packet (no message name)", client.remoteAddress());
             return;
