@@ -16,7 +16,9 @@ Only literal arguments are accepted: ints, strings, bools, None, negative ints, 
 run with the file name and attack title. No output is written on failure.
 
 Supported helpers: `recoil_attack`, `flip_damage` (only `coins` and `per_heads`), `flip_bonus`, `condition_attack`
-(`flip`, `coins`, `min_heads`), `heal_dealt_attack`.
+(`flip`, `coins`, `min_heads`), `heal_dealt_attack`. Standard batch two adds `heal_attack` (amount, self target only),
+`flip_or_nothing` (coins, default continuation only), `condition_bonus_attack` (no `base`/`also`) and
+`flip_damage_condition` (no `base`/`self_condition`/`also`).
 
 ## Usage
 

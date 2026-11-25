@@ -118,12 +118,70 @@ def emit_heal_dealt_attack(where, args, kwargs):
     return "AttackEffects.healDealt()"
 
 
+def emit_heal_attack(where, args, kwargs):
+    # Python heal_attack(amount, target="self") -> AttackEffects.healSelf(amount). Only the self-target, no-discard,
+    # no all_damage shape is modelled; target="choice" and discard_energy need a choice / cost the factory lacks.
+    check_args(where, "heal_attack", args, kwargs, positional=1 if args else 0, allowed=("amount", "target"))
+    amount = args[0] if args else kwargs.get("amount")
+    if not is_int(amount):
+        raise EmitError(f"{where}: heal_attack amount must be an int")
+    if args and "amount" in kwargs:
+        raise EmitError(f"{where}: heal_attack amount given twice")
+    if kwargs.get("target", "self") != "self":
+        raise EmitError(f"{where}: heal_attack target {kwargs['target']!r} is not modelled (only 'self')")
+    return f"AttackEffects.healSelf({amount})"
+
+
+def emit_flip_or_nothing(where, args, kwargs):
+    # Python flip_or_nothing(coins=1, then=None). A `then` continuation is a callable in Python, so it is never a
+    # literal and the dump already rejects it; only the default continuation (printed damage) is modelled here.
+    check_args(where, "flip_or_nothing", args, kwargs, positional=0, allowed=("coins",))
+    coins = kwargs.get("coins", 1)
+    if not is_int(coins):
+        raise EmitError(f"{where}: flip_or_nothing coins must be an int")
+    return f"AttackEffects.flipOrNothing({coins})"
+
+
+def emit_condition_bonus_attack(where, args, kwargs):
+    # Python condition_bonus_attack(bonus, *required_conditions, base=None, also=None). Only the default base
+    # (printed damage) and no continuation are modelled.
+    check_args(where, "condition_bonus_attack", args, kwargs, positional=len(args), allowed=())
+    if not args or not is_int(args[0]):
+        raise EmitError(f"{where}: condition_bonus_attack needs an int bonus first")
+    if len(args) < 2:
+        raise EmitError(f"{where}: condition_bonus_attack needs at least one required condition")
+    names = [condition_name(where, a) for a in args[1:]]
+    return f"AttackEffects.conditionBonus({args[0]}, {', '.join(names)})"
+
+
+def emit_flip_damage_condition(where, args, kwargs):
+    # Python flip_damage_condition(coins=1, per_heads=0, base=None, min_heads=1, condition=None, self_condition=None,
+    # also=None). Only the coins/per_heads/min_heads/condition shape is modelled (base, self_condition, also are not).
+    check_args(where, "flip_damage_condition", args, kwargs, positional=len(args),
+               allowed=("coins", "per_heads", "min_heads", "condition"))
+    if len(args) > 1:
+        raise EmitError(f"{where}: flip_damage_condition takes at most one positional (coins)")
+    coins = args[0] if args else kwargs.get("coins", 1)
+    per = kwargs.get("per_heads", 0)
+    min_heads = kwargs.get("min_heads", 1)
+    if not (is_int(coins) and is_int(per) and is_int(min_heads)):
+        raise EmitError(f"{where}: flip_damage_condition coins/per_heads/min_heads must be ints")
+    if args and "coins" in kwargs:
+        raise EmitError(f"{where}: flip_damage_condition coins given twice")
+    cond = "null" if "condition" not in kwargs else condition_name(where, kwargs["condition"])
+    return f"AttackEffects.flipDamageCondition({coins}, {per}, {min_heads}, {cond})"
+
+
 EMITTERS = {
     "recoil_attack": emit_recoil,
     "flip_damage": emit_flip_damage,
     "flip_bonus": emit_flip_bonus,
     "condition_attack": emit_condition_attack,
     "heal_dealt_attack": emit_heal_dealt_attack,
+    "heal_attack": emit_heal_attack,
+    "flip_or_nothing": emit_flip_or_nothing,
+    "condition_bonus_attack": emit_condition_bonus_attack,
+    "flip_damage_condition": emit_flip_damage_condition,
 }
 
 

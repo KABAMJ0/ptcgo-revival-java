@@ -95,7 +95,7 @@ class BatchTwoAttacksTest {
     /** One attacking Pokemon for A and one Defending Pokemon for B, both at full HP unless the test says otherwise. */
     record Fixture(Ops ops, CardEntity attacker, CardEntity defender, EffectContext ctx) {}
 
-    private static Fixture fixture(String cardGuid, String cardName, String abilityId, String title, int printed,
+    static Fixture fixture(String cardGuid, String cardName, String abilityId, String title, int printed,
                                    int attackerHp, boolean... flips) {
         ScriptedRng rng = new ScriptedRng(flips);
         Board board = new Board(GAME_ID, List.of(A, B), rng);
@@ -115,7 +115,7 @@ class BatchTwoAttacksTest {
     }
 
     /** Resolves the attack through the registry, exactly as the engine does for a registered attack. */
-    private static void attack(Fixture f, String abilityId) {
+    static void attack(Fixture f, String abilityId) {
         EffectRegistry.AttackSpec spec = f.ops().registry().attack(abilityId);
         assertNotNull(spec, "attack " + abilityId + " is registered");
         assertNotNull(spec.effect());
@@ -153,7 +153,7 @@ class BatchTwoAttacksTest {
         else a.put("value", String.valueOf(v));
     }
 
-    private static int hp(CardEntity c) {
+    static int hp(CardEntity c) {
         return c.hp();
     }
 

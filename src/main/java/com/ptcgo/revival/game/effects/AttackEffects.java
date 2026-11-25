@@ -72,6 +72,61 @@ public final class AttackEffects {
         };
     }
 
+    /**
+     * Printed damage, then heal {@code amount} from the attacker itself (Python {@code heal_attack(amount)} with the
+     * default {@code target='self'}, no discard cost and no {@code all_damage}). Heals only what is missing.
+     */
+    public static AttackEffect healSelf(int amount) {
+        return ctx -> {
+            ctx.dealDamage();
+            if (amount > 0) ctx.heal(amount, ctx.source);
+        };
+    }
+
+    /**
+     * Flip {@code coins}; any tails and the attack does nothing, all heads deals the printed damage (Python
+     * {@code flip_or_nothing(coins)} with the default {@code then}). Zero coins also does nothing.
+     */
+    public static AttackEffect flipOrNothing(int coins) {
+        return ctx -> {
+            List<Boolean> results = ctx.flipCoins(coins, ctx.title);
+            if (results.isEmpty() || !results.stream().allMatch(Boolean::booleanValue)) return;
+            ctx.dealDamage();
+        };
+    }
+
+    /**
+     * Printed damage, plus {@code bonus} when the Defending Pokemon already has every named Special Condition (Python
+     * {@code condition_bonus_attack(bonus, *conditions)}). The check happens before the hit and applies no condition.
+     * With no conditions named the bonus never applies.
+     */
+    public static AttackEffect conditionBonus(int bonus, String... conditions) {
+        return ctx -> {
+            var defender = ctx.defender();
+            List<String> current = defender == null ? List.of() : defender.conditions();
+            boolean met = conditions.length > 0 && java.util.Arrays.stream(conditions).allMatch(current::contains);
+            int amount = ctx.printedDamage + (met ? bonus : 0);
+            if (amount > 0) ctx.dealDamage(amount, null, false);
+        };
+    }
+
+    /**
+     * Flip {@code coins}: {@code perHeads} damage for each heads, and the Defending Pokemon gets {@code condition} when at
+     * least {@code minHeads} came up heads (Python {@code flip_damage_condition} with its default {@code base}). With
+     * {@code perHeads} set there is no printed damage; with {@code perHeads} zero the printed damage is dealt on every
+     * outcome. A {@code null} condition only changes the damage. Damage happens before the condition, as in Python.
+     */
+    public static AttackEffect flipDamageCondition(int coins, int perHeads, int minHeads, String condition) {
+        return ctx -> {
+            List<Boolean> results = coins > 0 ? ctx.flipCoins(coins, ctx.title) : List.of();
+            int heads = countHeads(results);
+            int base = perHeads != 0 ? 0 : ctx.printedDamage;
+            int amount = base + heads * perHeads;
+            if (amount > 0) ctx.dealDamage(amount, null, false);
+            if (heads >= minHeads && condition != null) ctx.applySpecialCondition(ctx.defender(), condition);
+        };
+    }
+
     private static int countHeads(List<Boolean> results) {
         int heads = 0;
         for (boolean r : results) if (r) heads++;
