@@ -72,7 +72,7 @@ public final class Main {
         groups.addAll(social.handlers());
         // Real brackets and async runs need the match engine; until it plugs in, tournaments cancel and refund cleanly.
         com.ptcgo.revival.tournament.TournamentModule tournaments = com.ptcgo.revival.tournament.TournamentModule.create(services,
-                com.ptcgo.revival.tournament.TournamentMatchRunner.UNAVAILABLE,
+                versus.tournamentRunner(),
                 com.ptcgo.revival.tournament.AsyncTournamentMatchmaker.UNAVAILABLE);
         groups.addAll(tournaments.handlers());
         groups.addAll(versus.handlers());
