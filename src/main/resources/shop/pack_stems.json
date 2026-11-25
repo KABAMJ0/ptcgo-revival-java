@@ -1,0 +1,8 @@
+{
+  "_comment": "Card script names the Python pack_rules.json weight_multiplier keys refer to, when they are not derivable as <Name><collector number>. The three ME55 chase Mews share one multiplier, so which print is R, B or G does not matter.",
+  "ME55": {
+    "Mew_R": "68c82dfd-9afe-56e3-982f-2cbc73bd08d6",
+    "Mew_B": "783421a9-1359-55c1-8075-b60011166f1b",
+    "Mew_G": "eeaf692c-2af4-56fd-8ffd-da47e23c805c"
+  }
+}

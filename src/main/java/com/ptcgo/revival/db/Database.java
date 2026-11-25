@@ -85,6 +85,7 @@ public final class Database {
                         review INTEGER NOT NULL DEFAULT 0,
                         PRIMARY KEY (account_id, archetype_id)
                     )""");
+            com.ptcgo.revival.shop.ShopSchema.create(st); // shop_items, redemption codes, product claims
         }
     }
 }

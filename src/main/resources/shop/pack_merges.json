@@ -1,0 +1,20 @@
+{
+  "_comment": "no_pack: sets that are not sold as a booster pack (they stay in the card catalogue, collections and decks). merge: a set whose cards can turn up inside another set's pack, replacing its reverse-holo slot with the given chance (0-1). The chances are estimates, tune them freely.",
+  "no_pack": [
+    "BASEP", "BP", "NP", "DPP", "SVP", "SVE",
+    "Promo_BW", "Promo_HGSS", "Promo_SM", "Promo_SWSH", "Promo_XY",
+    "MCD11", "MCD12", "MCD14", "MCD15", "MCD16", "MCD17", "MCD18", "MCD19",
+    "RU1", "SI1", "XY0", "TK2B"
+  ],
+  "merge": {
+    "SWSH9TG":     {"into": "SWSH9",  "chance": 0.33},
+    "SWSH10TG":    {"into": "SWSH10", "chance": 0.33},
+    "SWSH11TG":    {"into": "SWSH11", "chance": 0.33},
+    "SWSH12TG":    {"into": "SWSH12", "chance": 0.33},
+    "SWSH12PT5GG": {"into": "CZ",     "chance": 0.33},
+    "SWSH45SV":    {"into": "SWSH45", "chance": 0.20},
+    "SVault":      {"into": "HF",     "chance": 0.20},
+    "CEL25C":      {"into": "CEL25",  "chance": 0.25},
+    "ME55C":       {"into": "ME55",   "chance": 0.25}
+  }
+}

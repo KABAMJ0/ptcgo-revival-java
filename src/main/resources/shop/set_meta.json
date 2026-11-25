@@ -1,0 +1,1604 @@
+{
+  "BASE1": {
+    "count": 102,
+    "era": "OTHER",
+    "name": "Base",
+    "order": 0,
+    "ptcgoCode": "BS",
+    "releaseDate": "1999/01/09",
+    "series": "Base"
+  },
+  "BASE2": {
+    "count": 64,
+    "era": "OTHER",
+    "name": "Jungle",
+    "order": 1,
+    "ptcgoCode": "JU",
+    "releaseDate": "1999/06/16",
+    "series": "Base"
+  },
+  "BASE3": {
+    "count": 62,
+    "era": "OTHER",
+    "name": "Fossil",
+    "order": 3,
+    "ptcgoCode": "FO",
+    "releaseDate": "1999/10/10",
+    "series": "Base"
+  },
+  "BASE4": {
+    "count": 130,
+    "era": "OTHER",
+    "name": "Base Set 2",
+    "order": 4,
+    "ptcgoCode": "B2",
+    "releaseDate": "2000/02/24",
+    "series": "Base"
+  },
+  "BASE5": {
+    "count": 83,
+    "era": "OTHER",
+    "name": "Team Rocket",
+    "order": 5,
+    "ptcgoCode": "TR",
+    "releaseDate": "2000/04/24",
+    "series": "Base"
+  },
+  "BASE6": {
+    "count": 110,
+    "era": "OTHER",
+    "name": "Legendary Collection",
+    "order": 13,
+    "ptcgoCode": "LC",
+    "releaseDate": "2002/05/24",
+    "series": "Other"
+  },
+  "BASEP": {
+    "count": 53,
+    "era": "OTHER",
+    "name": "Wizards Black Star Promos",
+    "order": 2,
+    "ptcgoCode": "PR",
+    "releaseDate": "1999/07/01",
+    "series": "Base"
+  },
+  "BP": {
+    "count": 9,
+    "era": "OTHER",
+    "name": "Best of Game",
+    "order": 15,
+    "ptcgoCode": "BP",
+    "releaseDate": "2002/12/01",
+    "series": "Other"
+  },
+  "BW1": {
+    "count": 115,
+    "era": "BW",
+    "name": "Black & White",
+    "order": 64,
+    "ptcgoCode": "BLW",
+    "releaseDate": "2011/04/25",
+    "series": "Black & White"
+  },
+  "BW10": {
+    "count": 105,
+    "era": "BW",
+    "name": "Plasma Blast",
+    "order": 77,
+    "ptcgoCode": "PLB",
+    "releaseDate": "2013/08/14",
+    "series": "Black & White"
+  },
+  "BW11": {
+    "count": 140,
+    "era": "BW",
+    "name": "Legendary Treasures",
+    "order": 79,
+    "ptcgoCode": "LTR",
+    "releaseDate": "2013/11/06",
+    "series": "Black & White"
+  },
+  "BW2": {
+    "count": 98,
+    "era": "BW",
+    "name": "Emerging Powers",
+    "order": 67,
+    "ptcgoCode": "EPO",
+    "releaseDate": "2011/08/31",
+    "series": "Black & White"
+  },
+  "BW3": {
+    "count": 102,
+    "era": "BW",
+    "name": "Noble Victories",
+    "order": 68,
+    "ptcgoCode": "NVI",
+    "releaseDate": "2011/11/16",
+    "series": "Black & White"
+  },
+  "BW4": {
+    "count": 103,
+    "era": "BW",
+    "name": "Next Destinies",
+    "order": 69,
+    "ptcgoCode": "NXD",
+    "releaseDate": "2012/02/08",
+    "series": "Black & White"
+  },
+  "BW5": {
+    "count": 111,
+    "era": "BW",
+    "name": "Dark Explorers",
+    "order": 70,
+    "ptcgoCode": "DEX",
+    "releaseDate": "2012/05/09",
+    "series": "Black & White"
+  },
+  "BW6": {
+    "count": 128,
+    "era": "BW",
+    "name": "Dragons Exalted",
+    "order": 72,
+    "ptcgoCode": "DRX",
+    "releaseDate": "2012/08/15",
+    "series": "Black & White"
+  },
+  "BW7": {
+    "count": 153,
+    "era": "BW",
+    "name": "Boundaries Crossed",
+    "order": 74,
+    "ptcgoCode": "BCR",
+    "releaseDate": "2012/11/07",
+    "series": "Black & White"
+  },
+  "BW8": {
+    "count": 138,
+    "era": "BW",
+    "name": "Plasma Storm",
+    "order": 75,
+    "ptcgoCode": "PLS",
+    "releaseDate": "2013/02/06",
+    "series": "Black & White"
+  },
+  "BW9": {
+    "count": 122,
+    "era": "BW",
+    "name": "Plasma Freeze",
+    "order": 76,
+    "ptcgoCode": "PLF",
+    "releaseDate": "2013/05/08",
+    "series": "Black & White"
+  },
+  "CEL25": {
+    "count": 25,
+    "era": "SWSH",
+    "name": "Celebrations",
+    "order": 129,
+    "ptcgoCode": "CEL",
+    "releaseDate": "2021/10/08",
+    "series": "Sword & Shield"
+  },
+  "CEL25C": {
+    "count": 25,
+    "era": "OTHER",
+    "name": "Celebrations: Classic Collection",
+    "order": 130,
+    "ptcgoCode": "CEL",
+    "releaseDate": "2021/10/08",
+    "series": "Sword & Shield"
+  },
+  "COL": {
+    "count": 106,
+    "era": "OTHER",
+    "name": "Call of Legends",
+    "order": 62,
+    "ptcgoCode": "CL",
+    "releaseDate": "2011/02/09",
+    "series": "HeartGold & SoulSilver"
+  },
+  "CUSTOM": {
+    "count": 2,
+    "era": "UNLIMITED",
+    "name": "Custom Cards",
+    "order": 164,
+    "ptcgoCode": "CUSTOM",
+    "releaseDate": "2026/01/01",
+    "series": "Custom"
+  },
+  "CZ": {
+    "count": 160,
+    "era": "SWSH",
+    "name": "Crown Zenith",
+    "order": 143,
+    "ptcgoCode": "CRZ",
+    "releaseDate": "2023/01/20",
+    "series": "Sword & Shield"
+  },
+  "DM": {
+    "count": 80,
+    "era": "OTHER",
+    "name": "Dragon Majesty",
+    "order": 106,
+    "ptcgoCode": "DRM",
+    "releaseDate": "2018/09/07",
+    "series": "Sun & Moon"
+  },
+  "DP1": {
+    "count": 130,
+    "era": "OTHER",
+    "name": "Diamond & Pearl",
+    "order": 40,
+    "ptcgoCode": "DP",
+    "releaseDate": "2007/05/01",
+    "series": "Diamond & Pearl"
+  },
+  "DP2": {
+    "count": 124,
+    "era": "OTHER",
+    "name": "Mysterious Treasures",
+    "order": 42,
+    "ptcgoCode": "MT",
+    "releaseDate": "2007/08/01",
+    "series": "Diamond & Pearl"
+  },
+  "DP3": {
+    "count": 132,
+    "era": "OTHER",
+    "name": "Secret Wonders",
+    "order": 44,
+    "ptcgoCode": "SW",
+    "releaseDate": "2007/11/01",
+    "series": "Diamond & Pearl"
+  },
+  "DP4": {
+    "count": 106,
+    "era": "OTHER",
+    "name": "Great Encounters",
+    "order": 45,
+    "ptcgoCode": "GE",
+    "releaseDate": "2008/02/01",
+    "series": "Diamond & Pearl"
+  },
+  "DP5": {
+    "count": 100,
+    "era": "OTHER",
+    "name": "Majestic Dawn",
+    "order": 47,
+    "ptcgoCode": "MD",
+    "releaseDate": "2008/05/01",
+    "series": "Diamond & Pearl"
+  },
+  "DP6": {
+    "count": 146,
+    "era": "OTHER",
+    "name": "Legends Awakened",
+    "order": 48,
+    "ptcgoCode": "LA",
+    "releaseDate": "2008/08/01",
+    "series": "Diamond & Pearl"
+  },
+  "DP7": {
+    "count": 106,
+    "era": "OTHER",
+    "name": "Stormfront",
+    "order": 50,
+    "ptcgoCode": "SF",
+    "releaseDate": "2008/11/01",
+    "series": "Diamond & Pearl"
+  },
+  "DPP": {
+    "count": 56,
+    "era": "OTHER",
+    "name": "DP Black Star Promos",
+    "order": 41,
+    "ptcgoCode": "PR-DPP",
+    "releaseDate": "2007/05/01",
+    "series": "Diamond & Pearl"
+  },
+  "DV": {
+    "count": 21,
+    "era": "BW",
+    "name": "Dragon Vault",
+    "order": 73,
+    "ptcgoCode": "DRV",
+    "releaseDate": "2012/10/05",
+    "series": "Black & White"
+  },
+  "ECARD1": {
+    "count": 165,
+    "era": "OTHER",
+    "name": "Expedition Base Set",
+    "order": 14,
+    "ptcgoCode": "EX",
+    "releaseDate": "2002/09/15",
+    "series": "E-Card"
+  },
+  "ECARD2": {
+    "count": 182,
+    "era": "OTHER",
+    "name": "Aquapolis",
+    "order": 16,
+    "ptcgoCode": "AQ",
+    "releaseDate": "2003/01/15",
+    "series": "E-Card"
+  },
+  "ECARD3": {
+    "count": 182,
+    "era": "OTHER",
+    "name": "Skyridge",
+    "order": 17,
+    "ptcgoCode": "SK",
+    "releaseDate": "2003/05/12",
+    "series": "E-Card"
+  },
+  "EX1": {
+    "count": 109,
+    "era": "OTHER",
+    "name": "Ruby & Sapphire",
+    "order": 18,
+    "ptcgoCode": "RS",
+    "releaseDate": "2003/07/01",
+    "series": "EX"
+  },
+  "EX2": {
+    "count": 100,
+    "era": "OTHER",
+    "name": "Sandstorm",
+    "order": 19,
+    "ptcgoCode": "SS",
+    "releaseDate": "2003/09/18",
+    "series": "EX"
+  },
+  "EX11": {
+    "count": 114,
+    "era": "OTHER",
+    "name": "Delta Species",
+    "order": 30,
+    "ptcgoCode": "DS",
+    "releaseDate": "2005/10/31",
+    "series": "EX"
+  },
+  "EX12": {
+    "count": 93,
+    "era": "OTHER",
+    "name": "Legend Maker",
+    "order": 31,
+    "ptcgoCode": "LM",
+    "releaseDate": "2006/02/01",
+    "series": "EX"
+  },
+  "EX13": {
+    "count": 111,
+    "era": "OTHER",
+    "name": "Holon Phantoms",
+    "order": 34,
+    "ptcgoCode": "HP",
+    "releaseDate": "2006/05/01",
+    "series": "EX"
+  },
+  "EX14": {
+    "count": 100,
+    "era": "OTHER",
+    "name": "Crystal Guardians",
+    "order": 35,
+    "ptcgoCode": "CG",
+    "releaseDate": "2006/08/01",
+    "series": "EX"
+  },
+  "EX15": {
+    "count": 101,
+    "era": "OTHER",
+    "name": "Dragon Frontiers",
+    "order": 37,
+    "ptcgoCode": "DF",
+    "releaseDate": "2006/11/01",
+    "series": "EX"
+  },
+  "EX16": {
+    "count": 108,
+    "era": "OTHER",
+    "name": "Power Keepers",
+    "order": 38,
+    "ptcgoCode": "PK",
+    "releaseDate": "2007/02/02",
+    "series": "EX"
+  },
+  "EX3": {
+    "count": 100,
+    "era": "OTHER",
+    "name": "Dragon",
+    "order": 20,
+    "ptcgoCode": "DR",
+    "releaseDate": "2003/11/24",
+    "series": "EX"
+  },
+  "EX4": {
+    "count": 97,
+    "era": "OTHER",
+    "name": "Team Magma vs Team Aqua",
+    "order": 21,
+    "ptcgoCode": "MA",
+    "releaseDate": "2004/03/01",
+    "series": "EX"
+  },
+  "EX5": {
+    "count": 102,
+    "era": "OTHER",
+    "name": "Hidden Legends",
+    "order": 22,
+    "ptcgoCode": "HL",
+    "releaseDate": "2004/06/01",
+    "series": "EX"
+  },
+  "EX6": {
+    "count": 116,
+    "era": "OTHER",
+    "name": "FireRed & LeafGreen",
+    "order": 25,
+    "ptcgoCode": "RG",
+    "releaseDate": "2004/09/01",
+    "series": "EX"
+  },
+  "EX7": {
+    "count": 111,
+    "era": "OTHER",
+    "name": "Team Rocket Returns",
+    "order": 26,
+    "ptcgoCode": "TRR",
+    "releaseDate": "2004/11/01",
+    "series": "EX"
+  },
+  "EX8": {
+    "count": 108,
+    "era": "OTHER",
+    "name": "Deoxys",
+    "order": 27,
+    "ptcgoCode": "DX",
+    "releaseDate": "2005/02/01",
+    "series": "EX"
+  },
+  "EX9": {
+    "count": 107,
+    "era": "OTHER",
+    "name": "Emerald",
+    "order": 28,
+    "ptcgoCode": "EM",
+    "releaseDate": "2005/05/01",
+    "series": "EX"
+  },
+  "EX10": {
+    "count": 145,
+    "era": "OTHER",
+    "name": "Unseen Forces",
+    "order": 29,
+    "ptcgoCode": "UF",
+    "releaseDate": "2005/08/01",
+    "series": "EX"
+  },
+  "FUT20": {
+    "count": 5,
+    "era": "OTHER",
+    "name": "Pok\u00e9mon Futsal Collection",
+    "order": 120,
+    "ptcgoCode": "FUT20",
+    "releaseDate": "2020/09/11",
+    "series": "Other"
+  },
+  "Free_Energy": {
+    "count": 9,
+    "era": "UNLIMITED",
+    "name": "Basic Energy",
+    "order": 65,
+    "ptcgoCode": "ENERGY",
+    "releaseDate": "2011/04/25",
+    "series": "Black & White"
+  },
+  "GUM": {
+    "count": 18,
+    "era": "OTHER",
+    "name": "Detective Pikachu",
+    "order": 109,
+    "ptcgoCode": "DET",
+    "releaseDate": "2019/04/05",
+    "series": "Sun & Moon"
+  },
+  "GYM1": {
+    "count": 132,
+    "era": "OTHER",
+    "name": "Gym Heroes",
+    "order": 6,
+    "ptcgoCode": "G1",
+    "releaseDate": "2000/08/14",
+    "series": "Gym"
+  },
+  "GYM2": {
+    "count": 132,
+    "era": "OTHER",
+    "name": "Gym Challenge",
+    "order": 7,
+    "ptcgoCode": "G2",
+    "releaseDate": "2000/10/16",
+    "series": "Gym"
+  },
+  "HF": {
+    "count": 69,
+    "era": "OTHER",
+    "name": "Hidden Fates",
+    "order": 112,
+    "ptcgoCode": "HIF",
+    "releaseDate": "2019/08/23",
+    "series": "Sun & Moon"
+  },
+  "HGSS1": {
+    "count": 124,
+    "era": "OTHER",
+    "name": "HeartGold & SoulSilver",
+    "order": 57,
+    "ptcgoCode": "HS",
+    "releaseDate": "2010/02/10",
+    "series": "HeartGold & SoulSilver"
+  },
+  "HGSS2": {
+    "count": 96,
+    "era": "OTHER",
+    "name": "HS\u2014Unleashed",
+    "order": 59,
+    "ptcgoCode": "UL",
+    "releaseDate": "2010/05/12",
+    "series": "HeartGold & SoulSilver"
+  },
+  "HGSS3": {
+    "count": 91,
+    "era": "OTHER",
+    "name": "HS\u2014Undaunted",
+    "order": 60,
+    "ptcgoCode": "UD",
+    "releaseDate": "2010/08/18",
+    "series": "HeartGold & SoulSilver"
+  },
+  "HGSS4": {
+    "count": 103,
+    "era": "OTHER",
+    "name": "HS\u2014Triumphant",
+    "order": 61,
+    "ptcgoCode": "TM",
+    "releaseDate": "2010/11/03",
+    "series": "HeartGold & SoulSilver"
+  },
+  "MCD11": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2011",
+    "order": 66,
+    "ptcgoCode": "MCD11",
+    "releaseDate": "2011/06/17",
+    "series": "Other"
+  },
+  "MCD12": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2012",
+    "order": 71,
+    "ptcgoCode": "MCD12",
+    "releaseDate": "2012/06/15",
+    "series": "Other"
+  },
+  "MCD14": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2014",
+    "order": 82,
+    "ptcgoCode": "MCD14",
+    "releaseDate": "2014/05/23",
+    "series": "Other"
+  },
+  "MCD15": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2015",
+    "order": 90,
+    "ptcgoCode": "MCD15",
+    "releaseDate": "2015/11/27",
+    "series": "Other"
+  },
+  "MCD16": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2016",
+    "order": 94,
+    "ptcgoCode": "MCD16",
+    "releaseDate": "2016/08/19",
+    "series": "Other"
+  },
+  "MCD17": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2017",
+    "order": 102,
+    "ptcgoCode": "MCD17",
+    "releaseDate": "2017/11/07",
+    "series": "Other"
+  },
+  "MCD18": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2018",
+    "order": 107,
+    "ptcgoCode": "MCD18",
+    "releaseDate": "2018/10/16",
+    "series": "Other"
+  },
+  "MCD19": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2019",
+    "order": 114,
+    "ptcgoCode": "MCD19",
+    "releaseDate": "2019/10/15",
+    "series": "Other"
+  },
+  "MCD21": {
+    "count": 25,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2021",
+    "order": 123,
+    "ptcgoCode": "MCD21",
+    "releaseDate": "2021/02/09",
+    "series": "Other"
+  },
+  "MCD22": {
+    "count": 15,
+    "era": "OTHER",
+    "name": "McDonald's Collection 2022",
+    "order": 137,
+    "ptcgoCode": "MCD22",
+    "releaseDate": "2022/08/03",
+    "series": "Other"
+  },
+  "ME1": {
+    "count": 188,
+    "era": "OTHER",
+    "name": "Mega Evolution",
+    "order": 162,
+    "ptcgoCode": "MEG",
+    "releaseDate": "2025/09/26",
+    "series": "Mega Evolution"
+  },
+  "ME2": {
+    "count": 130,
+    "era": "OTHER",
+    "name": "Phantasmal Flames",
+    "order": 163,
+    "ptcgoCode": "PFL",
+    "releaseDate": "2025/11/14",
+    "series": "Mega Evolution"
+  },
+  "ME2PT5": {
+    "count": 250,
+    "era": "OTHER",
+    "name": "Ascended Heroes",
+    "order": 165,
+    "ptcgoCode": "ASC",
+    "releaseDate": "2026/01/30",
+    "series": "Mega Evolution"
+  },
+  "ME3": {
+    "count": 124,
+    "era": "OTHER",
+    "name": "Perfect Order",
+    "order": 166,
+    "ptcgoCode": "POR",
+    "releaseDate": "2026/03/27",
+    "series": "Mega Evolution"
+  },
+  "ME4": {
+    "count": 122,
+    "era": "OTHER",
+    "name": "Chaos Rising",
+    "order": 167,
+    "ptcgoCode": "CRI",
+    "releaseDate": "2026/05/22",
+    "series": "Mega Evolution"
+  },
+  "ME5": {
+    "count": 120,
+    "era": "OTHER",
+    "name": "Pitch Black",
+    "order": 168,
+    "ptcgoCode": "PBL",
+    "releaseDate": "2026/07/17",
+    "series": "Mega Evolution"
+  },
+  "ME55": {
+    "count": 161,
+    "era": "OTHER",
+    "name": "30th Celebration",
+    "order": 169,
+    "ptcgoCode": "30C",
+    "releaseDate": "2026/09/16",
+    "series": "Mega Evolution"
+  },
+  "ME55C": {
+    "count": 30,
+    "era": "OTHER",
+    "name": "30th Celebration: Classic Collection",
+    "order": 170,
+    "ptcgoCode": "30C",
+    "releaseDate": "2026/09/16",
+    "series": "Mega Evolution"
+  },
+  "ME6": {
+    "count": 141,
+    "era": "OTHER",
+    "name": "Delta Reign",
+    "order": 171,
+    "ptcgoCode": "DLR",
+    "releaseDate": "2026/11/06",
+    "series": "Mega Evolution"
+  },
+  "NEO1": {
+    "count": 111,
+    "era": "OTHER",
+    "name": "Neo Genesis",
+    "order": 8,
+    "ptcgoCode": "N1",
+    "releaseDate": "2000/12/16",
+    "series": "Neo"
+  },
+  "NEO2": {
+    "count": 75,
+    "era": "OTHER",
+    "name": "Neo Discovery",
+    "order": 9,
+    "ptcgoCode": "N2",
+    "releaseDate": "2001/06/01",
+    "series": "Neo"
+  },
+  "NEO3": {
+    "count": 66,
+    "era": "OTHER",
+    "name": "Neo Revelation",
+    "order": 11,
+    "ptcgoCode": "N3",
+    "releaseDate": "2001/09/21",
+    "series": "Neo"
+  },
+  "NEO4": {
+    "count": 113,
+    "era": "OTHER",
+    "name": "Neo Destiny",
+    "order": 12,
+    "ptcgoCode": "N4",
+    "releaseDate": "2002/02/28",
+    "series": "Neo"
+  },
+  "NP": {
+    "count": 40,
+    "era": "OTHER",
+    "name": "Nintendo Black Star Promos",
+    "order": 19,
+    "ptcgoCode": "PR-NP",
+    "releaseDate": "2003/10/01",
+    "series": "NP"
+  },
+  "PGO": {
+    "count": 88,
+    "era": "SWSH",
+    "name": "Pok\u00e9mon GO",
+    "order": 136,
+    "ptcgoCode": "PGO",
+    "releaseDate": "2022/07/01",
+    "series": "Sword & Shield"
+  },
+  "PL1": {
+    "count": 133,
+    "era": "OTHER",
+    "name": "Platinum",
+    "order": 51,
+    "ptcgoCode": "PL",
+    "releaseDate": "2009/02/11",
+    "series": "Platinum"
+  },
+  "PL2": {
+    "count": 120,
+    "era": "OTHER",
+    "name": "Rising Rivals",
+    "order": 53,
+    "ptcgoCode": "RR",
+    "releaseDate": "2009/05/16",
+    "series": "Platinum"
+  },
+  "PL3": {
+    "count": 153,
+    "era": "OTHER",
+    "name": "Supreme Victors",
+    "order": 54,
+    "ptcgoCode": "SV",
+    "releaseDate": "2009/08/19",
+    "series": "Platinum"
+  },
+  "PL4": {
+    "count": 111,
+    "era": "OTHER",
+    "name": "Arceus",
+    "order": 55,
+    "ptcgoCode": "AR",
+    "releaseDate": "2009/11/04",
+    "series": "Platinum"
+  },
+  "POP1": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 1",
+    "order": 26,
+    "ptcgoCode": "POP1",
+    "releaseDate": "2004/09/01",
+    "series": "POP"
+  },
+  "POP2": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 2",
+    "order": 29,
+    "ptcgoCode": "POP2",
+    "releaseDate": "2005/08/01",
+    "series": "POP"
+  },
+  "POP3": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 3",
+    "order": 33,
+    "ptcgoCode": "POP3",
+    "releaseDate": "2006/04/01",
+    "series": "POP"
+  },
+  "POP4": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 4",
+    "order": 36,
+    "ptcgoCode": "POP4",
+    "releaseDate": "2006/08/01",
+    "series": "POP"
+  },
+  "POP5": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 5",
+    "order": 39,
+    "ptcgoCode": "POP5",
+    "releaseDate": "2007/03/01",
+    "series": "POP"
+  },
+  "POP6": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 6",
+    "order": 43,
+    "ptcgoCode": "POP6",
+    "releaseDate": "2007/09/01",
+    "series": "POP"
+  },
+  "POP7": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 7",
+    "order": 46,
+    "ptcgoCode": "POP7",
+    "releaseDate": "2008/03/01",
+    "series": "POP"
+  },
+  "POP8": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 8",
+    "order": 49,
+    "ptcgoCode": "POP8",
+    "releaseDate": "2008/09/01",
+    "series": "POP"
+  },
+  "POP9": {
+    "count": 17,
+    "era": "OTHER",
+    "name": "POP Series 9",
+    "order": 52,
+    "ptcgoCode": "POP9",
+    "releaseDate": "2009/03/01",
+    "series": "POP"
+  },
+  "Promo_BW": {
+    "count": 101,
+    "era": "BW",
+    "name": "BW Black Star Promos",
+    "order": 63,
+    "ptcgoCode": "PR-BLW",
+    "releaseDate": "2011/03/01",
+    "series": "Black & White"
+  },
+  "Promo_HGSS": {
+    "count": 25,
+    "era": "OTHER",
+    "name": "HGSS Black Star Promos",
+    "order": 58,
+    "ptcgoCode": "PR-HS",
+    "releaseDate": "2010/02/10",
+    "series": "HeartGold & SoulSilver"
+  },
+  "Promo_SM": {
+    "count": 251,
+    "era": "OTHER",
+    "name": "SM Black Star Promos",
+    "order": 96,
+    "ptcgoCode": "PR-SM",
+    "releaseDate": "2017/02/03",
+    "series": "Sun & Moon"
+  },
+  "Promo_SWSH": {
+    "count": 5,
+    "era": "SWSH",
+    "name": "SWSH Black Star Promos",
+    "order": 116,
+    "ptcgoCode": "PR-SW",
+    "releaseDate": "2019/11/15",
+    "series": "Sword & Shield"
+  },
+  "Promo_XY": {
+    "count": 216,
+    "era": "OTHER",
+    "name": "XY Black Star Promos",
+    "order": 78,
+    "ptcgoCode": "PR-XY",
+    "releaseDate": "2013/10/12",
+    "series": "XY"
+  },
+  "RSV10PT5": {
+    "count": 173,
+    "era": "SV",
+    "name": "White Flare",
+    "order": 160,
+    "ptcgoCode": "WHT",
+    "releaseDate": "2025/07/18",
+    "series": "Scarlet & Violet"
+  },
+  "RU1": {
+    "count": 16,
+    "era": "OTHER",
+    "name": "Pok\u00e9mon Rumble",
+    "order": 56,
+    "ptcgoCode": "RU1",
+    "releaseDate": "2009/12/02",
+    "series": "Other"
+  },
+  "SI1": {
+    "count": 18,
+    "era": "OTHER",
+    "name": "Southern Islands",
+    "order": 10,
+    "ptcgoCode": "SI1",
+    "releaseDate": "2001/07/31",
+    "series": "Other"
+  },
+  "SL": {
+    "count": 81,
+    "era": "OTHER",
+    "name": "Shining Legends",
+    "order": 100,
+    "ptcgoCode": "SLG",
+    "releaseDate": "2017/10/06",
+    "series": "Sun & Moon"
+  },
+  "SM1": {
+    "count": 173,
+    "era": "OTHER",
+    "name": "Sun & Moon",
+    "order": 97,
+    "ptcgoCode": "SUM",
+    "releaseDate": "2017/02/03",
+    "series": "Sun & Moon"
+  },
+  "SM10": {
+    "count": 238,
+    "era": "OTHER",
+    "name": "Unbroken Bonds",
+    "order": 110,
+    "ptcgoCode": "UNB",
+    "releaseDate": "2019/05/03",
+    "series": "Sun & Moon"
+  },
+  "SM11": {
+    "count": 261,
+    "era": "OTHER",
+    "name": "Unified Minds",
+    "order": 111,
+    "ptcgoCode": "UNM",
+    "releaseDate": "2019/08/02",
+    "series": "Sun & Moon"
+  },
+  "SM12": {
+    "count": 272,
+    "era": "OTHER",
+    "name": "Cosmic Eclipse",
+    "order": 115,
+    "ptcgoCode": "CEC",
+    "releaseDate": "2019/11/01",
+    "series": "Sun & Moon"
+  },
+  "SM2": {
+    "count": 180,
+    "era": "OTHER",
+    "name": "Guardians Rising",
+    "order": 98,
+    "ptcgoCode": "GRI",
+    "releaseDate": "2017/05/05",
+    "series": "Sun & Moon"
+  },
+  "SM3": {
+    "count": 177,
+    "era": "OTHER",
+    "name": "Burning Shadows",
+    "order": 99,
+    "ptcgoCode": "BUS",
+    "releaseDate": "2017/08/05",
+    "series": "Sun & Moon"
+  },
+  "SM4": {
+    "count": 126,
+    "era": "OTHER",
+    "name": "Crimson Invasion",
+    "order": 101,
+    "ptcgoCode": "CIN",
+    "releaseDate": "2017/11/03",
+    "series": "Sun & Moon"
+  },
+  "SM5": {
+    "count": 178,
+    "era": "OTHER",
+    "name": "Ultra Prism",
+    "order": 103,
+    "ptcgoCode": "UPR",
+    "releaseDate": "2018/02/02",
+    "series": "Sun & Moon"
+  },
+  "SM6": {
+    "count": 150,
+    "era": "OTHER",
+    "name": "Forbidden Light",
+    "order": 104,
+    "ptcgoCode": "FLI",
+    "releaseDate": "2018/05/04",
+    "series": "Sun & Moon"
+  },
+  "SM7": {
+    "count": 187,
+    "era": "OTHER",
+    "name": "Celestial Storm",
+    "order": 105,
+    "ptcgoCode": "CES",
+    "releaseDate": "2018/08/03",
+    "series": "Sun & Moon"
+  },
+  "SM8": {
+    "count": 240,
+    "era": "OTHER",
+    "name": "Lost Thunder",
+    "order": 106,
+    "ptcgoCode": "LOT",
+    "releaseDate": "2018/11/02",
+    "series": "Sun & Moon"
+  },
+  "SM9": {
+    "count": 198,
+    "era": "OTHER",
+    "name": "Team Up",
+    "order": 108,
+    "ptcgoCode": "TEU",
+    "releaseDate": "2019/02/01",
+    "series": "Sun & Moon"
+  },
+  "SV1": {
+    "count": 258,
+    "era": "SV",
+    "name": "Scarlet & Violet",
+    "order": 145,
+    "ptcgoCode": "SVI",
+    "releaseDate": "2023/03/31",
+    "series": "Scarlet & Violet"
+  },
+  "SV10": {
+    "count": 244,
+    "era": "SV",
+    "name": "Destined Rivals",
+    "order": 159,
+    "ptcgoCode": "DRI",
+    "releaseDate": "2025/05/30",
+    "series": "Scarlet & Violet"
+  },
+  "SV2": {
+    "count": 279,
+    "era": "SV",
+    "name": "Paldea Evolved",
+    "order": 147,
+    "ptcgoCode": "PAL",
+    "releaseDate": "2023/06/09",
+    "series": "Scarlet & Violet"
+  },
+  "SV3": {
+    "count": 230,
+    "era": "SV",
+    "name": "Obsidian Flames",
+    "order": 148,
+    "ptcgoCode": "OBF",
+    "releaseDate": "2023/08/11",
+    "series": "Scarlet & Violet"
+  },
+  "SV3PT5": {
+    "count": 207,
+    "era": "SV",
+    "name": "151",
+    "order": 149,
+    "ptcgoCode": "MEW",
+    "releaseDate": "2023/09/22",
+    "series": "Scarlet & Violet"
+  },
+  "SV4": {
+    "count": 266,
+    "era": "SV",
+    "name": "Paradox Rift",
+    "order": 150,
+    "ptcgoCode": "PAR",
+    "releaseDate": "2023/11/03",
+    "series": "Scarlet & Violet"
+  },
+  "SV4PT5": {
+    "count": 245,
+    "era": "SV",
+    "name": "Paldean Fates",
+    "order": 151,
+    "ptcgoCode": "PAF",
+    "releaseDate": "2024/01/26",
+    "series": "Scarlet & Violet"
+  },
+  "SV5": {
+    "count": 218,
+    "era": "SV",
+    "name": "Temporal Forces",
+    "order": 152,
+    "ptcgoCode": "TEF",
+    "releaseDate": "2024/03/22",
+    "series": "Scarlet & Violet"
+  },
+  "SV6": {
+    "count": 226,
+    "era": "SV",
+    "name": "Twilight Masquerade",
+    "order": 153,
+    "ptcgoCode": "TWM",
+    "releaseDate": "2024/05/24",
+    "series": "Scarlet & Violet"
+  },
+  "SV6PT5": {
+    "count": 99,
+    "era": "SV",
+    "name": "Shrouded Fable",
+    "order": 154,
+    "ptcgoCode": "SFA",
+    "releaseDate": "2024/08/02",
+    "series": "Scarlet & Violet"
+  },
+  "SV7": {
+    "count": 175,
+    "era": "SV",
+    "name": "Stellar Crown",
+    "order": 155,
+    "ptcgoCode": "SCR",
+    "releaseDate": "2024/09/13",
+    "series": "Scarlet & Violet"
+  },
+  "SV8": {
+    "count": 252,
+    "era": "SV",
+    "name": "Surging Sparks",
+    "order": 156,
+    "ptcgoCode": "SSP",
+    "releaseDate": "2024/11/08",
+    "series": "Scarlet & Violet"
+  },
+  "SV8PT5": {
+    "count": 180,
+    "era": "SV",
+    "name": "Prismatic Evolutions",
+    "order": 157,
+    "ptcgoCode": "PRE",
+    "releaseDate": "2025/01/17",
+    "series": "Scarlet & Violet"
+  },
+  "SV9": {
+    "count": 190,
+    "era": "SV",
+    "name": "Journey Together",
+    "order": 158,
+    "ptcgoCode": "JTG",
+    "releaseDate": "2025/03/28",
+    "series": "Scarlet & Violet"
+  },
+  "SVE": {
+    "count": 16,
+    "era": "SV",
+    "name": "Scarlet & Violet Energies",
+    "order": 146,
+    "ptcgoCode": "SVE",
+    "releaseDate": "2023/03/31",
+    "series": "Scarlet & Violet"
+  },
+  "SVP": {
+    "count": 200,
+    "era": "SV",
+    "name": "Scarlet & Violet Black Star Promos",
+    "order": 142,
+    "ptcgoCode": "PR-SV",
+    "releaseDate": "2023/01/01",
+    "series": "Scarlet & Violet"
+  },
+  "SVault": {
+    "count": 94,
+    "era": "SV",
+    "name": "Hidden Fates Shiny Vault",
+    "order": 113,
+    "ptcgoCode": "HIF",
+    "releaseDate": "2019/08/23",
+    "series": "Sun & Moon"
+  },
+  "SWSH1": {
+    "count": 216,
+    "era": "SWSH",
+    "name": "Sword & Shield",
+    "order": 117,
+    "ptcgoCode": "SSH",
+    "releaseDate": "2020/02/07",
+    "series": "Sword & Shield"
+  },
+  "SWSH10": {
+    "count": 216,
+    "era": "SWSH",
+    "name": "Astral Radiance",
+    "order": 134,
+    "ptcgoCode": "ASR",
+    "releaseDate": "2022/05/27",
+    "series": "Sword & Shield"
+  },
+  "SWSH10TG": {
+    "count": 30,
+    "era": "SWSH",
+    "name": "Astral Radiance Trainer Gallery",
+    "order": 135,
+    "ptcgoCode": "ASR",
+    "releaseDate": "2022/05/27",
+    "series": "Sword & Shield"
+  },
+  "SWSH11": {
+    "count": 217,
+    "era": "SWSH",
+    "name": "Lost Origin",
+    "order": 138,
+    "ptcgoCode": "LOR",
+    "releaseDate": "2022/09/09",
+    "series": "Sword & Shield"
+  },
+  "SWSH11TG": {
+    "count": 30,
+    "era": "SWSH",
+    "name": "Lost Origin Trainer Gallery",
+    "order": 139,
+    "ptcgoCode": "LOR",
+    "releaseDate": "2022/09/09",
+    "series": "Sword & Shield"
+  },
+  "SWSH12": {
+    "count": 215,
+    "era": "SWSH",
+    "name": "Silver Tempest",
+    "order": 140,
+    "ptcgoCode": "SIT",
+    "releaseDate": "2022/11/11",
+    "series": "Sword & Shield"
+  },
+  "SWSH12PT5GG": {
+    "count": 70,
+    "era": "SWSH",
+    "name": "Crown Zenith Galarian Gallery",
+    "order": 144,
+    "ptcgoCode": "CRZ",
+    "releaseDate": "2023/01/20",
+    "series": "Sword & Shield"
+  },
+  "SWSH12TG": {
+    "count": 30,
+    "era": "SWSH",
+    "name": "Silver Tempest Trainer Gallery",
+    "order": 141,
+    "ptcgoCode": "SIT",
+    "releaseDate": "2022/11/11",
+    "series": "Sword & Shield"
+  },
+  "SWSH2": {
+    "count": 209,
+    "era": "SWSH",
+    "name": "Rebel Clash",
+    "order": 118,
+    "ptcgoCode": "RCL",
+    "releaseDate": "2020/05/01",
+    "series": "Sword & Shield"
+  },
+  "SWSH3": {
+    "count": 201,
+    "era": "SWSH",
+    "name": "Darkness Ablaze",
+    "order": 119,
+    "ptcgoCode": "DAA",
+    "releaseDate": "2020/08/14",
+    "series": "Sword & Shield"
+  },
+  "SWSH35": {
+    "count": 80,
+    "era": "SWSH",
+    "name": "Champion's Path",
+    "order": 121,
+    "ptcgoCode": "CPA",
+    "releaseDate": "2020/09/25",
+    "series": "Sword & Shield"
+  },
+  "SWSH4": {
+    "count": 203,
+    "era": "SWSH",
+    "name": "Vivid Voltage",
+    "order": 122,
+    "ptcgoCode": "VIV",
+    "releaseDate": "2020/11/13",
+    "series": "Sword & Shield"
+  },
+  "SWSH45": {
+    "count": 73,
+    "era": "SWSH",
+    "name": "Shining Fates",
+    "order": 124,
+    "ptcgoCode": "SHF",
+    "releaseDate": "2021/02/19",
+    "series": "Sword & Shield"
+  },
+  "SWSH45SV": {
+    "count": 122,
+    "era": "SWSH",
+    "name": "Shining Fates Shiny Vault",
+    "order": 125,
+    "ptcgoCode": "SHF",
+    "releaseDate": "2021/02/19",
+    "series": "Sword & Shield"
+  },
+  "SWSH5": {
+    "count": 183,
+    "era": "SWSH",
+    "name": "Battle Styles",
+    "order": 126,
+    "ptcgoCode": "BST",
+    "releaseDate": "2021/03/19",
+    "series": "Sword & Shield"
+  },
+  "SWSH6": {
+    "count": 233,
+    "era": "SWSH",
+    "name": "Chilling Reign",
+    "order": 127,
+    "ptcgoCode": "CRE",
+    "releaseDate": "2021/06/18",
+    "series": "Sword & Shield"
+  },
+  "SWSH7": {
+    "count": 237,
+    "era": "SWSH",
+    "name": "Evolving Skies",
+    "order": 128,
+    "ptcgoCode": "EVS",
+    "releaseDate": "2021/08/27",
+    "series": "Sword & Shield"
+  },
+  "SWSH8": {
+    "count": 284,
+    "era": "SWSH",
+    "name": "Fusion Strike",
+    "order": 131,
+    "ptcgoCode": "FST",
+    "releaseDate": "2021/11/12",
+    "series": "Sword & Shield"
+  },
+  "SWSH9": {
+    "count": 186,
+    "era": "SWSH",
+    "name": "Brilliant Stars",
+    "order": 132,
+    "ptcgoCode": "BRS",
+    "releaseDate": "2022/02/25",
+    "series": "Sword & Shield"
+  },
+  "SWSH9TG": {
+    "count": 30,
+    "era": "SWSH",
+    "name": "Brilliant Stars Trainer Gallery",
+    "order": 133,
+    "ptcgoCode": "BRS",
+    "releaseDate": "2022/02/25",
+    "series": "Sword & Shield"
+  },
+  "TATM": {
+    "count": 34,
+    "era": "OTHER",
+    "name": "Double Crisis",
+    "order": 86,
+    "ptcgoCode": "DCR",
+    "releaseDate": "2015/03/25",
+    "series": "XY"
+  },
+  "TK1A": {
+    "count": 10,
+    "era": "OTHER",
+    "name": "EX Trainer Kit Latias",
+    "order": 23,
+    "ptcgoCode": "TK1A",
+    "releaseDate": "2004/06/01",
+    "series": "EX"
+  },
+  "TK1B": {
+    "count": 10,
+    "era": "OTHER",
+    "name": "EX Trainer Kit Latios",
+    "order": 24,
+    "ptcgoCode": "TK1B",
+    "releaseDate": "2004/06/01",
+    "series": "EX"
+  },
+  "TK2B": {
+    "count": 12,
+    "era": "OTHER",
+    "name": "EX Trainer Kit 2 Minun",
+    "order": 32,
+    "ptcgoCode": "TK2B",
+    "releaseDate": "2006/03/01",
+    "series": "EX"
+  },
+  "TwentiethAnn": {
+    "count": 117,
+    "era": "OTHER",
+    "name": "Generations",
+    "order": 92,
+    "ptcgoCode": "GEN",
+    "releaseDate": "2016/02/22",
+    "series": "XY"
+  },
+  "XY0": {
+    "count": 39,
+    "era": "OTHER",
+    "name": "Kalos Starter Set",
+    "order": 80,
+    "ptcgoCode": "KSS",
+    "releaseDate": "2013/11/08",
+    "series": "XY"
+  },
+  "XY1": {
+    "count": 146,
+    "era": "OTHER",
+    "name": "XY",
+    "order": 81,
+    "ptcgoCode": "XY",
+    "releaseDate": "2014/02/05",
+    "series": "XY"
+  },
+  "XY2": {
+    "count": 110,
+    "era": "OTHER",
+    "name": "Flashfire",
+    "order": 82,
+    "ptcgoCode": "FLF",
+    "releaseDate": "2014/05/07",
+    "series": "XY"
+  },
+  "XY10": {
+    "count": 129,
+    "era": "OTHER",
+    "name": "Fates Collide",
+    "order": 93,
+    "ptcgoCode": "FCO",
+    "releaseDate": "2016/05/02",
+    "series": "XY"
+  },
+  "XY11": {
+    "count": 116,
+    "era": "OTHER",
+    "name": "Steam Siege",
+    "order": 94,
+    "ptcgoCode": "STS",
+    "releaseDate": "2016/08/03",
+    "series": "XY"
+  },
+  "XY12": {
+    "count": 113,
+    "era": "OTHER",
+    "name": "Evolutions",
+    "order": 95,
+    "ptcgoCode": "EVO",
+    "releaseDate": "2016/11/02",
+    "series": "XY"
+  },
+  "XY3": {
+    "count": 114,
+    "era": "OTHER",
+    "name": "Furious Fists",
+    "order": 83,
+    "ptcgoCode": "FFI",
+    "releaseDate": "2014/08/13",
+    "series": "XY"
+  },
+  "XY4": {
+    "count": 124,
+    "era": "OTHER",
+    "name": "Phantom Forces",
+    "order": 84,
+    "ptcgoCode": "PHF",
+    "releaseDate": "2014/11/05",
+    "series": "XY"
+  },
+  "XY5": {
+    "count": 164,
+    "era": "OTHER",
+    "name": "Primal Clash",
+    "order": 85,
+    "ptcgoCode": "PRC",
+    "releaseDate": "2015/02/04",
+    "series": "XY"
+  },
+  "XY6": {
+    "count": 112,
+    "era": "OTHER",
+    "name": "Roaring Skies",
+    "order": 87,
+    "ptcgoCode": "ROS",
+    "releaseDate": "2015/05/06",
+    "series": "XY"
+  },
+  "XY7": {
+    "count": 101,
+    "era": "OTHER",
+    "name": "Ancient Origins",
+    "order": 88,
+    "ptcgoCode": "AOR",
+    "releaseDate": "2015/08/12",
+    "series": "XY"
+  },
+  "XY8": {
+    "count": 165,
+    "era": "OTHER",
+    "name": "BREAKthrough",
+    "order": 89,
+    "ptcgoCode": "BKT",
+    "releaseDate": "2015/11/04",
+    "series": "XY"
+  },
+  "XY9": {
+    "count": 126,
+    "era": "OTHER",
+    "name": "BREAKpoint",
+    "order": 91,
+    "ptcgoCode": "BKP",
+    "releaseDate": "2016/02/03",
+    "series": "XY"
+  },
+  "ZSV10PT5": {
+    "count": 172,
+    "era": "SV",
+    "name": "Black Bolt",
+    "order": 161,
+    "ptcgoCode": "BLK",
+    "releaseDate": "2025/07/18",
+    "series": "Scarlet & Violet"
+  }
+}

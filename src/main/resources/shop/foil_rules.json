@@ -1,0 +1,177 @@
+{
+  "_comment": "Which cards get a holo foil and which effect they use. Cards of a rarity in foil_rarities get a foil unless their script sets foil= itself. The first rule that matches picks the effect; fields in a rule are AND-ed: sets (exact codes), set_regex, rarity (names). Effects are FoilEffects names. Era rules marked 'guess' are not confirmed against the original game; change them freely and restart. foil_extra gives a foil to extra rarities in matching sets (here: plain Rares from Scarlet & Violet on, which are all holo). styles forces a mask style (full = whole card face, window = art box, reverse, radiant = plaid body + etched subject) by set_regex / sets / rarity / subtype; the first match wins. number_above maps set code -> printed card count; the rule only matches cards numbered above it. Cards with no match use full for V-type and secret rarities and window otherwise. Each rule can also set mask_texture = a gradient name from ptcgo/server/foil_data (e.g. SunBeam, GoldEtch, SilverEtch, SwSecret, Celebration, shineRepeater03) so the mask follows that gradient's shape instead of the effect's own; effect decides the colours. Colours: BWETCH = gold, XYETCH = silver, FLATSILVER = silver, SUNLAVA = fiery, SVHOLO = blue/rainbow bands, SWSECRET = glitter rainbow. After editing a rule delete ~/ptcgo-revival/ptcgo/assets/bundleCache/foil_masks and restart so masks rebuild.",
+  "foil_rarities": [
+    "RareHolo",
+    "RareHoloEX",
+    "RareHoloGX",
+    "RareHoloV",
+    "RareHoloVMAX",
+    "RareHoloVSTAR",
+    "ChrRareHolo",
+    "ChrRareHoloV",
+    "ChrRareSecret",
+    "ChrRareUltra",
+    "RarePrime",
+    "Legendary",
+    "Ace",
+    "RareUltra",
+    "RareSecret",
+    "RareRainbow",
+    "BreakRare",
+    "Shining",
+    "Prism",
+    "Amazing",
+    "RareRadiant",
+    "RareDitto",
+    "ExtraRare"
+  ],
+  "foil_extra": [
+    {
+      "set_regex": "^(Z?SV\\d|ME\\d)",
+      "rarity": [
+        "Rare"
+      ],
+      "_note": "every Rare is holo from Scarlet & Violet on"
+    },
+    {
+      "subtype": [
+        "BREAK"
+      ],
+      "_note": "BREAK cards are stored as plain Rare, so flag them by subtype"
+    },
+    {
+      "subtype": [
+        "Radiant"
+      ],
+      "_note": "safety net: Radiant Pokemon always foil"
+    }
+  ],
+  "styles": [
+    {
+      "subtype": [
+        "Radiant"
+      ],
+      "style": "radiant",
+      "_note": "Radiant: plaid over the card body, etched lines on the Pokemon only (matches the real cards)"
+    },
+    {
+      "subtype": [
+        "GX",
+        "EX",
+        "ex",
+        "V",
+        "VMAX",
+        "VSTAR",
+        "Tag Team",
+        "V-UNION",
+        "BREAK"
+      ],
+      "style": "full",
+      "_note": "rule-box Pokemon: foil over the whole face"
+    },
+    {
+      "set_regex": "^(Z?SV\\d|ME\\d)",
+      "number_above": {
+        "SV1": 198,
+        "SV2": 193,
+        "SV3": 197,
+        "SV3PT5": 165,
+        "SV4": 182,
+        "SV4PT5": 91,
+        "SV5": 162,
+        "SV6": 167,
+        "SV6PT5": 64,
+        "SV7": 142,
+        "SV8": 191,
+        "SV8PT5": 131,
+        "SV9": 159,
+        "SV10": 182,
+        "ZSV10PT5": 86,
+        "ME1": 132,
+        "ME2": 94
+      },
+      "style": "full",
+      "_note": "Illustration Rares / Special Illustration Rares are numbered past a set's printed count and the data has no rarity for them, so cards numbered above the count listed here get full coverage. Plain Rares stay art-box. Add or fix a set's printed count here (ME2PT5 and later are not listed)."
+    }
+  ],
+  "default": {
+    "effect": "RAINBOW"
+  },
+  "rules": [
+    {
+      "sets": [
+        "CEL25",
+        "ME55",
+        "ME55C"
+      ],
+      "effect": "ANN25THCONFETTI",
+      "_note": "anniversary sets"
+    },
+    {
+      "rarity": [
+        "RareRadiant"
+      ],
+      "effect": "RADIANTHOLO"
+    },
+    {
+      "subtype": [
+        "Radiant"
+      ],
+      "effect": "RADIANTHOLO",
+      "_note": "any Radiant by subtype"
+    },
+    {
+      "rarity": [
+        "BreakRare"
+      ],
+      "effect": "SQUARES"
+    },
+    {
+      "subtype": [
+        "BREAK"
+      ],
+      "effect": "SQUARES",
+      "_note": "BREAK cards (stored as Rare)"
+    },
+    {
+      "set_regex": "^(Z?SV\\d|ME\\d)",
+      "effect": "SVHOLO",
+      "_note": "Scarlet & Violet and later"
+    },
+    {
+      "set_regex": "^(SWSH|CZ|PGO)",
+      "rarity": [
+        "RareSecret",
+        "RareRainbow"
+      ],
+      "effect": "SWSECRET"
+    },
+    {
+      "set_regex": "^(SWSH|CZ|PGO)",
+      "effect": "SWHOLO"
+    },
+    {
+      "set_regex": "^SM\\d",
+      "rarity": [
+        "RareHolo"
+      ],
+      "effect": "SUNPILLAR",
+      "_note": "guess"
+    },
+    {
+      "set_regex": "^SM\\d",
+      "effect": "SUNLAVA",
+      "_note": "guess"
+    },
+    {
+      "set_regex": "^XY\\d",
+      "effect": "XYETCH",
+      "_note": "guess"
+    },
+    {
+      "set_regex": "^BW\\d",
+      "effect": "BWETCH",
+      "_note": "guess"
+    }
+  ]
+}
