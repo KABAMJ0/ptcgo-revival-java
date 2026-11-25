@@ -59,6 +59,7 @@ public final class VersusModule {
         EffectRegistry r = EffectRegistry.empty();
         com.ptcgo.revival.game.effects.BatchOneAttacks.register(r);
         com.ptcgo.revival.game.effects.BatchTwoAttacks.register(r);
+        com.ptcgo.revival.game.effects.GeneratedStandardBatch.register(r);
         return r;
     }
 
