@@ -1,0 +1,6 @@
+target/
+certs/
+*.db
+.env
+.idea/
+*.iml
