@@ -295,6 +295,86 @@ public final class EffectContext {
         return board().prizesTaken(sideId(side));
     }
 
+    // ---- card choices and card movement (Python effects.py choose_cards / discard_cards / deck_top) ------------
+
+    /**
+     * Card pick for the acting player (Python {@code choose_cards}). Cards the chooser can click where they sit (own
+     * hand, in-play Pokemon and their attachments, the Stadium) glow in place; anything else opens the full-screen
+     * browser. {@code minimum} null means exactly {@code count} (or every card if fewer exist); 0 makes it optional.
+     */
+    public List<CardEntity> chooseCards(List<CardEntity> cards, int count, Integer minimum, String prompt) {
+        if (cards.isEmpty() || count <= 0) return List.of();
+        int min = minimum == null ? Math.min(count, cards.size()) : minimum;
+        String src = source == null ? null : source.entityId;
+        if (visibleInPlace(cards, playerId)) return ops.pickEntities(playerId, src, cards, count, min, prompt);
+        return ops.pickCards(playerId, src, cards, count, min, prompt);
+    }
+
+    /** Python {@code _visible_in_place}: every card sits where the chooser can click it directly. */
+    static boolean visibleInPlace(List<CardEntity> cards, String playerId) {
+        for (CardEntity card : cards) {
+            com.ptcgo.revival.game.model.Entity top = card;
+            while (top.parent instanceof CardEntity holder) top = holder;
+            if (!(top.parent instanceof com.ptcgo.revival.game.model.PlayArea area)) return false;
+            String name = area.areaName();
+            if ("hand".equals(name)) {
+                if (!java.util.Objects.equals(card.owningPlayerId, playerId) || top != card) return false;
+            } else if (!("activePokemonArea".equals(name) || "bench".equals(name) || "activeStadium".equals(name))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /** Energy attached to a Pokemon (Python {@code attached_energies}). */
+    public List<CardEntity> attachedEnergies(CardEntity pokemon) {
+        return pokemon == null ? List.of() : Board.attachedEnergies(pokemon);
+    }
+
+    /** Top {@code count} cards of a deck, topmost first; a pure read with no wire messages (Python {@code deck_top}). */
+    public List<CardEntity> deckTop(int count, String deckOwner) {
+        List<CardEntity> deck = board().cardsIn(deckOwner, "deck");
+        List<CardEntity> out = new ArrayList<>();
+        for (int i = deck.size() - 1; i >= 0 && out.size() < count; i--) out.add(deck.get(i));
+        return out;
+    }
+
+    /**
+     * Moves cards to their owner's discard pile (Python {@code discard_cards} / {@code _move_to_public_pile}). Entering
+     * a public pile introduces the card to the opponent, and to the owner too when it left a face-down zone (deck,
+     * Prizes); each move rides one GroupedMove bracket. Passive redirects and discard shields are not ported.
+     */
+    public void discardCards(List<CardEntity> cards) {
+        for (CardEntity card : cards) {
+            String owner = card.owningPlayerId != null ? card.owningPlayerId : playerId;
+            var pile = board().area(owner, "discard");
+            if (pile == null) continue;
+            String from = card.parent instanceof com.ptcgo.revival.game.model.PlayArea a ? a.areaName() : null;
+            boolean ownerBlind = "deck".equals(from) || "prizePile".equals(from);
+            int position = pile.children.size();
+            if (!board().moveCard(card.entityId, pile.entityId)) continue;
+            Map<String, Object> intro = Msgs.entityIntroduced(ops.gameId(), card);
+            queue(intro, board().opponentOf(owner), GameSequence.GROUPED_MOVE);
+            if (ownerBlind) queue(intro, owner, GameSequence.GROUPED_MOVE);
+            queue(Msgs.entityMoved(board(), card.entityId, pile.entityId, position), null, GameSequence.GROUPED_MOVE);
+        }
+    }
+
+    /**
+     * Discards {@code count} Energy attached to {@code pokemon} (Python {@code discard_energy_from}): all matching
+     * energies when {@code count} covers them, otherwise the acting player chooses which.
+     */
+    public List<CardEntity> discardEnergyFrom(CardEntity pokemon, int count, java.util.function.Predicate<CardEntity> pred,
+                                              Integer minimum, String prompt) {
+        List<CardEntity> energies = new ArrayList<>();
+        for (CardEntity e : attachedEnergies(pokemon)) if (pred == null || pred.test(e)) energies.add(e);
+        if (energies.isEmpty() || count <= 0) return List.of();
+        List<CardEntity> picked = energies.size() <= count ? energies
+                : chooseCards(energies, count, minimum == null ? count : minimum, prompt);
+        discardCards(picked);
+        return picked;
+    }
+
     /** Draws cards for the acting player; the drawer's bracket carries the face intros, the opponent's does not. */
     public List<CardEntity> draw(int count) {
         List<Board.Moved> drawn = board().drawCards(playerId, count);

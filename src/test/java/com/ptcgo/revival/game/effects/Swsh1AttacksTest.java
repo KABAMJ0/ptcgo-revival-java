@@ -57,8 +57,18 @@ class Swsh1AttacksTest {
         public void creditCardDamage(String playerId, CardEntity attacker, int amount) {}
         public void recordDamage(String targetId, int dealt, boolean byAttack) {}
         public void markHealed(String entityId) {}
+        /** Picks recorded as (count, minimum, candidates) and answered with the first {@code n} candidates. */
+        final List<String> picks = new ArrayList<>();
+
         public List<CardEntity> pickEntities(String p, String s, List<CardEntity> c, int n, int min, String prompt) {
-            throw new AssertionError("no SWSH1 phase-one attack picks targets");
+            picks.add("inplace " + n + "/" + min + " of " + c.size());
+            return new ArrayList<>(c.subList(0, Math.min(n, c.size())));
+        }
+
+        @Override
+        public List<CardEntity> pickCards(String p, String s, List<CardEntity> c, int n, int min, String prompt) {
+            picks.add("browser " + n + "/" + min + " of " + c.size());
+            return new ArrayList<>(c.subList(0, Math.min(n, c.size())));
         }
         public int maxHp(CardEntity pokemon) { return MAX_HP; }
         @Override public void lockRetreat(CardEntity target) { retreatLocked.add(target.entityId); }
@@ -103,14 +113,40 @@ class Swsh1AttacksTest {
             assertTrue(board.attachCard(e.entityId, pokemon.entityId));
         }
 
+        EffectContext ctx;
+
         int resolve(int printed) {
             String id = Swsh1Attacks.abilityId(cardGuid, slot);
             EffectRegistry.AttackSpec spec = ops.registry().attack(id);
             assertNotNull(spec, "attack registered: " + id);
-            EffectContext ctx = new EffectContext(ops, A, attacker, id, "Test", printed, true);
+            ctx = new EffectContext(ops, A, attacker, id, "Test", printed, true);
             spec.effect().resolve(ctx);
             ops.rng.assertAllUsed();
             return MAX_HP - defender.hp();
+        }
+
+        CardEntity special(CardEntity pokemon) {
+            ObjectNode n = M.createObjectNode();
+            put(n, 10140, "json", "{\"id\": \"Special\"}");
+            put(n, 200300, "int", Attr.CT_ENERGY);
+            put(n, 200570, "json", "[1]");
+            put(n, 201040, "json", "{\"options\": [[1]]}");
+            n.putObject("200970").put("type", "bool").put("value", true);
+            CardEntity e = place(pokemon.owningPlayerId, "hand",
+                    new Catalog.Card("99999999-0000-4000-8000-000000000001", "TEST", "Special", "TEST", 1, "energy",
+                            List.of("Special"), List.of(), n));
+            assertTrue(board.attachCard(e.entityId, pokemon.entityId));
+            return e;
+        }
+
+        List<CardEntity> deck(String owner, int n) {
+            List<CardEntity> out = new ArrayList<>();
+            for (int i = 0; i < n; i++) out.add(place(owner, "deck", energyCard(7)));
+            return out;
+        }
+
+        int count(String owner, String area) {
+            return board.cardsIn(owner, area).size();
         }
     }
 
@@ -166,7 +202,7 @@ class Swsh1AttacksTest {
         GeneratedStandardBatch.register(earlier);
         GeneratedStandardBatch2.register(earlier);
         Set<String> swsh1 = new HashSet<>(Swsh1Attacks.register(EffectRegistry.empty()).attackIds());
-        assertEquals(41, swsh1.size(), "41 distinct SWSH1 attack ids");
+        assertEquals(58, swsh1.size(), "58 distinct SWSH1 attack ids");
         swsh1.retainAll(earlier.attackIds());
         assertTrue(swsh1.isEmpty(), "collisions: " + swsh1);
     }
@@ -345,5 +381,91 @@ class Swsh1AttacksTest {
         assertEquals(0, g.resolve(0));
         assertEquals(List.of(Attr.ASLEEP), g.defender.conditions());
         assertEquals(2, g.ops.conditions.sleepCheckupCoins.get(g.defender.entityId));
+    }
+
+    // ---- energy discard, mill, draw -------------------------------------------------------------------------------
+
+    @Test
+    void flareStrikerDiscardsBothEnergyWithoutAChoice() {
+        Game g = new Game("9a908f80-98fe-5529-aeb7-aa5aaf67fdbe", 1, "Cinderace", 190);
+        g.energy(g.attacker, FIRE);
+        g.energy(g.attacker, FIRE);
+        assertEquals(190, g.resolve(190));
+        assertEquals(0, Board.attachedEnergies(g.attacker).size());
+        assertEquals(2, g.count(A, "discard"));
+        assertTrue(g.ops.picks.isEmpty(), "two attached, two to discard: no choice");
+    }
+
+    @Test
+    void flareStrikerChoosesTwoOfThreeInPlace() {
+        Game g = new Game("9a908f80-98fe-5529-aeb7-aa5aaf67fdbe", 1, "Cinderace", 190);
+        for (int i = 0; i < 3; i++) g.energy(g.attacker, FIRE);
+        g.resolve(190);
+        assertEquals(1, Board.attachedEnergies(g.attacker).size());
+        assertEquals(List.of("inplace 2/2 of 3"), g.ops.picks, "attached energy glows in place; exactly 2");
+    }
+
+    @Test
+    void burningKickDiscardsAllEnergy() {
+        Game g = new Game("76cf758f-cc7a-5d04-9516-6b243ced4faa", 1, "Cinderace", 160);
+        for (int i = 0; i < 4; i++) g.energy(g.attacker, FIRE);
+        assertEquals(160, g.resolve(160));
+        assertEquals(0, Board.attachedEnergies(g.attacker).size());
+        assertEquals(4, g.count(A, "discard"));
+    }
+
+    @Test
+    void steamCrushDiscardsTwoOfTheDefendersEnergy() {
+        Game g = new Game("7c706994-46ea-57df-8336-9c1dd1563e12", 1, "TorkoalV", 120);
+        for (int i = 0; i < 3; i++) g.energy(g.defender, WATER);
+        assertEquals(120, g.resolve(120));
+        assertEquals(1, Board.attachedEnergies(g.defender).size());
+        assertEquals(2, g.count(B, "discard"), "the opponent's cards go to the opponent's discard pile");
+    }
+
+    @Test
+    void assaultTackleOnlyDiscardsSpecialEnergy() {
+        Game g = new Game("61323c30-4785-5617-9967-087dd01de004", 1, "ZamazentaV", 130);
+        g.energy(g.defender, WATER);
+        CardEntity special = g.special(g.defender);
+        assertEquals(130, g.resolve(130));
+        assertFalse(Board.attachedEnergies(g.defender).contains(special));
+        assertEquals(1, Board.attachedEnergies(g.defender).size(), "the basic energy stays");
+    }
+
+    @Test
+    void stompOffMillsTwoFromTheOpponentAndIntroducesThemToBoth() {
+        Game g = new Game("43af9110-c618-53a7-a962-c631c148afed", 0, "Rhyhorn", 0);
+        List<CardEntity> deck = g.deck(B, 5);
+        g.resolve(0);
+        assertEquals(3, g.count(B, "deck"));
+        assertEquals(2, g.count(B, "discard"));
+        // the top two (the last placed) were milled
+        assertTrue(g.board.cardsIn(B, "discard").containsAll(List.of(deck.get(4), deck.get(3))));
+        // deck cards are face-down to their owner too, so both viewers get the introduction
+        long introsToOwner = g.ctx.messages().stream()
+                .filter(q -> B.equals(q.viewerId()) && q.msg().toString().contains("EntityIntroduced")).count();
+        long introsToOpponent = g.ctx.messages().stream()
+                .filter(q -> A.equals(q.viewerId()) && q.msg().toString().contains("EntityIntroduced")).count();
+        assertEquals(2, introsToOwner);
+        assertEquals(2, introsToOpponent);
+    }
+
+    @Test
+    void dragonPulseMillsOwnDeck() {
+        Game g = new Game("5e54416d-c387-5bf5-90d1-b0d8ab4ec408", 0, "Drampa", 80);
+        g.deck(A, 3);
+        assertEquals(80, g.resolve(80));
+        assertEquals(1, g.count(A, "deck"));
+        assertEquals(2, g.count(A, "discard"));
+    }
+
+    @Test
+    void spikeDrawDealsDamageThenDrawsTwo() {
+        Game g = new Game("ecef3f1d-c12c-50f6-85ed-e869f10f9116", 0, "TapuKokoV", 20);
+        g.deck(A, 4);
+        assertEquals(20, g.resolve(20));
+        assertEquals(2, g.count(A, "hand"));
+        assertEquals(2, g.count(A, "deck"));
     }
 }

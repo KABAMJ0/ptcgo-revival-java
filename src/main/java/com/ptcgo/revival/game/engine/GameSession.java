@@ -785,6 +785,57 @@ public final class GameSession implements SessionOps {
         return out;
     }
 
+    /**
+     * Full-screen card browser (Python {@code prompt_card_chooser}, SelectionRevealArea). The browser displays
+     * revealEntities' keys; selectability and constraints come from selections[0], and the outer targetPrompt is the
+     * panel header. The inner targetPrompt must be non-null (the client dereferences it), so an empty id is sent.
+     */
+    @Override
+    public List<CardEntity> pickCards(String playerId, String sourceId, List<CardEntity> cards, int count, int minimum,
+                                      String promptText) {
+        if (cards.isEmpty() || count <= 0) return List.of();
+        List<String> valid = new ArrayList<>();
+        Map<String, Object> reveal = new LinkedHashMap<>();
+        for (CardEntity c : cards) {
+            valid.add(c.entityId);
+            reveal.put(c.entityId, c.serializeAttributes());
+        }
+        if (players.get(playerId).isAi()) {
+            List<CardEntity> out = new ArrayList<>(cards.subList(0, Math.min(count, cards.size())));
+            return out;
+        }
+        int minToSelect = Math.min(minimum, valid.size());
+        boolean forced = minToSelect > 0;
+        Map<String, Object> inner = new LinkedHashMap<>();
+        inner.put("name", SelectionKind.ENTITY_LIST.wire());
+        inner.put("selected", true);
+        inner.put("targetPrompt", Msgs.text(""));
+        inner.put("validTargets", valid);
+        inner.put("numberToSelect", count);
+        inner.put("minimumToSelect", minToSelect);
+        inner.put("forced", forced);
+        Map<String, Object> info = new LinkedHashMap<>();
+        info.put("name", SelectionKind.COMPOSITE_REVEAL.wire());
+        info.put("selected", true);
+        info.put("targetPrompt", Msgs.text(promptText == null ? "" : promptText));
+        info.put("revealEntities", reveal);
+        info.put("ordered", false);
+        info.put("selections", List.of(inner));
+        info.put("validTargets", valid);
+        info.put("numberToSelect", count);
+        info.put("minimumToSelect", minToSelect);
+        info.put("forced", forced);
+        String src = sourceId != null ? sourceId : cards.get(0).entityId;
+        List<String> picked = runPickOffer(playerId, src, info, SelectionKind.COMPOSITE_REVEAL.wire(), valid, count,
+                Math.min(minToSelect, valid.size()), forced);
+        List<CardEntity> out = new ArrayList<>();
+        for (String id : picked) {
+            CardEntity c = board.card(id);
+            if (c != null) out.add(c);
+        }
+        return out;
+    }
+
     // ---- match start, readiness and the initial snapshot ----------------------------------------------
 
     /** gameOptions as the client expects them (cosmetics, tokens, elo; match options never hold secrets). */

@@ -132,6 +132,39 @@ public final class Swsh1Attacks {
         // SnorlaxV_141 / SnorlaxV_197 "Falling Down" 170: condition_attack(self_conditions=(ASLEEP,))
         attack(r, "0782209a-a452-56a2-a139-627e4076a465", 1, AttackEffects.conditionAttack(ConditionOptions.of().withSelf(ASLEEP)));
         attack(r, "df8394b8-de15-51b8-92e0-7f3740ea024d", 1, AttackEffects.conditionAttack(ConditionOptions.of().withSelf(ASLEEP)));
+
+        // ---- energy discard, mill and draw --------------------------------------------------------------------------
+        // Cinderace_34 "Flare Striker" 190: self_energy_discard_attack(count=2)
+        attack(r, "9a908f80-98fe-5529-aeb7-aa5aaf67fdbe", 1, AttackEffects.selfEnergyDiscard(2, false, null));
+        // Cinderace_35 "Burning Kick" 160: self_energy_discard_attack(all_energy=True)
+        attack(r, "76cf758f-cc7a-5d04-9516-6b243ced4faa", 1, AttackEffects.selfEnergyDiscard(0, true, null));
+        // Salazzle_28 "Bright Flame" 120: self_energy_discard_attack(count=2)
+        attack(r, "8147aaac-109a-544a-a64d-8a00320d3758", 1, AttackEffects.selfEnergyDiscard(2, false, null));
+        // Scorbunny_30 "Ember" 30: self_energy_discard_attack(count=1)
+        attack(r, "ceab92cb-833e-54da-8923-40c11485179a", 0, AttackEffects.selfEnergyDiscard(1, false, null));
+        // Turtonator_29 "Fire Spin" 150: self_energy_discard_attack(count=2)
+        attack(r, "70e56c17-ebf7-5636-a7c3-f95f38c29d9e", 1, AttackEffects.selfEnergyDiscard(2, false, null));
+        // Mawile_129 "Crunch" 40: discard_opponent_energy_attack()
+        attack(r, "4f0d77cc-19f5-52c9-85b9-f5c914f150f1", 1, AttackEffects.discardOpponentEnergy(1, false));
+        // TorkoalV_24 / TorkoalV_188 "Steam Crush" 120: discard_opponent_energy_attack(count=2)
+        attack(r, "7c706994-46ea-57df-8336-9c1dd1563e12", 1, AttackEffects.discardOpponentEnergy(2, false));
+        attack(r, "10c5b818-6abf-50d7-a391-7ad6a0d31e46", 1, AttackEffects.discardOpponentEnergy(2, false));
+        // ZamazentaV_139 / _196 / _212 "Assault Tackle" 130: discard_opponent_energy_attack(special_only=True)
+        attack(r, "61323c30-4785-5617-9967-087dd01de004", 1, AttackEffects.discardOpponentEnergy(1, true));
+        attack(r, "aaae6968-9dcc-5b93-970a-7af10408f106", 1, AttackEffects.discardOpponentEnergy(1, true));
+        attack(r, "7256e884-9c4d-5004-aa26-cc71c361f26d", 1, AttackEffects.discardOpponentEnergy(1, true));
+        // Drampa_149 "Dragon Pulse" 80: mill_attack(2, opponent=False)
+        attack(r, "5e54416d-c387-5bf5-90d1-b0d8ab4ec408", 0, AttackEffects.mill(2, false));
+        // Kingler_44 "Heavy Pincers" 40: mill_attack(1)
+        attack(r, "da38bf32-8fcf-54c2-926d-99bb2cc8ee4b", 0, AttackEffects.mill(1, true));
+        // Rhyhorn_97 "Stomp Off" 0: mill_attack(2)
+        attack(r, "43af9110-c618-53a7-a962-c631c148afed", 0, AttackEffects.mill(2, true));
+        // Goldeen_46 "Collect" 0: draw_attack(1)
+        attack(r, "5a22d19c-1c99-5b1a-9a49-b1bd190d0f66", 0, AttackEffects.drawAttack(1));
+        // Sudowoodo_100 "Double Draw" 0: draw_attack(2)
+        attack(r, "f5463868-6cf5-58e5-9d26-ef04c5886e49", 0, AttackEffects.drawAttack(2));
+        // TapuKokoV_72 "Spike Draw" 20: draw_attack(2)
+        attack(r, "ecef3f1d-c12c-50f6-85ed-e869f10f9116", 0, AttackEffects.drawAttack(2));
         return r;
     }
 }

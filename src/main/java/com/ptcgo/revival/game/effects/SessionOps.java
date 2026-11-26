@@ -34,6 +34,16 @@ public interface SessionOps {
     List<CardEntity> pickEntities(String playerId, String sourceId, List<CardEntity> candidates, int count,
                                   int minimum, String prompt);
 
+    /**
+     * Full-screen card browser (Python {@code prompt_card_chooser}): the player picks up to {@code count} of
+     * {@code cards} (at least {@code minimum}, clamped to how many exist); faces ride the offer, so hidden-zone cards
+     * need no prior introduction. Returns the picked cards in pick order.
+     */
+    default List<CardEntity> pickCards(String playerId, String sourceId, List<CardEntity> cards, int count, int minimum,
+                                       String prompt) {
+        throw new UnsupportedOperationException("pickCards is not supported by this SessionOps");
+    }
+
     /** Maximum HP after any modifiers (the printed max by default). */
     int maxHp(CardEntity pokemon);
 

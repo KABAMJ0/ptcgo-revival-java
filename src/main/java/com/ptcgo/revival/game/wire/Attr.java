@@ -26,6 +26,7 @@ public final class Attr {
     public static final int PIE_ABILITIES = 200740;
     public static final int SPECIAL_CONDITIONS = 200340;
     public static final int ENERGY_INFO = 201040;
+    public static final int IS_SPECIAL_ENERGY = 200970;
     public static final int EVOLUTION_LOGIC_NAME = 200630;
     public static final int EVOLUTION_LOGIC_FROM = 200640;
     public static final int ATTACK_SOURCES = 201870;

@@ -244,4 +244,52 @@ public final class AttackEffects {
             }
         };
     }
+
+    // ---- card movement -----------------------------------------------------------------------------------------------
+
+    /**
+     * Printed damage, then discard {@code count} Energy (or all with {@code all}) from the attacker, optionally only
+     * energies that provide {@code energyType} (Python {@code self_energy_discard_attack} with the default order).
+     */
+    public static AttackEffect selfEnergyDiscard(int count, boolean all, Integer energyType) {
+        return ctx -> {
+            ctx.dealDamage();
+            java.util.function.Predicate<com.ptcgo.revival.game.model.CardEntity> pred =
+                    energyType == null ? null : e -> Counters.energyProvidesType(e, energyType);
+            ctx.discardEnergyFrom(ctx.source, all ? 99 : count, pred, null, "Choose Energy to discard from this Pokémon");
+        };
+    }
+
+    /**
+     * Printed damage, then discard {@code count} Energy (special Energy only with {@code specialOnly}) from the
+     * opponent's Active (Python {@code discard_opponent_energy_attack} with the default {@code after_damage}).
+     */
+    public static AttackEffect discardOpponentEnergy(int count, boolean specialOnly) {
+        return ctx -> {
+            ctx.dealDamage();
+            var target = ctx.defender();
+            if (target == null) return;
+            java.util.function.Predicate<com.ptcgo.revival.game.model.CardEntity> pred = specialOnly
+                    ? e -> Boolean.TRUE.equals(e.get(com.ptcgo.revival.game.wire.Attr.IS_SPECIAL_ENERGY)) : null;
+            ctx.discardEnergyFrom(target, count, pred, null, "Choose Energy to discard from the Defending Pokémon");
+        };
+    }
+
+    /** Printed damage, then discard the top {@code count} cards of a deck (the opponent's by default; Python {@code mill_attack}). */
+    public static AttackEffect mill(int count, boolean opponent) {
+        return ctx -> {
+            ctx.dealDamage();
+            String owner = opponent ? ctx.opponentId() : ctx.playerId;
+            var milled = ctx.deckTop(count, owner);
+            if (!milled.isEmpty()) ctx.discardCards(milled);
+        };
+    }
+
+    /** Printed damage, then draw {@code n} cards (Python {@code draw_attack}). */
+    public static AttackEffect drawAttack(int n) {
+        return ctx -> {
+            ctx.dealDamage();
+            ctx.draw(n);
+        };
+    }
 }
