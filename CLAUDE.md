@@ -44,14 +44,8 @@ reverse-engineered protocol is in its `notes/client-*.md`, and behaviour should 
 - Handshake endpoint: private/loopback clients are sent back to the address they dialled, others to `PTCGO_PUBLIC_HOST`.
 - The Python `PacketRouter` also treats an unwrapped JSON with `queueName`+`gameID`+`path` as `ReadyForMatchConfirmation`; not ported yet.
 
-## Agent model policy
+## Working model
 
-- The main conversation runs on Haiku (`.claude/settings.json` sets `"model": "haiku"`). The main agent owns the overall Java migration and coordinates every subagent.
-- Ordinary subagents (exploring, planning, research, coding, testing, debugging, review) use `.claude/agents/haiku-worker.md`, which has `model: inherit` and so runs on Haiku. Built-in Explore and Plan agents are Haiku-inherit only where Claude Code allows it; check with `/tasks` before relying on them.
-- `.claude/agents/sonnet-specialist.md` (`model: sonnet`) is the only Sonnet agent. Escalate to it automatically, without asking the user, only for: difficult architecture decisions, complex Python-to-Java translations, difficult multi-file bugs, protocol compatibility problems, problems a Haiku worker failed to solve after two attempts, and critical final architecture reviews. Never use it for routine coding.
-- After the specialist finishes, the main agent returns to Haiku and continues the work with Haiku workers.
-- Never ask the user which model to use.
-- Agents spawned by Haiku inherit Haiku. An agent spawned by Sonnet must pass `model: haiku` explicitly.
-- Avoid nested agents. Never run two agents that edit the same file at the same time.
+- All work is done by a single Opus session (`.claude/settings.json` sets `"model": "opus"`). Do not spawn subagents.
 - The persistent migration checklist is `.claude/migration-checklist.md`. Update it when a subsystem's status changes, and mark a subsystem complete only after its tests pass.
 - Compile and test (`mvn -q -B test`) after every meaningful change.
