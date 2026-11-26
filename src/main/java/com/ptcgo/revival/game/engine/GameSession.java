@@ -282,6 +282,11 @@ public final class GameSession implements SessionOps {
     }
 
     @Override
+    public void lockRetreat(CardEntity target) {
+        if (target != null) turn.lockRetreat(target.entityId, null);
+    }
+
+    @Override
     public int maxHp(CardEntity pokemon) {
         return pokemon.maxHp();
     }

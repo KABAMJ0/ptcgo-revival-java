@@ -196,10 +196,36 @@ public final class EffectContext {
     }
 
     /**
+     * "Flip a coin until you get tails": one coin screen shows the whole run; returns the number of heads (Python
+     * {@code flip_until_tails}).
+     */
+    public int flipUntilTails(String flipTitle) {
+        List<Integer> wire = new ArrayList<>();
+        do {
+            wire.add(ops.rng().nextBoolean() ? 0 : 1);
+        } while (wire.get(wire.size() - 1) == 0);
+        int heads = wire.size() - 1;
+        ops.statAdd(playerId, "headsflipped", heads);
+        ops.statAdd(playerId, "tailsflipped", 1);
+        for (int r : wire) coinResults.add(r == 0);
+        String name = flipTitle != null && !flipTitle.isEmpty() ? flipTitle : source.card.displayName();
+        queue(Msgs.coinFlip(ops.gameId(), wire, name, heads + " heads", source.entityId));
+        return heads;
+    }
+
+    /**
      * Applies a Special Condition (attr 200340). Asleep/Confused/Paralyzed are mutually exclusive and replace each
      * other; Poisoned/Burned stack with everything. Returns false for a target that is not in play.
      */
     public boolean applySpecialCondition(CardEntity target, String condition) {
+        return applySpecialCondition(target, condition, 1);
+    }
+
+    /**
+     * As {@link #applySpecialCondition(CardEntity, String)}, with {@code checkupCoins} coins flipped at Pokemon Checkup
+     * for Asleep (waking needs all heads; Python {@code checkup_coins}).
+     */
+    public boolean applySpecialCondition(CardEntity target, String condition, int checkupCoins) {
         if (target == null) return false;
         if (!visualTargets.contains(target.entityId)) visualTargets.add(target.entityId);
         List<String> current = target.conditions();
@@ -215,7 +241,7 @@ public final class EffectContext {
         if (!current.contains(condition)) current.add(condition);
         target.setConditions(current);
         switch (condition) {
-            case Attr.ASLEEP -> ops.conditions().sleepCheckupCoins.put(target.entityId, 1);
+            case Attr.ASLEEP -> ops.conditions().sleepCheckupCoins.put(target.entityId, Math.max(1, checkupCoins));
             case Attr.POISONED -> ops.conditions().poisonCounters.put(target.entityId, 1);
             case Attr.CONFUSED -> ops.conditions().confusionDamage.remove(target.entityId);
             case Attr.PARALYZED -> ops.conditions().paralyzedSince.put(target.entityId, ops.turn().turnNumber());
@@ -225,6 +251,48 @@ public final class EffectContext {
         queue(Msgs.entityIdDataEffect(ops.gameId(), "Target", target.entityId), null, GameSequence.ADD_SPECIAL_CONDITION);
         queue(Msgs.conditionAttribute(ops.gameId(), target), null, GameSequence.ADD_SPECIAL_CONDITION);
         return true;
+    }
+
+    /** Locks the target's retreat through the opponent's next turn (cleared when it leaves the Active spot). */
+    public void lockRetreat(CardEntity target) {
+        if (target != null) ops.lockRetreat(target);
+    }
+
+    /** Pokemon in play (Active first, then Bench) for "mine", "opponent"/"theirs" or "both". */
+    public List<CardEntity> pokemonInPlay(String side) {
+        List<CardEntity> out = new ArrayList<>();
+        if (side.equals("both")) {
+            out.addAll(board().pokemonInPlay(playerId));
+            out.addAll(board().pokemonInPlay(opponentId()));
+        } else {
+            out.addAll(board().pokemonInPlay(sideId(side)));
+        }
+        return out;
+    }
+
+    /** Benched Pokemon for "mine", "opponent"/"theirs" or "both". */
+    public List<CardEntity> bench(String side) {
+        List<CardEntity> out = new ArrayList<>();
+        if (side.equals("both")) {
+            out.addAll(board().benchPokemon(playerId));
+            out.addAll(board().benchPokemon(opponentId()));
+        } else {
+            out.addAll(board().benchPokemon(sideId(side)));
+        }
+        return out;
+    }
+
+    /** The player id for "opponent"/"theirs", else the acting player (Python {@code _side_pid}). */
+    public String sideId(String side) {
+        return side.equals("opponent") || side.equals("theirs") ? opponentId() : playerId;
+    }
+
+    public int handSize(String side) {
+        return board().cardsIn(sideId(side), "hand").size();
+    }
+
+    public int prizesTaken(String side) {
+        return board().prizesTaken(sideId(side));
     }
 
     /** Draws cards for the acting player; the drawer's bracket carries the face intros, the opponent's does not. */

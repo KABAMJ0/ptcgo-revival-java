@@ -132,4 +132,116 @@ public final class AttackEffects {
         for (boolean r : results) if (r) heads++;
         return heads;
     }
+
+    // ---- count-based damage and conditional bonuses ------------------------------------------------------------------
+
+    /**
+     * {@code base + per * count} damage to the opposing Active, capped when {@code cap} is set, then the attacker damages
+     * itself for {@code selfDamage} (Python {@code damage_per(count_fn, per, base, cap, self_damage)}). The printed
+     * damage is not added: {@code base} replaces it, as in Python. Nothing is dealt when the total is 0 or less.
+     */
+    public static AttackEffect damagePer(Counters.Counter counter, int per, int base, Integer cap, int selfDamage) {
+        return ctx -> {
+            int amount = base + per * Math.max(0, counter.count(ctx));
+            if (cap != null) amount = Math.min(amount, cap);
+            if (amount > 0) ctx.dealDamage(amount, null, false);
+            if (selfDamage > 0) ctx.dealDamage(selfDamage, ctx.source, false);
+        };
+    }
+
+    public static AttackEffect damagePer(Counters.Counter counter, int per, int base) {
+        return damagePer(counter, per, base, null, 0);
+    }
+
+    /**
+     * Printed (or {@code base}) damage, plus {@code bonus} when the condition holds; with {@code elseNothing} the attack
+     * does nothing when it fails (Python {@code bonus_if(cond_fn, bonus, base, else_nothing)}). The condition is
+     * checked before any damage.
+     */
+    public static AttackEffect bonusIf(Counters.Condition condition, int bonus, Integer base, boolean elseNothing) {
+        return ctx -> {
+            int baseVal = base != null ? base : ctx.printedDamage;
+            boolean met = condition.test(ctx);
+            int amount = met ? baseVal + bonus : (elseNothing ? 0 : baseVal);
+            if (amount > 0) ctx.dealDamage(amount, null, false);
+        };
+    }
+
+    // ---- coin-flip variants ----------------------------------------------------------------------------------------
+
+    /**
+     * "Flip a coin until you get tails. This attack does {@code perHeads} damage for each heads" on top of {@code base}
+     * (Python {@code flip_damage(until_tails=True, base, per_heads)}; with per_heads set a missing base is 0).
+     */
+    public static AttackEffect flipUntilTails(int base, int perHeads) {
+        return ctx -> {
+            int heads = ctx.flipUntilTails(ctx.title);
+            int amount = base + heads * perHeads;
+            if (amount > 0) ctx.dealDamage(amount, null, false);
+        };
+    }
+
+    /**
+     * Flip one coin per counted thing; {@code perHeads} damage for each heads (Python
+     * {@code flip_damage(coins_from=count_fn, per_heads)}; no base, so zero heads or zero coins deals nothing).
+     */
+    public static AttackEffect flipCoinsFrom(Counters.Counter coins, int perHeads) {
+        return ctx -> {
+            int total = Math.max(0, coins.count(ctx));
+            int heads = total > 0 ? countHeads(ctx.flipCoins(total, ctx.title)) : 0;
+            int amount = heads * perHeads;
+            if (amount > 0) ctx.dealDamage(amount, null, false);
+        };
+    }
+
+    // ---- Special Conditions with the full option set ---------------------------------------------------------------
+
+    /** The options of Python {@code condition_attack} that the simple {@link #condition} factory leaves out. */
+    public record ConditionOptions(boolean flip, int coins, int minHeads, List<String> conditions,
+                                   List<String> alwaysConditions, List<String> selfConditions, boolean noRetreat,
+                                   int checkupCoins) {
+        public static ConditionOptions of(String... conditions) {
+            return new ConditionOptions(false, 1, 1, List.of(conditions), List.of(), List.of(), false, 1);
+        }
+
+        public ConditionOptions withFlip(int coins, int minHeads) {
+            return new ConditionOptions(true, coins, minHeads, conditions, alwaysConditions, selfConditions, noRetreat, checkupCoins);
+        }
+
+        public ConditionOptions withAlways(String... always) {
+            return new ConditionOptions(flip, coins, minHeads, conditions, List.of(always), selfConditions, noRetreat, checkupCoins);
+        }
+
+        public ConditionOptions withSelf(String... self) {
+            return new ConditionOptions(flip, coins, minHeads, conditions, alwaysConditions, List.of(self), noRetreat, checkupCoins);
+        }
+
+        public ConditionOptions withNoRetreat() {
+            return new ConditionOptions(flip, coins, minHeads, conditions, alwaysConditions, selfConditions, true, checkupCoins);
+        }
+
+        public ConditionOptions withCheckupCoins(int n) {
+            return new ConditionOptions(flip, coins, minHeads, conditions, alwaysConditions, selfConditions, noRetreat, n);
+        }
+    }
+
+    /**
+     * Python {@code condition_attack} in the order it runs: the flip (if any), printed damage, then
+     * {@code always + (conditions on success)} on the Defending Pokemon, then on success the attacker's
+     * {@code self_conditions} and the "can't retreat" lock on the Defending Pokemon.
+     */
+    public static AttackEffect conditionAttack(ConditionOptions o) {
+        return ctx -> {
+            boolean success = true;
+            if (o.flip()) success = countHeads(ctx.flipCoins(o.coins(), ctx.title)) >= o.minHeads();
+            ctx.dealDamage();
+            List<String> applied = new java.util.ArrayList<>(o.alwaysConditions());
+            if (success) applied.addAll(o.conditions());
+            for (String c : applied) ctx.applySpecialCondition(ctx.defender(), c, o.checkupCoins());
+            if (success) {
+                for (String c : o.selfConditions()) ctx.applySpecialCondition(ctx.source, c, o.checkupCoins());
+                if (o.noRetreat()) ctx.lockRetreat(ctx.defender());
+            }
+        };
+    }
 }

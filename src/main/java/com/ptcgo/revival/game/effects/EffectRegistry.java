@@ -84,6 +84,11 @@ public final class EffectRegistry {
         return abilityId == null ? null : abilities.get(abilityId.toLowerCase(Locale.ROOT));
     }
 
+    /** Every registered attack id (lower case); read-only, for collision checks. */
+    public java.util.Set<String> attackIds() {
+        return java.util.Collections.unmodifiableSet(attacks.keySet());
+    }
+
     public List<DamageModifier> damageModifiers() {
         return new ArrayList<>(damageModifiers);
     }

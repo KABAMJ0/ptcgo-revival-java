@@ -36,4 +36,12 @@ public interface SessionOps {
 
     /** Maximum HP after any modifiers (the printed max by default). */
     int maxHp(CardEntity pokemon);
+
+    /**
+     * "The Defending Pokemon can't retreat during your opponent's next turn" (Python {@code ctx.lock_retreat}). The
+     * engine clears the lock when the Pokemon leaves the Active spot.
+     */
+    default void lockRetreat(CardEntity target) {
+        throw new UnsupportedOperationException("lockRetreat is not supported by this SessionOps");
+    }
 }
